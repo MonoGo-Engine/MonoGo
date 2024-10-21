@@ -26,7 +26,7 @@ namespace MonoGo.Engine.UI
         /// Create the monogame renderer.
         /// </summary>
         /// <param name="assetsPath">Root directory to load assets from. Check out the demo project for details.</param>
-        public static void Init(string assetsPath)
+        internal static void Init(string assetsPath)
         {
             _assetsRoot = assetsPath;
             _textures = new Dictionary<string, Texture2D>();

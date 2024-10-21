@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
@@ -18,6 +19,13 @@ namespace MonoGo.Engine.PostProcessing
         One
     };
 
+    /// <summary>
+    /// High-Quality Bloom filter for high-performance applications.
+    /// </summary>
+    /// <remarks>
+    /// Based largely on the implementations in Unreal Engine 4 and Call of Duty AW.
+    /// For more information look for "Next Generation Post Processing in Call of Duty Advanced Warfare" by Jorge Jimenez.
+    /// </remarks>
     public static class Bloom
     {
         public static Surface Surface { get; private set; }

@@ -19,7 +19,7 @@ using static MonoGo.Engine.RangeF;
 namespace MonoGo.Engine
 {
     /// <summary>
-    /// This Serialization class is based on JSON and contains the <c>JsonSerializerOptions</c> and the <see cref="JsonConverter"/>'s used by the engine.
+    /// This Serialization class is based on JSON and contains the <see cref="JsonSerializerOptions"/> and the <see cref="JsonConverter"/>'s used by the engine.
     /// </summary>
     /// <remarks>
     /// Use it for your own objects as well! A quick way of doing so would be using the "Serialize" or "Deserialize" method from this class.

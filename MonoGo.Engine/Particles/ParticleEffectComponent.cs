@@ -4,6 +4,10 @@ using MonoGo.Engine.EC;
 
 namespace MonoGo.Engine.Particles
 {
+    /// <summary>
+    /// This component makes it easier to use a particle effect on an <see cref="Entity"/>.
+    /// </summary>
+    /// <remarks>Automatic loading updating, following, attracting, serializong and drawing.</remarks>
     public class ParticleEffectComponent : Component, IAmMovable
     {
         public ParticleEffect ParticleEffect { get; set; }

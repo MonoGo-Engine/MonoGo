@@ -13,7 +13,7 @@ using System.Text.Json;
 namespace MonoGo.Engine.UI
 {
     /// <summary>
-    /// A GUI system instance.
+    /// A static GUI system class to manage GUI elements everywhere and on everything.
     /// </summary>
     public static class UISystem
     {

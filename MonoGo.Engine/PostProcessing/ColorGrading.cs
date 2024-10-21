@@ -6,6 +6,10 @@ using MonoGo.Engine.Resources;
 
 namespace MonoGo.Engine.PostProcessing
 {
+    /// <summary>
+    /// Color Grading is a post processing effect that changes colors based on the transformation value in a look-up table (LUT) for this specific color. 
+    /// This enables very wide range of processing for specific values, and can be used to shift colors, change contrast, saturation, brightness and much much more.
+    /// </summary>
     public static class ColorGrading
     {
         public static Surface Surface { get; private set; }

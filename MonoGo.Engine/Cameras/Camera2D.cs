@@ -2,9 +2,9 @@
 
 namespace MonoGo.Engine.Cameras
 {
-	public class Camera2D : Camera
-	{
-	
+    /// <inheritdoc />
+    public class Camera2D : Camera
+	{		
 		public Vector2 Position2D
 		{
 			get => Position.ToVector2();
@@ -15,11 +15,9 @@ namespace MonoGo.Engine.Cameras
 			}
 		}
 
-
 		public Camera2D(Vector2 size, int priority = 0) : base(size, priority)
 		{
 		}
-
 
 		public override Matrix ConstructViewMatrix()
 		{
@@ -31,7 +29,6 @@ namespace MonoGo.Engine.Cameras
 
 		public override Matrix ConstructProjectionMatrix() =>
 			Matrix.CreateOrthographicOffCenter(0, Size.X, Size.Y, 0, ZNearPlane, ZFarPlane);
-
 			
 		/// <summary>
 		/// Returns mouse position relative to the camera.
@@ -43,7 +40,7 @@ namespace MonoGo.Engine.Cameras
 			 * Mouse *works* with port position, offset and scale,
 			 * but rotation breaks everything for some reason.
 			 * Maybe a hero of the future will fix it, but this is 
-			 * so rare usecase, that it doesn't really worth the hassle. :S
+			 * so rare usecase, that it doesn't really worth the hassle.
 			 * TODO: Fix port rotation problems.
 			 */
 			var transformMatrix = Matrix.CreateTranslation(-Position) *
@@ -57,6 +54,5 @@ namespace MonoGo.Engine.Cameras
 			var transformedMouseVec = Vector3.Transform(new Vector3(mouseVec.X, mouseVec.Y, 0), matrix);
 			return new Vector2(transformedMouseVec.X, transformedMouseVec.Y);
 		}
-
 	}
 }

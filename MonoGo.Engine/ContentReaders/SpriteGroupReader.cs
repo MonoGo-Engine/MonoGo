@@ -14,7 +14,6 @@ namespace MonoGo.Engine.ContentReaders
 	/// </summary>
 	internal class SpriteGroupReader : ContentTypeReader<Dictionary<string, Sprite>>
 	{
-
 		protected override Dictionary<string, Sprite> Read(ContentReader input, Dictionary<string, Sprite> existingInstance)
 		{
 			var texturesCount = input.ReadInt32();

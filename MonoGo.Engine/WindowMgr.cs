@@ -105,8 +105,11 @@ namespace MonoGo.Engine
 			ApplyChanges();
 		}
 
-		
-		public new void ToggleFullScreen() =>
+
+        /// <summary>
+        /// Make the window go fullscreen or windowed.
+        /// </summary>
+        public new void ToggleFullScreen() =>
 			SetFullScreen(!IsFullScreen);
 
 
