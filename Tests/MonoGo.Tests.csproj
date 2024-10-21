@@ -5,6 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <Configurations>Debug;Release;gametest</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

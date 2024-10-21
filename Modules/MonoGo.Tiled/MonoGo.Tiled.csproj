@@ -8,6 +8,7 @@
 		<OutputPath>..\..\bin\</OutputPath>
 		<DocumentationFile>..\..\bin\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
+		<Configurations>Debug;Release;gametest</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
