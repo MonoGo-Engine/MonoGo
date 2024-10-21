@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 Thumbs.db
+/MonoGo.GameTest.sln
