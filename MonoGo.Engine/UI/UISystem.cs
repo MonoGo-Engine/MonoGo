@@ -318,7 +318,7 @@ namespace MonoGo.Engine.UI
             try
             {
                 SystemStyleSheet = JsonSerializer.Deserialize<SystemStyleSheet>(
-                    File.ReadAllText(defaultStyleSheetFilePath), JsonConverters.SerializerOptions)!;
+                    File.ReadAllText(defaultStyleSheetFilePath), Serialization.SerializerOptions)!;
             }
             catch (Exception e)
             {

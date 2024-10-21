@@ -2,7 +2,7 @@
 
 namespace MonoGo.Engine.WindowsDX
 {
-	public class AlphaBlendEffectLoaderWindowsDX : AlphaBlendEffectLoader
+    internal class AlphaBlendEffectLoaderWindowsDX : AlphaBlendEffectLoader
 	{
 		protected override string _effectName => "MonoGo.Engine.WindowsDX.AlphaBlend_dx.mgfxo";
 

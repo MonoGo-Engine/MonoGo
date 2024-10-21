@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using static MonoGo.Engine.AdditionalConverters;
@@ -19,9 +18,16 @@ using static MonoGo.Engine.RangeF;
 
 namespace MonoGo.Engine
 {
-    internal static class JsonConverters
+    /// <summary>
+    /// This Serialization class is based on JSON and contains the <c>JsonSerializerOptions</c> and the <see cref="JsonConverter"/>'s used by the engine.
+    /// </summary>
+    /// <remarks>
+    /// Use it for your own objects as well! A quick way of doing so would be using the "Serialize" or "Deserialize" method from this class.
+    /// For advanced serialization and deserialization you should utilize <see cref="JsonSerializer"/> directly.
+    /// </remarks>
+    public static class Serialization
     {
-        internal static JsonSerializerOptions SerializerOptions;
+        public static JsonSerializerOptions SerializerOptions { get; private set; }
 
         internal static void Init()
         {
@@ -46,11 +52,33 @@ namespace MonoGo.Engine
                 }
             };
         }
+
+        /// <summary>
+        /// Converts the provided value into a <see cref="string"/>.
+        /// </summary>
+        /// <typeparam name="TValue">The type to serialize.</typeparam>
+        /// <param name="value">The object to serialize.</param>
+        /// <returns>A JSON string representation of the value.</returns>
+        public static string Serialize<TValue>(TValue value)
+        {
+            return JsonSerializer.Serialize(value, SerializerOptions);
+        }
+
+        /// <summary>
+        /// Parses the text representing a single JSON value into a <typeparamref name="TValue"/>.
+        /// </summary>
+        /// <typeparam name="TValue">The type to deserialize the JSON value into.</typeparam>
+        /// <param name="content">The string to deserialize.</param>
+        /// <returns>A <typeparamref name="TValue"/> representation of the JSON value.</returns>
+        public static TValue? Deserialize<TValue>(string content)
+        {
+            return JsonSerializer.Deserialize<TValue>(content, SerializerOptions);
+        }
     }
 
-    public class AdditionalConverters
+    internal class AdditionalConverters
     {
-        public class VectorConverter : JsonConverter<Vector2>
+        internal class VectorConverter : JsonConverter<Vector2>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -67,7 +95,7 @@ namespace MonoGo.Engine
                 writer.WriteStringValue(Write(value));
             }
 
-            public static Vector2 Parse(string value)
+            internal static Vector2 Parse(string value)
             {
                 string trimed = value.TrimStart('(').TrimEnd(')');
                 string[] xy = trimed.Split(';');
@@ -78,13 +106,13 @@ namespace MonoGo.Engine
                 return new Vector2(x, y);
             }
 
-            public static string Write(Vector2 value)
+            internal static string Write(Vector2 value)
             {
                 return string.Format(CultureInfo.InvariantCulture,
                     $"({value.X.ToString(CultureInfo.InvariantCulture)}; {value.Y.ToString(CultureInfo.InvariantCulture)})");
             }
         }
-        public class PointConverter : JsonConverter<Point>
+        internal class PointConverter : JsonConverter<Point>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -110,7 +138,7 @@ namespace MonoGo.Engine
                 writer.WriteEndObject();
             }
         }
-        public class RectangleConverter : JsonConverter<Rectangle>
+        internal class RectangleConverter : JsonConverter<Rectangle>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -142,11 +170,11 @@ namespace MonoGo.Engine
                 writer.WriteEndObject();
             }
         }
-        public class BaseTypeJsonConverter<T> : JsonConverter<T>
+        internal class BaseTypeJsonConverter<T> : JsonConverter<T>
         {
             private readonly Dictionary<string, Type> _baseTypes;
 
-            public BaseTypeJsonConverter()
+            internal BaseTypeJsonConverter()
             {
                 var typeList = typeof(T).GetTypeInfo().Assembly.DefinedTypes
                 .Where(type => typeof(T).GetTypeInfo().IsAssignableFrom(type) && !type.IsAbstract);

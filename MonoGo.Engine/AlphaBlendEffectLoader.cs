@@ -5,19 +5,19 @@ using System.Reflection;
 
 namespace MonoGo.Engine
 {
-    public interface IAlphaBlendEffectLoader
+    internal interface IAlphaBlendEffectLoader
 	{ 
 		Effect Load();
 	}
 
-	public abstract class AlphaBlendEffectLoader : IAlphaBlendEffectLoader
+    internal abstract class AlphaBlendEffectLoader : IAlphaBlendEffectLoader
 	{
 		protected abstract string _effectName { get; }
 		protected abstract Assembly _assembly { get; }
 
 		private readonly object _lock = new object();
-		
-		public byte[] Bytecode
+
+        internal byte[] Bytecode
 		{
 			get
 			{
@@ -45,7 +45,7 @@ namespace MonoGo.Engine
 		private volatile byte[] _bytecode;
 
 
-		public Effect Load() =>
+        public Effect Load() =>
 			new Effect(GraphicsMgr.Device, Bytecode);
 	}
 }

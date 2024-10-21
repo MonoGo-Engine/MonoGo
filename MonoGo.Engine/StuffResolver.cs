@@ -6,12 +6,11 @@ namespace MonoGo.Engine
 	/// <summary>
 	/// Contains (usually platform-specific) stuff.
 	/// </summary>
-	public static class StuffResolver
+	internal static class StuffResolver
 	{
 		private static Dictionary<Type, object> _stuff = new Dictionary<Type, object>();
 
-
-		public static void AddStuffAs<T>(object stuff)
+        internal static void AddStuffAs<T>(object stuff)
 		{
 			var type = typeof(T);
 			if (!type.IsInterface)
@@ -29,10 +28,10 @@ namespace MonoGo.Engine
 			throw new Exception("Object should implement interface " + type + "!");
 		}
 
-		public static T GetStuff<T>() =>
+        internal static T GetStuff<T>() =>
 			(T)_stuff[typeof(T)];
 
-		public static bool StuffExists<T>() =>
+        internal static bool StuffExists<T>() =>
 			_stuff.ContainsKey(typeof(T));
 	}
 }

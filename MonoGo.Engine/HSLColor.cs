@@ -11,7 +11,7 @@ namespace MonoGo.Engine
     /// </summary>
     public struct HSLColor : IEquatable<HSLColor>
     {
-        public class HSLConverter : JsonConverter<HSLColor>
+        internal class HSLConverter : JsonConverter<HSLColor>
         {
             public override bool CanConvert(Type objectType)
             {

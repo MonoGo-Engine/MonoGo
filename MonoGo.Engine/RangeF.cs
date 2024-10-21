@@ -11,7 +11,7 @@ namespace MonoGo.Engine
     /// </summary>
     public struct RangeF : IEquatable<RangeF>, IFormattable 
     {
-        public class RangeFConverter : JsonConverter<RangeF>
+        internal class RangeFConverter : JsonConverter<RangeF>
         {
             public override bool CanConvert(Type objectType)
             {

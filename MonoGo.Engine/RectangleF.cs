@@ -1,5 +1,5 @@
 ﻿// A copy of vanilla MG rectangle. https://github.com/MonoGame/MonoGame/blob/master/MonoGame.Framework/Rectangle.cs
-// except now works with floats. As it should. =\
+// except now works with floats.
 
 using Microsoft.Xna.Framework;
 using System;

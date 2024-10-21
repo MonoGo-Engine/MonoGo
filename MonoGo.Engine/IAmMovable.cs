@@ -2,7 +2,7 @@
 
 namespace MonoGo.Engine
 {
-    public interface IMovable
+    public interface IAmMovable
     {
         public Vector2 Position { get; set; }
     }

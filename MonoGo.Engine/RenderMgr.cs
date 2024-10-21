@@ -7,6 +7,10 @@ using MonoGo.Engine.UI;
 
 namespace MonoGo.Engine
 {
+    /// <summary>
+    /// The render manager draws the (post-processed) scene- and gui surface in the correct order.
+    /// Set the properties here to enable or disable certain PostFX features or all at once via the "PostProcessing" property.
+    /// </summary>
     public static class RenderMgr
     {
         public static bool PostProcessing { get; set; } = false;
@@ -16,7 +20,7 @@ namespace MonoGo.Engine
         public static Surface SceneSurface { get; set; }
         public static Surface GUISurface { get; set; }
 
-        public static void Init()
+        internal static void Init()
         {
             UpdateResolution();
 

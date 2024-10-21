@@ -4,12 +4,12 @@ using MonoGo.Engine.EC;
 
 namespace MonoGo.Engine.Particles
 {
-    public class ParticleEffectComponent : Component, IMovable
+    public class ParticleEffectComponent : Component, IAmMovable
     {
         public ParticleEffect ParticleEffect { get; set; }
         
         public Vector2 Position { get; set; }
-        public IMovable OwnerMovable { get; private set; }
+        public IAmMovable OwnerMovable { get; private set; }
         public bool FollowOwner { get; private set; } = true;
 
         public ParticleEffectComponent(
@@ -36,7 +36,7 @@ namespace MonoGo.Engine.Particles
         {
             base.Initialize();
 
-            OwnerMovable = Owner.FindComponent<IMovable>();
+            OwnerMovable = Owner.FindComponent<IAmMovable>();
         }
 
         public override void Update()
@@ -52,9 +52,9 @@ namespace MonoGo.Engine.Particles
             FollowOwner = !FollowOwner;
         }
 
-        public void AttractParticlesTo(IMovable movable)
+        public void AttractParticlesTo(IAmMovable movable)
         {
-            ParticleEffect.Modifiers<IFollowable>().ToList().ForEach(
+            ParticleEffect.Modifiers<IAmFollowable>().ToList().ForEach(
                 x => x.Followable = movable);
         }
 

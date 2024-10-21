@@ -2,7 +2,7 @@
 
 namespace MonoGo.Engine.DesktopGL
 {
-	public class AlphaBlendEffectLoaderDesktopGl: AlphaBlendEffectLoader
+	internal class AlphaBlendEffectLoaderDesktopGl: AlphaBlendEffectLoader
 	{
 		protected override string _effectName => "MonoGo.Engine.DesktopGL.AlphaBlend_gl.mgfxo";
 

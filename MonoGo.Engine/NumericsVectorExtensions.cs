@@ -2,6 +2,9 @@
 
 namespace MonoGo.Engine
 {
+	/// <summary>
+	/// MonoGame Color and Vector to Numerics Vector extension.
+	/// </summary>
 	public static class NumericsVectorExtensions
 	{
 		public static System.Numerics.Vector2 ToNumericsVector(this Vector2 v) =>

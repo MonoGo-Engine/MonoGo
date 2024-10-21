@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGo.Engine.Particles.Modifiers
 {
-    public class FollowPositionModifier : IModifier, IFollowable
+    public class FollowPositionModifier : IModifier, IAmFollowable
     {
         public string Key { get; set; }
 
         [JsonIgnore]
-        public IMovable Followable { get; set; }
+        public IAmMovable Followable { get; set; }
         public Vector2 Offset { get; set; }
         public float Speed { get; set; } = 1f;
         public bool Inside { get; set; } = true;

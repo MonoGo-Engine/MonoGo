@@ -6,7 +6,7 @@ namespace MonoGo.Engine
 {
     public struct HSLRange
     {
-        public class ColourRangeConverter : JsonConverter<HSLRange>
+        internal class ColourRangeConverter : JsonConverter<HSLRange>
         {
             public override bool CanConvert(Type objectType)
             {

@@ -336,7 +336,7 @@ namespace MonoGo.Engine.UI.Defs
         /// <returns>Loaded stylesheet.</returns>
         public static StyleSheet LoadFromJsonMemory(string content)
         {
-            return JsonSerializer.Deserialize<StyleSheet>(content, JsonConverters.SerializerOptions)!;
+            return Serialization.Deserialize<StyleSheet>(content)!;
         }
 
         /// <summary>
@@ -409,7 +409,7 @@ namespace MonoGo.Engine.UI.Defs
         /// <returns>Json content.</returns>
         public string SaveToJsonMemory()
         {
-            return JsonSerializer.Serialize(this, JsonConverters.SerializerOptions);
+            return Serialization.Serialize(this);
         }
 
         /// <summary>

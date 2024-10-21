@@ -79,7 +79,7 @@ namespace MonoGo.Engine
 		/// Most of its features are handled through WindowManager,
 		/// but if you want something specific, use this.
 		/// </summary>
-		public GameWindow Window {get;}
+		public GameWindow Window { get; }
 
 		public WindowMgr(Game game) : base(game)
 		{

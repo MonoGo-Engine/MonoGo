@@ -7,7 +7,7 @@ namespace MonoGo.Engine
 		Linux,
 		MacOS,
 		Android,
-		iOS, // stinky
+		iOS,
 		Xbox,
 		PlayStation,
 		Switch,

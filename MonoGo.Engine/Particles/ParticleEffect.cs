@@ -91,7 +91,7 @@ namespace MonoGo.Engine.Particles
             var pathInfo = new FileInfo(@Path.Combine(filePath, Name));
             if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
-            var json = JsonSerializer.Serialize(this, JsonConverters.SerializerOptions);
+            var json = Serialization.Serialize(this);
             File.WriteAllText($"{pathInfo}.mpe", json, Encoding.UTF8);
 
             return pathInfo;
@@ -99,8 +99,7 @@ namespace MonoGo.Engine.Particles
 
         private ParticleEffect Deserialize(string filePath)
         {
-            return JsonSerializer.Deserialize<ParticleEffect>(
-                    File.ReadAllText($"{filePath}.mpe"), JsonConverters.SerializerOptions);
+            return Serialization.Deserialize<ParticleEffect>(File.ReadAllText($"{filePath}.mpe"))!;
         }
 
         [JsonIgnore]

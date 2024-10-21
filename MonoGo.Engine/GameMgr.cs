@@ -35,8 +35,14 @@ namespace MonoGo.Engine
 		/// </summary>
 		public static double ElapsedTime { get; private set; }
 
+		/// <summary>
+		/// Fine tune how often the fixed update will be executed.
+		/// </summary>
 		public static double FixedUpdateRate = 0.5; // Seconds.
 
+		/// <summary>
+		/// Set the maximum game speed.
+		/// </summary>
 		public static double MaxGameSpeed
 		{
 			get => (int)(1.0 / Game.TargetElapsedTime.TotalSeconds);
@@ -81,11 +87,14 @@ namespace MonoGo.Engine
 		/// </summary>
 		public static Dictionary<string, Type> Types { get; private set; }
 
+		/// <summary>
+		/// The current fps.
+		/// </summary>
 		public static int FPS { get; private set; }
 		private static int _fpsCount;
 		private static double _fpsAddition;
 
-		public static void Init(Game game)
+		internal static void Init(Game game)
 		{
             Game = game;
 			Game.IsMouseVisible = false;
@@ -97,7 +106,7 @@ namespace MonoGo.Engine
 			LoadAssembliesAndTypes(game.GetType().Assembly);
 
             StuffResolver.GetStuff<ITextInputBinder>()?.Init();
-            JsonConverters.Init();
+            Serialization.Init();
 			ResourceInfoMgr.Init();
 			SceneMgr.Init();
         }
@@ -105,7 +114,7 @@ namespace MonoGo.Engine
 		/// <summary>
 		/// Performs update-related routines and calls Update events for entities and systems.
 		/// </summary>
-		public static void Update(GameTime gameTime)
+		internal static void Update(GameTime gameTime)
 		{
 			// Elapsed time counters.
 			ElapsedTimeTotal = gameTime.TotalGameTime.TotalSeconds;
@@ -131,7 +140,7 @@ namespace MonoGo.Engine
 		/// <summary>
 		/// Performs drawing-related routines and calls Draw events for entities and systems.
 		/// </summary>
-		public static void Draw(GameTime gameTime)
+		internal static void Draw(GameTime gameTime)
 		{
 			_fpsAddition += gameTime.ElapsedGameTime.TotalSeconds;
 			_fpsCount += 1;

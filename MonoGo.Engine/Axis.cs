@@ -12,7 +12,7 @@ namespace MonoGo.Engine
     /// </summary>
     public struct Axis : IEquatable<Axis>
     {
-        public class AxisConverter : JsonConverter<Axis>
+        internal class AxisConverter : JsonConverter<Axis>
         {
             public override bool CanConvert(Type objectType)
             {
