@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Binds Input.TextInput to the platform-specific text input provider.
 	/// </summary>
-	public interface ITextInputBinder
+	internal interface ITextInputBinder
 	{
 		void Init();
 	}
