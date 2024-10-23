@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGo.Engine;
 using MonoGo.Engine.Utils;
 using Moq;
 using NUnit.Framework;
@@ -6,7 +7,7 @@ using System;
 
 namespace Tests
 {
-	public class AngleTests
+    public class AngleTests
 	{
 		[SetUp]
 		public void Setup()
