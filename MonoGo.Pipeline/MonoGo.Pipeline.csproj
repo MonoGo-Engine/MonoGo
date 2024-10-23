@@ -30,8 +30,11 @@
 		<Content Include="$(OutputPath)StbImageSharp.dll" Pack="true" PackagePath="contentFiles\" />
 	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="if $(ConfigurationName) == gametest (&#xD;&#xA;xcopy /y $(TargetDir)MonoGo.Pipeline.dll $(SolutionDir)debug\Content&#xD;&#xA;xcopy /y $(TargetDir)StbImageSharp.dll $(SolutionDir)debug\Content)" />
-	</Target>
+	<PropertyGroup Condition=" '$(Configuration)' == 'gametest' ">
+		<PostBuildEvent>
+			xcopy /y $(TargetDir)MonoGo.Pipeline.dll $(SolutionDir)debug\Content 
+			xcopy /y $(TargetDir)StbImageSharp.dll $(SolutionDir)debug\Content
+		</PostBuildEvent>
+	</PropertyGroup>
 	
 </Project>
