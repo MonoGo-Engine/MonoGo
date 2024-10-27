@@ -45,10 +45,10 @@ Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.
 # Credits
 
 - [MonoGame](https://github.com/MonoGame/MonoGame) created by [MonoGame Foundation, Inc](https://monogame.net/)
-- [Monofoxe](https://github.com/Martenfur/Monofoxe) & [Nopipeline](https://github.com/Martenfur/Nopipeline) created by [Chai Foxes](https://github.com/Martenfur)
-- [StbImageSharp](https://github.com/StbSharp/StbImageSharp) created by [Roman Shapiro](https://github.com/rds1983)
+- [Monofoxe](https://github.com/Martenfur/Monofoxe) & [Nopipeline](https://github.com/Martenfur/Nopipeline) created by [Chai Foxes](https://github.com/Martenfur) (Martenfur)
+- [StbImageSharp](https://github.com/StbSharp/StbImageSharp) created by [Roman Shapiro](https://github.com/rds1983) (rds1983)
 - [Iguina](https://github.com/RonenNess/Iguina) created by [Ronen Ness](https://github.com/RonenNess)
-- [Mercury Particle Engine](https://github.com/Matthew-Davey/mercury-particle-engine) created by [Matthew Davey](https://github.com/Matthew-Davey)
+- [Mercury Particle Engine](https://github.com/Matthew-Davey/mercury-particle-engine) created by [Matthew Davey](https://github.com/Matthew-Davey) (Matt Davey)
 - [ColorGrading](https://github.com/Kosmonaut3d/ColorGradingFilter-Sample) & [Bloom Filter](https://github.com/Kosmonaut3d/BloomFilter-for-Monogame-and-XNA) created by [Thomas Lüttich](https://github.com/Kosmonaut3d) (Kosmonaut3d)
 
 For license information please take a look at the [License.txt](https://github.com/MonoGo-Engine/MonoGo/blob/master/LICENSE.txt) file.
