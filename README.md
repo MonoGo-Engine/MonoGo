@@ -38,9 +38,13 @@ Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.
 
 # Sample Project
 
-[https://github.com/MonoGo-Engine/MonoGo.Samples](https://github.com/MonoGo-Engine/MonoGo.Samples)
+The **[sample project](https://github.com/MonoGo-Engine/MonoGo.Samples)** itself contains alot more demos, but here are some impressions at least:
 
-![Sample](https://raw.githubusercontent.com/BlizzCrafter/MonoGo/refs/heads/master/doc/sample.png)
+![Color Picker](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo.Samples/refs/heads/master/docs/sample_00.jpg)
+![Tiled](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo.Samples/refs/heads/master/docs/sample_01.jpg)
+![PostFX](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo.Samples/refs/heads/master/docs/sample_02.jpg)
+
+Click **[here](https://github.com/MonoGo-Engine/MonoGo.Samples)** to see more engine features!
 
 # Credits
 
