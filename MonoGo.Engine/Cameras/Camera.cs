@@ -9,6 +9,7 @@ namespace MonoGo.Engine.Cameras
 {
 	/// <summary>
 	/// Game camera. Supports positioning, rotating and scaling.
+	/// 
 	/// NOTE: There always should be at least one camera, 
 	/// otherwise Draw events won't be triggered.
 	/// </summary>

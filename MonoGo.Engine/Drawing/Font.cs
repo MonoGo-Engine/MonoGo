@@ -7,9 +7,7 @@ using System.Text;
 
 namespace MonoGo.Engine.Drawing
 {
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
+    /// <inheritdoc />
     public class Font : IFont
 	{
 		private static SpriteBatch _batch;
