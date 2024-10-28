@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGo.Engine
 {
+    /// <summary>
+    /// Various color extensions and conversions between Color, HSL and HEX.
+    /// </summary>
     public static class ColorHelper
     {
         public static Color ToColor(this HSLColor c)
@@ -82,9 +85,6 @@ namespace MonoGo.Engine
             return new HSLColor((colour.H + 180) % 360, colour.S, colour.L);
         }
 
-        /// <summary>
-		/// Converts Color to its hex value.
-		/// </summary>
 		public static string ToHex(this Color color)
         {
             var r = $"{color.R:x2}";
@@ -128,7 +128,7 @@ namespace MonoGo.Engine
         private static readonly Dictionary<string, Color> _colorsByName = typeof(Color)
             .GetRuntimeProperties()
             .Where(p => p.PropertyType == typeof(Color))
-            .ToDictionary(p => p.Name, p => (Color)p.GetValue(null), StringComparer.OrdinalIgnoreCase);
+            .ToDictionary(p => p.Name, p => (Color)p.GetValue(null)!, StringComparer.OrdinalIgnoreCase);
 
         public static Color NameToColor(string name)
         {

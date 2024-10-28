@@ -1,6 +1,9 @@
 ﻿namespace MonoGo.Engine.Drawing
 {
-	public enum TextAlign : int
+    /// <summary>
+    /// Use <see cref="UI.UISystem"/> for serious graphical user interfaces!
+    /// </summary>
+    public enum TextAlign : int
 	{	
 		Left = 0,
 		Right = 2,

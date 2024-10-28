@@ -6,7 +6,7 @@ using System.IO;
 
 namespace MonoGo.Pipeline.Tiled
 {
-	[ContentTypeWriter]
+    [ContentTypeWriter]
 	public class TiledMapWriter : ContentTypeWriter<TiledMap>
 	{
 		protected override void Write(ContentWriter output, TiledMap map)

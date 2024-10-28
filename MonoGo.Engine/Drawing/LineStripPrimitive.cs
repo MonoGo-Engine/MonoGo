@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// Drawable line strip primitive. Draws a bunch of connected lines. Can be looped.
-	/// Pattern: 0 - 1 - 2 - 3
-	/// </summary>
-	public class LineStripPrimitive : Primitive2D
+    /// <summary>
+    /// Drawable line strip primitive. Draws a bunch of connected lines. Can be looped.
+    /// </summary>
+    /// <remarks>
+    /// Pattern: 0 - 1 - 2 - 3
+    /// </remarks>
+    public class LineStripPrimitive : Primitive2D
 	{
 		
 		protected override PrimitiveType _primitiveType => PrimitiveType.LineList;

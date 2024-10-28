@@ -11,6 +11,9 @@ using System.Runtime.CompilerServices;
 
 namespace MonoGo.Engine
 {
+    /// <summary>
+    /// Handles <see cref="Update(GameTime)"/> and <see cref="Draw(GameTime)"/> as well as <c>Game</c> initialization, internal engine loading and game speed. 
+    /// </summary>
     public static class GameMgr
 	{
 		public static Platform CurrentPlatform { get; internal set; } = Platform.Other;

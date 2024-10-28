@@ -1,11 +1,10 @@
-﻿using System;
+﻿using MonoGo.Tiled.MapStructure;
+using System;
 using System.Xml;
-using Microsoft.Xna.Framework;
-using MonoGo.Tiled.MapStructure;
 
 namespace MonoGo.Pipeline.Tiled
 {
-	static class MapParser
+    static class MapParser
 	{
 		public static TiledMap Parse(XmlDocument xml)
 		{

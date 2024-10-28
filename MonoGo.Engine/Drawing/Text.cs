@@ -1,24 +1,28 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using MonoGo.Engine.Utils;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace MonoGo.Engine.Drawing
 {
-	public class Text
+    /// <summary>
+    /// Quick text drawing. Mainly for debug purpose. 
+    /// Use <see cref="UI.UISystem"/> for serious graphical user interfaces!
+    /// </summary>
+    public class Text
 	{
 		public Vector2 Position;
-
 		public Vector2 Scale;
-
 		public Vector2 Origin;
-
 		public Angle Rotation;
-
 		public Color Color;
 
 		public string String;
 
-		public Text(string str, Vector2 position, Vector2 scale, Vector2 origin, Angle rotation)
+        // Text
+        public static IFont CurrentFont;
+        public static TextAlign HorAlign = TextAlign.Left;
+        public static TextAlign VerAlign = TextAlign.Top;
+
+        public Text(string str, Vector2 position, Vector2 scale, Vector2 origin, Angle rotation)
 		{
 			String = str;
 			Position = position;
@@ -28,14 +32,6 @@ namespace MonoGo.Engine.Drawing
 
 			Color = GraphicsMgr.CurrentColor;
 		}
-
-		// Text.
-		public static IFont CurrentFont;
-
-		public static TextAlign HorAlign = TextAlign.Left;
-		public static TextAlign VerAlign = TextAlign.Top;
-		// Text.
-
 
 		public void Draw()
 		{
@@ -75,7 +71,7 @@ namespace MonoGo.Engine.Drawing
 
 			var transformMatrix =
 				Matrix.CreateTranslation(-origin.ToVector3())          // Origin.
-				* Matrix.CreateRotationZ(-rotation.RadiansF)		       // Rotation.
+				* Matrix.CreateRotationZ(-rotation.RadiansF)		   // Rotation.
 				* Matrix.CreateScale(new Vector3(scale.X, scale.Y, 1)) // Scale.
 				* Matrix.CreateTranslation(position.ToVector3());      // Position.
 

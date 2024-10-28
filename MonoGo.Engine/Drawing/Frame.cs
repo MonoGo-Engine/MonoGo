@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGo.Engine.Utils;
+using System;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// Drawable frame.
-	/// </summary>
-	public class Frame : ICloneable
+    /// <summary>
+    /// Drawable frame.
+    /// </summary>
+    public class Frame : ICloneable
 	{
 		public Vector2 Position;
 

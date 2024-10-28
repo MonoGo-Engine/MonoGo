@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
-using Microsoft.Xna.Framework;
 
 namespace MonoGo.Pipeline.Tiled
 {
-	static class XmlHelper
+    static class XmlHelper
 	{
 		/// <summary>
 		/// Returns properties from xml node. 
@@ -87,8 +87,6 @@ namespace MonoGo.Pipeline.Tiled
 			return defaultValue;
 		}
 
-
-
 		/// <summary>
 		/// Converts string in hex format #RRGGBB or #AARRGGBB to Color.
 		/// </summary>
@@ -114,6 +112,5 @@ namespace MonoGo.Pipeline.Tiled
 				return new Color(channels[1], channels[2], channels[3], channels[0]);
 			}
 		}
-
 	}
 }

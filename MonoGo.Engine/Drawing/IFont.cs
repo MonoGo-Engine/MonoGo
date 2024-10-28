@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// XNA's SpriteFont doesn't provide interface for itself, 
-	/// so we have to make our own.
-	/// </summary>
-	public interface IFont
+    /// <summary>
+    /// Use <see cref="UI.UISystem"/> for serious graphical user interfaces!
+    /// </summary>
+    public interface IFont
 	{
 		Texture2D Texture {get;}
         SpriteFont SpriteFont { get; }
@@ -26,7 +25,6 @@ namespace MonoGo.Engine.Drawing
 		float MeasureStringWidth(StringBuilder text);
 		float MeasureStringHeight(string text);
 		float MeasureStringHeight(StringBuilder text);
-
 
 		void Draw(string text, Vector2 position, TextAlign halign, TextAlign valign);
 	}

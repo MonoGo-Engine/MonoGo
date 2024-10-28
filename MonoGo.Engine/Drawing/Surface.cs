@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGo.Engine.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace MonoGo.Engine.Drawing
 {
-	public class Surface : IDisposable
+    /// <summary>
+    /// Imagine <c>Surface</c>'s like managed <see cref="RenderTarget2D"/>'s with <see cref="VertexBatch"/> and <see cref="Matrix"/> support.
+    /// </summary>
+    /// <remarks>You can set multiple targets via <see cref="SetTarget(Surface)"/>, which results in a <see cref="Stack{Surface}"/>.</remarks>
+    public class Surface : IDisposable
 	{
 		public Vector2 Position;
 
@@ -24,7 +27,6 @@ namespace MonoGo.Engine.Drawing
 
 		public Vector2 Size => new Vector2(RenderTarget.Width, RenderTarget.Height);
 
-
 		public static bool SurfaceStackEmpty => _surfaceStack.Count == 0;
 
 		/// <summary>
@@ -32,7 +34,6 @@ namespace MonoGo.Engine.Drawing
 		/// </summary>
 		private static Stack<Surface> _surfaceStack = new Stack<Surface>();
 		private static Surface _currentSurface;
-
 
 		public Surface(Vector2 size, Vector2 position, Vector2 scale, Vector2 origin, Angle rotation)
 		{
@@ -64,7 +65,6 @@ namespace MonoGo.Engine.Drawing
 			RenderTarget = CreateRenderTarget(size);
 		}
 
-
 		private RenderTarget2D CreateRenderTarget(Vector2 size)
 		{
 			return new RenderTarget2D(
@@ -75,20 +75,16 @@ namespace MonoGo.Engine.Drawing
 				GraphicsMgr.Device.PresentationParameters.DepthStencilFormat, 
 				0, 
 				RenderTargetUsage.PreserveContents
-			);
-			
+			);			
 		}
-
 
 		public void Draw() =>
 			Draw(Position, Origin, Scale, Rotation, Color, ZDepth);
-		
-		
-		// Vectors.
+
+		#region Vectors
 
 		public void Draw(Vector2 position) =>
 			Draw(position, Origin, Scale, Rotation, Color, ZDepth);
-
 
 		public void Draw(
 			Vector2 position,
@@ -97,16 +93,14 @@ namespace MonoGo.Engine.Drawing
 			Angle rotation,
 			Color color
 		) =>
-			Draw(position, origin, scale, rotation, color, ZDepth);
-		
+			Draw(position, origin, scale, rotation, color, ZDepth);		
 
 		public void Draw(
 			Vector2 position,
 			Vector2 scale,
 			Angle rotation
 		) =>
-			Draw(position, Origin, scale, rotation, Color, ZDepth);
-		
+			Draw(position, Origin, scale, rotation, Color, ZDepth);		
 		
 		public void Draw(
 			Vector2 position, 
@@ -149,12 +143,11 @@ namespace MonoGo.Engine.Drawing
 				zDepth
 			);			
 		}
+        #endregion Vectors
 
-		// Vectors.
+        #region Rectangles
 
-		// Rectangles.
-
-		public void Draw(RectangleF destRect)
+        public void Draw(RectangleF destRect)
 		{
 			GraphicsMgr.VertexBatch.Texture = RenderTarget;
 			GraphicsMgr.VertexBatch.AddQuad(
@@ -205,15 +198,12 @@ namespace MonoGo.Engine.Drawing
 				zDepth
 			);
 		}
+        #endregion Rectangles
 
-		// Rectangles.
-
-
-		
-		/// <summary>
-		/// Sets surface as a render target.
-		/// </summary>
-		public static void SetTarget(Surface surf) =>
+        /// <summary>
+        /// Sets surface as a render target.
+        /// </summary>
+        public static void SetTarget(Surface surf) =>
 			SetTarget(surf, Matrix.CreateTranslation(Vector3.Zero));
 
 		/// <summary>
@@ -222,7 +212,6 @@ namespace MonoGo.Engine.Drawing
 		public static void SetTarget(Surface surf, Matrix view) =>
 			SetTarget(surf, view, Matrix.CreateOrthographicOffCenter(0, surf.Size.X, surf.Size.Y, 0, 0, 1));
 		
-
 		/// <summary>
 		/// Sets surface as a render target.
 		/// </summary>
@@ -234,7 +223,6 @@ namespace MonoGo.Engine.Drawing
 
 			_surfaceStack.Push(_currentSurface);
 			_currentSurface = surf;
-
 
 			GraphicsMgr.Device.SetRenderTarget(_currentSurface.RenderTarget);
 		}
@@ -264,10 +252,7 @@ namespace MonoGo.Engine.Drawing
 			}
 		}
 
-
-
 		public void Dispose() =>
-			RenderTarget.Dispose();
-		
+			RenderTarget.Dispose();		
 	}
 }

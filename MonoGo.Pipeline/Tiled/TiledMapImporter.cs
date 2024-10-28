@@ -1,11 +1,11 @@
-﻿using System.IO;
-using System.Xml;
-using Microsoft.Xna.Framework.Content.Pipeline;
+﻿using Microsoft.Xna.Framework.Content.Pipeline;
 using MonoGo.Tiled.MapStructure;
+using System.IO;
+using System.Xml;
 
 namespace MonoGo.Pipeline.Tiled
 {
-	[ContentImporter(".tmx", DefaultProcessor = "PassThroughProcessor",
+    [ContentImporter(".tmx", DefaultProcessor = "PassThroughProcessor",
 	DisplayName = "Tiled Map Importer - MonoGo")]
 	public class TiledMapImporter : ContentImporter<TiledMap>
 	{
@@ -23,11 +23,11 @@ namespace MonoGo.Pipeline.Tiled
 
 		public override TiledMap Import(string filename, ContentImporterContext context)
 		{
-			Logger.Init("map.log");
+			//Logger.Init("map.log");
 			TmxRootDir = Path.GetDirectoryName(filename) + '/';
 			TmxFilename = filename;
 			CurrentRootDir = TmxRootDir;
-			Logger.LogLine("ROOT:" + TmxRootDir);
+			//Logger.LogLine("ROOT:" + TmxRootDir);
 			try
 			{
 				var xml = new XmlDocument();

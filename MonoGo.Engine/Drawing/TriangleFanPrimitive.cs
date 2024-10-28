@@ -3,17 +3,19 @@ using System.Collections.Generic;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// Drawable triangle fan primitive. 
-	/// Draws a bunch of triangles, all of which begin at the first vertex.
-	/// Pattern:
-	/// 1 - 2
-	/// | / |
-	/// 0 - 3 
-	/// | \ |
-	/// 5 - 4 
-	/// </summary>
-	public class TriangleFanPrimitive : Primitive2D
+    /// <summary>
+    /// Drawable triangle fan primitive. 
+    /// Draws a bunch of triangles, all of which begin at the first vertex.
+    /// </summary>
+    /// <remarks>
+    /// Pattern:
+    /// 1 - 2
+    /// | / |
+    /// 0 - 3 
+    /// | \ |
+    /// 5 - 4 
+	/// </remarks>
+    public class TriangleFanPrimitive : Primitive2D
 	{
 		
 		protected override PrimitiveType _primitiveType => PrimitiveType.TriangleList;

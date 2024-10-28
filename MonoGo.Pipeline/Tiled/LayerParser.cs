@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Xml;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MonoGo.Tiled.MapStructure;
 using MonoGo.Tiled.MapStructure.Objects;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Xml;
 
 namespace MonoGo.Pipeline.Tiled
 {
-	static class LayerParser
+    static class LayerParser
 	{
 		static List<TiledMapTileLayer> _tileLayers;
 		static List<TiledMapObjectLayer> _objectLayers;
 		static List<TiledMapImageLayer> _imageLayers;
-		
-
 		
 		public static void Parse(XmlNode mapXml, TiledMap map)
 		{
@@ -61,7 +59,6 @@ namespace MonoGo.Pipeline.Tiled
 			}
 		}
 
-
 		static void ParseBaseLayer(XmlNode layerXml, TiledMapLayer layer)
 		{
 			layer.ID = int.Parse(layerXml.Attributes["id"].Value);
@@ -75,7 +72,6 @@ namespace MonoGo.Pipeline.Tiled
 			layer.Properties = XmlHelper.GetProperties(layerXml);
 		}
 
-
 		static TiledMapTileLayer ParseTileLayer(XmlNode layerXml)
 		{
 			var layer = new TiledMapTileLayer();	
@@ -84,7 +80,6 @@ namespace MonoGo.Pipeline.Tiled
 
 			layer.Width = int.Parse(layerXml.Attributes["width"].Value);
 			layer.Height = int.Parse(layerXml.Attributes["height"].Value);
-
 
 			if (layerXml["data"].Attributes["encoding"].Value != "csv")
 			{
@@ -135,8 +130,6 @@ namespace MonoGo.Pipeline.Tiled
 			return layer;
 		}
 
-
-
 		public static TiledMapObjectLayer ParseObjectLayer(XmlNode layerXml, bool parseBase = true)
 		{
 			var layer = new TiledMapObjectLayer();
@@ -176,8 +169,7 @@ namespace MonoGo.Pipeline.Tiled
 		}
 
 		static TiledObject ParseObject(XmlNode node)
-		{
-		
+		{		
 			var oldRoot = TiledMapImporter.CurrentRootDir;
 
 			TiledObject obj = null;
@@ -230,8 +222,6 @@ namespace MonoGo.Pipeline.Tiled
 			// Determining object type.
 		}
 
-
-
 		/// <summary>
 		/// Parses basic object properties, common to all object types.
 		/// </summary>
@@ -258,7 +248,6 @@ namespace MonoGo.Pipeline.Tiled
 			return obj;
 		}
 
-
 		static TiledRectangleObject ParseRectangleObject(TiledObject baseObj) =>
 			new TiledRectangleObject(baseObj);
 		
@@ -273,7 +262,6 @@ namespace MonoGo.Pipeline.Tiled
 			var obj = new TiledTileObject(baseObj);
 
 			uint firstGID = 0;
-
 
 			if (node["tileset"] != null && node["tileset"].Attributes["source"] != null)
 			{
@@ -384,11 +372,8 @@ namespace MonoGo.Pipeline.Tiled
 			}
 			// Loading template.
 
-
-			/*
-			 * So, now we need to read the template and take attributes, 
-			 * which are not present in current object.
-			 */
+			// So, now we need to read the template and take attributes,
+			// which are not present in current object.
 			
 			var owner = node.OwnerDocument;
 			
@@ -448,8 +433,6 @@ namespace MonoGo.Pipeline.Tiled
 			return node;
 		}
 
-
-
 		static TiledMapImageLayer ParseImageLayer(XmlNode layerXml)
 		{
 			var imageXml = layerXml["image"];
@@ -476,6 +459,5 @@ namespace MonoGo.Pipeline.Tiled
 
 			return layer;
 		}
-
 	}
 }

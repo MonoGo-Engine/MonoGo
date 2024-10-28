@@ -3,16 +3,18 @@ using System.Collections.Generic;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// Drawable mesh primitive. Draws a grid of triangles.
+    /// <summary>
+    /// Drawable mesh primitive. Draws a grid of triangles.
+    /// </summary>
+    /// <remarks>
 	/// Pattern:
-	/// 0 - 1 - 2
-	/// | / | / |
-	/// 3 - 4 - 5
-	/// | / | / |
-	/// 6 - 7 - 8
-	/// </summary>
-	public class MeshPrimitive : Primitive2D
+    /// 0 - 1 - 2
+    /// | / | / |
+    /// 3 - 4 - 5
+    /// | / | / |
+    /// 6 - 7 - 8
+    /// </remarks>
+    public class MeshPrimitive : Primitive2D
 	{
 		protected override PrimitiveType _primitiveType => PrimitiveType.TriangleList;
 

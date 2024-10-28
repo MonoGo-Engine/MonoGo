@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Xml;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MonoGo.Tiled.MapStructure;
 using MonoGo.Tiled.MapStructure.Objects;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Xml;
 
 namespace MonoGo.Pipeline.Tiled
 {
-
-	static class TilesetParser
+    static class TilesetParser
 	{
 		/// <summary>
 		/// Tells pipeline, that this tileset won't be used in the game completely.
@@ -26,9 +25,7 @@ namespace MonoGo.Pipeline.Tiled
 		/// </summary>
 		public const string IgnoreTilesetTextureFlag = "__ignoreTilesetTexture";
 
-
 		public static Dictionary<string, uint> ExternalTilesetsFirstGID = new Dictionary<string, uint>();
-
 
 		public static TiledMapTileset[] Parse(XmlNodeList nodes)
 		{
@@ -45,8 +42,6 @@ namespace MonoGo.Pipeline.Tiled
 			}
 			return tilesets.ToArray();
 		}
-
-
 
 		static TiledMapTileset ParseTileset(XmlNode tilesetXml)
 		{
@@ -91,7 +86,7 @@ namespace MonoGo.Pipeline.Tiled
 				return null;
 			}
 			
-			Logger.Log("Parsing tileset " + tilesetXml.Attributes["name"].Value);
+			//Logger.Log("Parsing tileset " + tilesetXml.Attributes["name"].Value);
 
 			#region Main fields.
 
@@ -119,30 +114,26 @@ namespace MonoGo.Pipeline.Tiled
 
 			#endregion Main fields.
 			
-
 			// Turning tile xml into usable dictionary. 
 			var tiles = new Dictionary<int, XmlNode>(); // List won't suit, because some tile ids may be skipped.
 			foreach(XmlNode tileXml in tilesetXml.SelectNodes("tile"))
 			{
 				tiles.Add(int.Parse(tileXml.Attributes["id"].Value), tileXml);
 			}
-			// Turning tile xml into usable dictionary.
+            // Turning tile xml into usable dictionary.
 
-			/*
-			 * It is very problematic to load Texture2D without
-			 * GraphicsDevice, so textures are imported later as external references.
-			 * At this stage map will just remember their 
-			 * relative paths, and will pick textures up later.
-			 */
+            // It is very problematic to load Texture2D without
+            // GraphicsDevice, so textures are imported later as external references.
+            // At this stage map will just remember their 
+            // relative paths, and will pick textures up later.
 			
 			tileset.Tiles = new TiledMapTilesetTile[tileset.TileCount];
 
 			if (tilesetXml["image"] != null)
 			{
-				/*
-				 * NOTE: Single image tilesets can still have 
-				 * <tile> tags with properties.
-				 */
+                // NOTE: Single image tilesets can still have 
+                // < tile> tags with properties.
+
 				// Single-image tileset.
 				var texturePaths = new string[1];
 
@@ -226,10 +217,8 @@ namespace MonoGo.Pipeline.Tiled
 
 			TiledMapImporter.CurrentRootDir = TiledMapImporter.TmxRootDir;
 
-
 			return tileset;
 		}
-
 
 		static void ReadTileObjects(XmlNode node, ref TiledMapTilesetTile tile)
 		{
@@ -243,7 +232,5 @@ namespace MonoGo.Pipeline.Tiled
 			tile.ObjectsDrawingOrder = TiledMapObjectDrawingOrder.TopDown;
 			tile.Objects = new TiledObject[]{};
 		}
-
-
 	}
 }

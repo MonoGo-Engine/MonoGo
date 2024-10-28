@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// Wrapper of SpriteFont.
-	/// </summary>
-	public class Font : IFont
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public class Font : IFont
 	{
 		private static SpriteBatch _batch;
 
@@ -66,10 +66,6 @@ namespace MonoGo.Engine.Drawing
 		public Vector2 MeasureString(StringBuilder text) => 
 			_spriteFont.MeasureString(text);
 
-		// A lump of shitcode.
-		// SpriteFont doesn't provide functions measuring only
-		// width or height, so we have to always calculate both.
-
 		/// <summary>
 		/// Measures width of the text. 
 		/// NOTE: It is highly recommended to use MeasureString, 
@@ -86,7 +82,6 @@ namespace MonoGo.Engine.Drawing
 		public float MeasureStringWidth(StringBuilder text) => 
 			_spriteFont.MeasureString(text).X;
 
-
 		/// <summary>
 		/// Measures height of the text. 
 		/// NOTE: It is highly recommended to use MeasureString, 
@@ -94,7 +89,6 @@ namespace MonoGo.Engine.Drawing
 		/// </summary>
 		public float MeasureStringHeight(string text) => 
 			_spriteFont.MeasureString(text).Y;
-
 
 		/// <summary>
 		/// Measures height of the text. 

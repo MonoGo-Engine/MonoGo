@@ -9,6 +9,11 @@ using System.IO;
 
 namespace MonoGo.Engine
 {
+    /// <summary>
+    /// Loads engine specific content, which is why you **need** to inherit from this class to use the engine.
+    /// 
+    /// <inheritdoc/>
+    /// </summary>
     public abstract class MonoGoGame : Game
     {
         public MonoGoGame()

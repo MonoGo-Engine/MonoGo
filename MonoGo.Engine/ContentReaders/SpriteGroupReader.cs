@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MonoGo.Engine.ContentReaders
 {
-	/// <summary>
-	/// Reads sprite group file.
-	/// </summary>
-	internal class SpriteGroupReader : ContentTypeReader<Dictionary<string, Sprite>>
+    /// <summary>
+    /// Reads sprite group file.
+    /// </summary>
+    internal class SpriteGroupReader : ContentTypeReader<Dictionary<string, Sprite>>
 	{
 		protected override Dictionary<string, Sprite> Read(ContentReader input, Dictionary<string, Sprite> existingInstance)
 		{

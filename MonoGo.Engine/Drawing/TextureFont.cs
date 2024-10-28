@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGo.Engine.Drawing
 {
-	public class TextureFont : IFont
+    /// <summary>
+    /// Textured fonts. 
+    /// </summary>
+    public class TextureFont : IFont
 	{
 		public const string Ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
@@ -113,7 +116,6 @@ namespace MonoGo.Engine.Drawing
 					}
 				}
 
-
 				var glyph = new SpriteFont.Glyph
 				{
 					Character = ch,
@@ -129,14 +131,10 @@ namespace MonoGo.Engine.Drawing
 
 				i += 1;
 			}
-
 		}
 
-
-
 		public Dictionary<char, SpriteFont.Glyph> GetGlyphs() =>
-			_glyphs;
-		
+			_glyphs;		
 
 		/// <summary>
 		/// Measures width and height of the text.
@@ -188,8 +186,7 @@ namespace MonoGo.Engine.Drawing
 		/// </summary>
 		public float MeasureStringWidth(StringBuilder text) =>
 			MeasureStringWidth(text.ToString());
-
-		
+				
 		/// <summary>
 		/// Measures height of the text. 
 		/// </summary>
@@ -198,15 +195,13 @@ namespace MonoGo.Engine.Drawing
 			string[] lines = text.Split(new []{Environment.NewLine}, StringSplitOptions.None);
 
 			return lines.Length * (_frames[(char)DefaultCharacter].Size.Y + LineSpacing) - LineSpacing;
-		}
-		
+		}		
 		
 		/// <summary>
 		/// Measures height of the text. 
 		/// </summary>
 		public float MeasureStringHeight(StringBuilder text) =>
 			MeasureStringHeight(text.ToString());
-
 
 		/// <summary>
 		/// Draws text. Not recommended to call on its own, use Text class instead.
