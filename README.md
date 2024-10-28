@@ -33,9 +33,9 @@ Of course it's also possible to build everything from source and working directl
 * GameDev related Math lib.
 * Lightweight Collision Detection.
 * Integrated Post-Processing Management (Includes Bloom & ColorGrading Effects).
-* Powerful Particle-Effect-System via [Mercury Particle Engine](https://github.com/Matthew-Davey/mercury-particle-engine) +ParticleCollection +SpriteSheets-Animations +Improvements.
-* Extensive GUI-System via [Iguina](https://github.com/RonenNess/Iguina) +Improvements.
-* Enhanced Content Management via [Nopipeline](https://github.com/Martenfur/Nopipeline).
+* Powerful Particle-Effect-System.
+* Extensive GUI-System.
+* Enhanced Content Management.
 * FMOD Audio Support (As a standalone [Library](https://github.com/Martenfur/FmodForFoxes/)).
 ### Modules:
 * Tiled Map Support via [Tiled](https://www.mapeditor.org/).
