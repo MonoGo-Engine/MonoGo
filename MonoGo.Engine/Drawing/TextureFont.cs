@@ -9,6 +9,8 @@ namespace MonoGo.Engine.Drawing
 {
     /// <summary>
     /// Textured fonts. 
+	/// 
+	/// <inheritdoc />
     /// </summary>
     public class TextureFont : IFont
 	{
