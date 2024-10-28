@@ -6,15 +6,19 @@
 Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.
 
 # Setup
-### Options:
-- Build from source (this repo)
-- Install Packages:
-  - ```dotnet add package MonoGo.Engine``` or use the *Package Manager*
-  - ```dotnet add package MonoGo.Engine.DesktopGL``` or ```dotnet add package MonoGo.Engine.WindowsDX``` or use the *Package Manager*
-- Install Templates:
-  - ```dotnet new install MonoGo.Templates```
-- Install Optional Packages (You don't need to!):
+
+The easiest way of using this game engine is to install the templates:
+- ```dotnet new install MonoGo.Templates```
+
+If you prefere a more manual process you could also install the packages one by one in your existing MonoGame project like this:
+  - ```dotnet add package MonoGo.Engine```
+  - ```dotnet add package MonoGo.Engine.DesktopGL``` or ```dotnet add package MonoGo.Engine.WindowsDX```
+  - ```dotnet add package MonoGo.Engine.Pipeline```
+
+- Install **Optional** Packages (You don't need to!):
   - ```dotnet add package MonoGo.Tiled```
+ 
+Of course it's also possible to build everything from source and working directly with the engine, which is very useful for debugging.
 
 # Features
 * Graphics Pipeline and Automated Batch\Vertex Buffer Management.
