@@ -1,7 +1,7 @@
 ![Banner](https://raw.githubusercontent.com/BlizzCrafter/MonoGo/refs/heads/master/logos/Banner.png)
 
 # Welcome to MonoGo!
-[![NuGet](https://img.shields.io/nuget/v/MonoGo.Engine?style=for-the-badge&logo=nuget&logoSize=auto&label=MonoGo.Engine&labelColor=262626&color=E73C00)](https://www.nuget.org/packages/MonoGo.Engine/) [![NuGet](https://img.shields.io/badge/NuGet-MonoGo.Templates-blue.svg?style=for-the-badge&logo=NuGet&logoSize=auto&colorA=262626&colorB=E73C00)](https://www.nuget.org/packages/MonoGo.Templates) [![Docs](https://img.shields.io/github/labels/MonoGo-Engine/MonoGo/Documentation?style=for-the-badge&logo=gitbook&logoSize=auto&labelColor=262626&color=CC9C00)](https://monogo-engine.github.io/monogo.github.io/)
+[![Version](https://img.shields.io/nuget/v/MonoGo.Engine?style=for-the-badge&logo=git&logoSize=auto&label=MonoGo.Engine&labelColor=262626&color=E73C00)](https://github.com/MonoGo-Engine) [![NuGet](https://img.shields.io/badge/NuGet-MonoGo.Templates-blue.svg?style=for-the-badge&logo=NuGet&logoColor=blue&logoSize=auto&colorA=262626&colorB=E73C00)](https://www.nuget.org/packages/MonoGo.Templates) [![Docs](https://img.shields.io/github/labels/MonoGo-Engine/MonoGo/Documentation?style=for-the-badge&logo=gitbook&logoSize=auto&labelColor=262626&color=CC9C00)](https://monogo-engine.github.io/monogo.github.io/)
 
 Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.
 
