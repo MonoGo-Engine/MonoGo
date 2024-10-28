@@ -3,32 +3,27 @@ using System.Collections.Generic;
 
 namespace MonoGo.Engine.Drawing
 {
-	/// <summary>
-	/// Drawable triangle strip primitive. Draws a strip of triangles.
+    /// <summary>
+    /// Drawable triangle strip primitive. Draws a strip of triangles.
+    /// </summary>
+    /// <remarks>
 	/// Pattern:
-	/// 0 - 2 - 4
-	///  \ / \ /
-	///   1 - 3
-	/// </summary>
-	public class TriangleStripPrimitive : Primitive2D
-	{
-		
+    /// 0 - 2 - 4
+    ///  \ / \ /
+    ///   1 - 3
+	/// </remarks>
+    public class TriangleStripPrimitive : Primitive2D
+	{		
 		protected override PrimitiveType _primitiveType => PrimitiveType.TriangleList;
 
-		public TriangleStripPrimitive(int capacity) : base(capacity)
-		{
-		}
+		public TriangleStripPrimitive(int capacity) : base(capacity) { }
 
 		/// <summary>
 		/// Sets indices according to trianglestrip pattern.
 		/// NOTE: Use counter-clockwise culling.
 		/// </summary>
 		protected override short[] GetIndices()
-		{
-			// 0 - 2 - 4
-			//  \ / \ /
-			//   1 - 3
-			
+		{			
 			var indices = new List<short>();
 			
 			var flip = true;
