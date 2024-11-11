@@ -58,6 +58,7 @@ Click **[here](https://github.com/MonoGo-Engine/MonoGo.Samples)** to see more en
 - [Iguina](https://github.com/RonenNess/Iguina) created by [Ronen Ness](https://github.com/RonenNess)
 - [Mercury Particle Engine](https://github.com/Matthew-Davey/mercury-particle-engine) created by [Matthew Davey](https://github.com/Matthew-Davey) (Matt Davey)
 - [ColorGrading](https://github.com/Kosmonaut3d/ColorGradingFilter-Sample) & [Bloom Filter](https://github.com/Kosmonaut3d/BloomFilter-for-Monogame-and-XNA) created by [Thomas Lüttich](https://github.com/Kosmonaut3d) (Kosmonaut3d)
+- [Particle Collection](https://www.rigzsoft.co.uk/portfolio/particle-collection-1/) created by [RigzSoft](https://www.rigzsoft.co.uk/)
 
 For license information please take a look at the [License.txt](https://github.com/MonoGo-Engine/MonoGo/blob/master/LICENSE.txt) file.
 
