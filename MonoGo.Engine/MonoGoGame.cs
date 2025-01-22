@@ -42,7 +42,7 @@ namespace MonoGo.Engine
             GraphicsMgr.VertexBatch.DepthStencilState = depth;
         }
 
-        protected void LoadContent(string UITheme = "MonoGoTheme")
+        protected void LoadEngineContent(string UITheme = "MonoGoTheme")
         {
             GraphicsMgr.Init(GraphicsDevice);
 
