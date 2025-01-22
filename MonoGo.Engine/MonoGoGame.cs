@@ -42,8 +42,8 @@ namespace MonoGo.Engine
             GraphicsMgr.VertexBatch.DepthStencilState = depth;
         }
 
-        protected override void LoadContent()
-        {            
+        protected void LoadContent(string UITheme = "MonoGoTheme")
+        {
             GraphicsMgr.Init(GraphicsDevice);
 
             //var resourcePaths = ResourceInfoMgr.GetResourcePaths("**");
@@ -55,7 +55,7 @@ namespace MonoGo.Engine
 
             Text.CurrentFont = ResourceHub.GetResource<IFont>("Fonts", "Default");
 
-            UISystem.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Engine/GUI"), "MonoGoTheme");
+            UISystem.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Engine/GUI"), UITheme);
         }
 
         protected override void UnloadContent()
