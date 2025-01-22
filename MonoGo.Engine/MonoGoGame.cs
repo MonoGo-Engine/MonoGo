@@ -4,7 +4,6 @@ using MonoGo.Engine.Drawing;
 using MonoGo.Engine.Resources;
 using MonoGo.Engine.UI;
 using MonoGo.Resources;
-using System;
 using System.IO;
 
 namespace MonoGo.Engine
