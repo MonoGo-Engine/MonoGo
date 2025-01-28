@@ -6,14 +6,15 @@
 		<Product>MonoGo Engine</Product>
 		<Description>Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.</Description>
 		<PackageProjectUrl>https://github.com/BlizzCrafter/MonoGo</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/BlizzCrafter/MonoGo</RepositoryUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/MonoGo-Engine/MonoGo.git</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageIcon>Logo_BG_x192.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="\" />
+		<None Include="$(MSBuildThisFileDirectory)\LICENSE.txt" Pack="true" PackagePath="\" />
 		<None Include="$(MSBuildThisFileDirectory)\Logos\Logo_BG_x192.png" Pack="true" PackagePath="\" />
-		<None Include="$(MSBuildThisFileDirectory)\LICENSE.txt" Pack="true" PackagePath="docs\" />
-		<None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="docs\" />
 	</ItemGroup>
 </Project>
