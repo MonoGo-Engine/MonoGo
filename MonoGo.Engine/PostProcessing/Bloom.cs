@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
+using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
 
 namespace MonoGo.Engine.PostProcessing
@@ -301,7 +301,7 @@ namespace MonoGo.Engine.PostProcessing
 
             _renderTargetFormat = renderTargetFormat;
 
-            _shaderEffect = ResourceHub.GetResource<Effect>("Effects", "Bloom");
+            _shaderEffect = ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), "Bloom");
             _bloomInverseResolutionParameter = _shaderEffect.Parameters["InverseResolution"];
             _bloomRadiusParameter = _shaderEffect.Parameters["Radius"];
             _bloomStrengthParameter = _shaderEffect.Parameters["Strength"];

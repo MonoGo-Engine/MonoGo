@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
+using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
 
 namespace MonoGo.Engine.PostProcessing
@@ -23,7 +24,7 @@ namespace MonoGo.Engine.PostProcessing
         {
             UpdateResolution();
 
-            _shaderEffect = ResourceHub.GetResource<Effect>("Effects", "ColorGrading");
+            _shaderEffect = ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), "ColorGrading");
 
             var effectSpriteBox = ResourceHub.GetResourceBox("LUTSprites") as SpriteGroupResourceBox;
             LUTs = effectSpriteBox.Select(x => x.Value).ToArray();

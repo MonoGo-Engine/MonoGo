@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
+using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
 using MonoGo.Engine.UI;
 using MonoGo.Resources;
@@ -47,12 +48,12 @@ namespace MonoGo.Engine
 
             //var resourcePaths = ResourceInfoMgr.GetResourcePaths("**");
 
-            new SpriteGroupResourceBox("ParticleSprites", "Engine/Particles");
-            new SpriteGroupResourceBox("LUTSprites", "Engine/LUT");
-            new DirectoryResourceBox<Effect>("Effects", "Engine/Effects");
-            new FontResourceBox("Fonts", "Engine/Fonts");
+            new SpriteGroupResourceBox(nameof(EngineResources.ParticleSprites), "Engine/Particles");
+            new SpriteGroupResourceBox(nameof(EngineResources.LUTSprites), "Engine/LUT");
+            new DirectoryResourceBox<Effect>(nameof(EngineResources.Effects), "Engine/Effects");
+            new FontResourceBox(nameof(EngineResources.Fonts), "Engine/Fonts");
 
-            Text.CurrentFont = ResourceHub.GetResource<IFont>("Fonts", "Default");
+            Text.CurrentFont = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), "Default");
 
             UISystem.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Engine/GUI"), UITheme);
         }

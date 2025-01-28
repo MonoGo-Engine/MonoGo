@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
+using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace MonoGo.Engine.UI
             _content = new ContentManager(GameMgr.Game.Services, _assetsRoot);
 
             // create white texture
-            _whiteTexture = ResourceHub.GetResource<Sprite>("ParticleSprites", "Pixel")[0].Texture;
+            _whiteTexture = ResourceHub.GetResource<Sprite>(nameof(EngineResources.ParticleSprites), "Pixel")[0].Texture;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace MonoGo.Engine.UI
                 return font; 
             }
 
-            var ret = ResourceHub.GetResource<IFont>("Fonts", fontNameOrDefault).SpriteFont;
+            var ret = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), fontNameOrDefault).SpriteFont;
             _fonts[fontNameOrDefault] = ret;
             return ret;
         }
@@ -91,7 +92,7 @@ namespace MonoGo.Engine.UI
         {
             if (effectId == null) { return null; }
             var firstCharToUpper = string.Concat(effectId[..1].ToUpper(), effectId.AsSpan(1));
-            return ResourceHub.GetResource<Effect>("Effects", firstCharToUpper);
+            return ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), firstCharToUpper);
         }
 
         /// <summary>
