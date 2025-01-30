@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.Cameras;
+using MonoGo.Engine.SceneSystem;
+using System;
 
 namespace MonoGo.Engine.Drawing
 {
 
-	public static class GraphicsMgr
+    public static class GraphicsMgr
 	{
 		/// <summary>
 		/// Default sprite batch used to draw sprites, text and surfaces.
@@ -24,20 +22,17 @@ namespace MonoGo.Engine.Drawing
 		/// Currently enabled camera.
 		/// </summary>
 		public static Camera CurrentCamera {get; private set;}
-
-		
+				
 		/// <summary>
 		/// Current drawing color. Affects shapes, sprites, text and primitives.
 		/// </summary>
 		public static Color CurrentColor = Color.White;
-		
-		
+				
 		/// <summary>
 		/// Used for drawing cameras.
 		/// </summary>
 		internal static RasterizerState _cameraRasterizerState;
-
-		
+				
 		/// <summary>
 		/// Matrix for offsetting, scaling and rotating canvas contents.
 		/// </summary>
@@ -78,11 +73,10 @@ namespace MonoGo.Engine.Drawing
 			VertexBatch.World = Matrix.CreateTranslation(Vector3.Zero);
 		}
 
-
-		/// <summary>
-		/// Performs Draw events for all objects.
-		/// </summary>
-		public static void Update(GameTime gameTime)
+        /// <summary>
+        /// Performs Draw events for all objects.
+        /// </summary>
+        public static void Update(GameTime gameTime)
 		{
 			
 			#region Canvas matrix.
@@ -134,9 +128,7 @@ namespace MonoGo.Engine.Drawing
 			}
 			
 			#endregion Canvas matrix.
-
-
-			
+						
 			#region Main draw events.
 			
 			OnFrameStart?.Invoke();
@@ -169,7 +161,6 @@ namespace MonoGo.Engine.Drawing
 			
 			#endregion Main draw events.
 
-
 			// Resetting camera, transform matrix and mouse position.
 			CurrentCamera = null;
 			VertexBatch.PushProjectionMatrix(
@@ -184,7 +175,6 @@ namespace MonoGo.Engine.Drawing
 			);
 			VertexBatch.PushViewMatrix(CanvasMatrix);
 			// Resetting camera, transform matrix and mouse position
-
 
 			// Drawing camera surfaces.
 			var oldEffect = VertexBatch.Effect;
@@ -213,7 +203,6 @@ namespace MonoGo.Engine.Drawing
 			VertexBatch.BlendState = oldBlendState;
 			VertexBatch.Effect = oldEffect;
 			// Drawing camera surfaces.
-
 
 			// Drawing GUI stuff.
 			SceneMgr.CallDrawGUIEvents();
