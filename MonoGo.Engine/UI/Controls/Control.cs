@@ -1214,7 +1214,7 @@ namespace MonoGo.Engine.UI.Controls
                     }
 
                     // apply alpha
-                    if (alpha <= 1f)
+                    if (alpha < 1f)
                     {
                         color.A = (byte)((float)color.A * alpha);
                         backColor.A = (byte)((float)backColor.A * alpha);
