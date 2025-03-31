@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>MonoGo.Templates</id>
-    <version>1.1.0.0</version>
+    <version>1.2.0.0</version>
     <title>MonoGo Engine Templates</title>
     <authors>Marcel Härtel</authors>
     <owners>Marcel Härtel</owners>
@@ -17,6 +17,6 @@
     </packageTypes>
   </metadata>
   <files>
-    <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;" />
+    <file src="**" exclude="**\bin\**\*;**\obj\**\*;**\*.user;**/.vs;**\*.db;" />
   </files>
 </package>

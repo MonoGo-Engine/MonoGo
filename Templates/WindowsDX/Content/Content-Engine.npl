@@ -1,5 +1,10 @@
 {
   "root": "",
+  "intermediateDir": "obj",
+  "outputDir": "bin",
+  "platform": "Windows",
+  "graphicsProfile": "Reach",
+  "compress": "true",
   "references": [
     "MonoGo.Pipeline.dll"
   ],
@@ -8,7 +13,7 @@
       "path": "$Content-Engine.npl",
       "recursive": "False",
       "action": "build",
-      "importer": "ResourceInfoImporter",
+      "importer": "NPLResourceInfoImporter",
       "processor": "PassThroughProcessor",
       "watch": [
         "Engine/*"
@@ -21,7 +26,7 @@
       "importer": "SpriteGroupImporter",
       "processor": "SpriteGroupProcessor",
       "watch": [
-        "Engine/Particles/Textures/*.png"
+        "Particles/Textures/*.png"
       ]
     },
     "LUTGroup": {
@@ -31,7 +36,7 @@
       "importer": "SpriteGroupImporter",
       "processor": "SpriteGroupProcessor",
       "watch": [
-        "Engine/Effects/LUT/*.png"
+        "Effects/LUT/*.png"
       ]
     },
     "Effects": {
@@ -44,9 +49,7 @@
         "DebugMode": "Auto",
         "Defines": ""
       },
-      "watch": [
-        "Engine/Effects/*.fx"
-      ]
+      "watch": []
     },
     "GUIJSON": {
       "path": "Engine/GUI/*.json",
@@ -54,9 +57,7 @@
       "action": "copy",
       "importer": "NONE",
       "processor": "NONE",
-      "watch": [
-        "Engine/GUI/*.json"
-      ]
+      "watch": []
     },
     "GUITextures": {
       "path": "Engine/GUI/*.png",
@@ -64,9 +65,7 @@
       "action": "build",
       "importer": "TextureImporter",
       "processor": "TextureProcessor",
-      "watch": [
-        "Engine/GUI/*.png"
-      ],
+      "watch": [],
       "processorParam": {
         "ColorKeyColor": "255,0,255,255",
         "ColorKeyEnabled": "True",
@@ -87,9 +86,7 @@
         "PremultiplyAlpha": "True",
         "TextureFormat": "Compressed"
       },
-      "watch": [
-        "Engine/Fonts/*.spritefont"
-      ]
+      "watch": []
     }
   }
 }

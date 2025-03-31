@@ -1,5 +1,10 @@
 {
   "root": "",
+  "intermediateDir": "obj",
+  "outputDir": "bin",
+  "platform": "Windows",
+  "graphicsProfile": "Reach",
+  "compress": "true",
   "references": [],
   "content": {
     "textures": {

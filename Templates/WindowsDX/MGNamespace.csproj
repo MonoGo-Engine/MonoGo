@@ -17,11 +17,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
-    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
     <PackageReference Include="MonoGo.Engine" Version="*" />
     <PackageReference Include="MonoGo.Engine.WindowsDX" Version="*" />
     <PackageReference Include="MonoGo.Pipeline" Version="*" />
-	<PackageReference Include="Nopipeline.Task" Version="2.2.0" />
+    <PackageReference Include="NPLEditor.Task" Version="1.0.0" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
