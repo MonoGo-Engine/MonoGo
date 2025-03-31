@@ -14,7 +14,7 @@ If you prefere a more manual process you could also install the packages one by 
   - ```dotnet add package MonoGo.Engine```
   - ```dotnet add package MonoGo.Engine.DesktopGL``` or ```dotnet add package MonoGo.Engine.WindowsDX```
   - ```dotnet add package MonoGo.Engine.Pipeline```
-  - ```dotnet add package NPLEditor.Task``` or ```dotnet add package MonoGame.Content.Builder.Task``` (Content Building)
+  - ```dotnet add package NPLEditor.Task``` [(i)](https://github.com/BlizzCrafter/NPL-Editor) or ```dotnet add package MonoGame.Content.Builder.Task```
 
 - Install **Optional** Packages (You don't need to!):
   - ```dotnet add package MonoGo.Tiled```
