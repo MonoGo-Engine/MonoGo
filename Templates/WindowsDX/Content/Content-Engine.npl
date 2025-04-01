@@ -15,7 +15,7 @@
       "action": "build",
       "importer": "NPLResourceInfoImporter",
       "processor": "PassThroughProcessor",
-      "watch": [
+      "dependencies": [
         "Engine/*"
       ]
     },
@@ -25,7 +25,7 @@
       "action": "build",
       "importer": "SpriteGroupImporter",
       "processor": "SpriteGroupProcessor",
-      "watch": [
+      "dependencies": [
         "Particles/Textures/*.png"
       ]
     },
@@ -35,7 +35,7 @@
       "action": "build",
       "importer": "SpriteGroupImporter",
       "processor": "SpriteGroupProcessor",
-      "watch": [
+      "dependencies": [
         "Effects/LUT/*.png"
       ]
     },
@@ -48,16 +48,14 @@
       "processorParam": {
         "DebugMode": "Auto",
         "Defines": ""
-      },
-      "watch": []
+      }
     },
     "GUIJSON": {
       "path": "Engine/GUI/*.json",
       "recursive": "true",
       "action": "copy",
       "importer": "NONE",
-      "processor": "NONE",
-      "watch": []
+      "processor": "NONE"
     },
     "GUITextures": {
       "path": "Engine/GUI/*.png",
@@ -85,8 +83,7 @@
       "processorParam": {
         "PremultiplyAlpha": "True",
         "TextureFormat": "Compressed"
-      },
-      "watch": []
+      }
     }
   }
 }

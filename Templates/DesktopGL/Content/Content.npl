@@ -7,6 +7,16 @@
   "compress": "true",
   "references": [],
   "content": {
+    "contentList": {
+      "path": "$Content.npl",
+      "recursive": "False",
+      "action": "build",
+      "importer": "NPLResourceInfoImporter",
+      "processor": "PassThroughProcessor",
+      "dependencies": [
+        "Engine/*"
+      ]
+    },
     "textures": {
       "path": "Graphics/*.png",
       "recursive": "True",
@@ -21,8 +31,7 @@
         "ResizeToPowerOfTwo": "False",
         "MakeSquare": "False",
         "TextureFormat": "Color"
-      },
-      "watch": []
+      }
     }
   }
 }
