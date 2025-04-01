@@ -575,12 +575,12 @@ namespace MonoGo.Engine.PostProcessing
         {
             Surface?.Dispose();
             _shaderEffect?.Dispose();
-            _bloomSurfaceMip0.Dispose();
-            _bloomSurfaceMip1.Dispose();
-            _bloomSurfaceMip2.Dispose();
-            _bloomSurfaceMip3.Dispose();
-            _bloomSurfaceMip4.Dispose();
-            _bloomSurfaceMip5.Dispose();
+            _bloomSurfaceMip0?.Dispose();
+            _bloomSurfaceMip1?.Dispose();
+            _bloomSurfaceMip2?.Dispose();
+            _bloomSurfaceMip3?.Dispose();
+            _bloomSurfaceMip4?.Dispose();
+            _bloomSurfaceMip5?.Dispose();
         }
     }
 }
