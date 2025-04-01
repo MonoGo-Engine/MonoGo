@@ -27,7 +27,7 @@
     <PackageReference Include="MonoGo.Engine" Version="*" />
     <PackageReference Include="MonoGo.Engine.DesktopGL" Version="*" />
     <PackageReference Include="MonoGo.Pipeline" Version="*" />
-    <PackageReference Include="NPLEditor.Task" Version="1.0.0" />
+    <PackageReference Include="NPLEditor.Task" Version="*" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
