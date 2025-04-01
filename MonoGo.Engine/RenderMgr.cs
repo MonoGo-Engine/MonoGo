@@ -22,8 +22,6 @@ namespace MonoGo.Engine
 
         internal static void Init()
         {
-            UpdateResolution();
-
             ColorGrading.Init();
             Bloom.Init();
 

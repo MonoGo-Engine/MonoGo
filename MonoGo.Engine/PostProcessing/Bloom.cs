@@ -297,8 +297,6 @@ namespace MonoGo.Engine.PostProcessing
         /// <param name="renderTargetFormat">The intended format for the rendertargets. For normal, non-hdr, applications color or rgba1010102 are fine NOTE: For OpenGL, SurfaceFormat.Color is recommended for non-HDR applications.</param>
         internal static void Init(SurfaceFormat renderTargetFormat = SurfaceFormat.Color)
         {
-            UpdateResolution();
-
             _renderTargetFormat = renderTargetFormat;
 
             _shaderEffect = ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), "Bloom");

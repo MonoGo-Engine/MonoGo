@@ -22,8 +22,6 @@ namespace MonoGo.Engine.PostProcessing
 
         internal static void Init()
         {
-            UpdateResolution();
-
             _shaderEffect = ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), "ColorGrading");
 
             var effectSpriteBox = ResourceHub.GetResourceBox(nameof(EngineResources.LUTSprites)) as SpriteGroupResourceBox;
