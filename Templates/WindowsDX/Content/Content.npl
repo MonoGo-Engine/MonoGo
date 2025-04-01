@@ -5,7 +5,9 @@
   "platform": "Windows",
   "graphicsProfile": "Reach",
   "compress": "true",
-  "references": [],
+  "references": [
+    "MonoGo.Pipeline.dll"
+  ],
   "content": {
     "contentList": {
       "path": "$Content.npl",
