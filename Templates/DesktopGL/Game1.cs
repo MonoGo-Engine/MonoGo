@@ -19,7 +19,7 @@ namespace MGNamespace
         protected override void LoadContent()
         {
             // IMPORTANT: Don't delete; it loads engine specific stuff.
-            base.LoadContent();
+            LoadEngineContent();
         }
 
         protected override void Update(GameTime gameTime)
