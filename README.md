@@ -17,7 +17,8 @@ If you prefere a more manual process you could also install the packages one by 
   - ```dotnet add package NPLEditor.Task``` [(i)](https://github.com/BlizzCrafter/NPL-Editor) or ```dotnet add package MonoGame.Content.Builder.Task```
 
 - Install **Optional** Packages (You don't need to!):
-  - ```dotnet add package MonoGo.Tiled```
+  - ```dotnet add package MonoGo.Iguina``` (GUI Module)
+  - ```dotnet add package MonoGo.Tiled``` (Tiled Module)
  
 Of course it's also possible to build everything from source and working directly with the engine, which is very useful for debugging.
 
@@ -40,6 +41,7 @@ Of course it's also possible to build everything from source and working directl
 * FMOD Audio Support (As a standalone [Library](https://github.com/Martenfur/FmodForFoxes/)).
 ### Modules:
 * Tiled Map Support via [Tiled](https://www.mapeditor.org/).
+* Iguina UI-System Support via [Iguina](https://github.com/RonenNess/Iguina).
 
 # Sample Project
 
