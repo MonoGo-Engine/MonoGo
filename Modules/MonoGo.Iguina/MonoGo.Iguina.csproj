@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<IsPackable>true</IsPackable>
-	<Description>Iguina GUI integration for MonoGo.</Description>
+	<Description>Iguina UI-System integration for MonoGo.</Description>
   </PropertyGroup>
 
   <ItemGroup>
