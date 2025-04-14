@@ -1,14 +1,13 @@
-﻿using MonoGo.Engine;
+﻿using Iguina.Defs;
+using Iguina.Entities;
 using MonoGo.Engine.EC;
 using MonoGo.Engine.SceneSystem;
-using MonoGo.Engine.UI;
-using MonoGo.Engine.UI.Controls;
-using MonoGo.Engine.UI.Defs;
+using MonoGo.Iguina;
 using System.Reflection;
 
 namespace MGNamespace
 {
-    public class SplashScreen : Entity, IHaveGUI
+    public class SplashScreen : GUIEntity
     {
         private CameraController _cameraController;
 
@@ -17,17 +16,19 @@ namespace MGNamespace
             _cameraController = cameraController;
         }
 
-        public void CreateUI()
+        public override void CreateUI()
         {
-            var panel = new Panel(null!)
+            base.CreateUI();
+
+            var panel = new Panel(GUIMgr.System, null!)
             {
                 Anchor = Anchor.Center,
                 AutoHeight = true,
                 OverflowMode = OverflowMode.HideOverflow
             };
-            UISystem.Add(panel);
+            AddGUIEntity(panel);
 
-            var welcomeText = new Paragraph(@$"MonoGo Engine ${{FC:FFDB5F}}v.{Assembly.GetAssembly(typeof(Entity)).GetName().Version}${{RESET}}");
+            var welcomeText = new Paragraph(GUIMgr.System, @$"MonoGo Engine ${{FC:FFDB5F}}v.{Assembly.GetAssembly(typeof(MonoGo.Engine.EC.Entity)).GetName().Version}${{RESET}}");
             welcomeText.OverrideStyles.FontSize = 28;
             panel.AddChild(welcomeText);
         }

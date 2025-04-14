@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoGo.Engine;
+using MonoGo.Iguina;
+using System.IO;
 
 namespace MGNamespace
 {
@@ -20,6 +22,8 @@ namespace MGNamespace
         {
             // IMPORTANT: Don't delete; it loads engine specific stuff.
             LoadEngineContent();
+
+            GUIMgr.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Engine/GUI"), "MonoGoTheme");
         }
 
         protected override void Update(GameTime gameTime)

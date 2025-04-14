@@ -16,24 +16,8 @@
       "importer": "NPLResourceInfoImporter",
       "processor": "PassThroughProcessor",
       "dependencies": [
-        "Engine/*"
+        "Game/*"
       ]
-    },
-    "textures": {
-      "path": "Graphics/*.png",
-      "recursive": "True",
-      "action": "build",
-      "importer": "TextureImporter",
-      "processor": "TextureProcessor",
-      "processorParam": {
-        "ColorKeyColor": "255,0,255,255",
-        "ColorKeyEnabled": "True",
-        "GenerateMipmaps": "False",
-        "PremultiplyAlpha": "True",
-        "ResizeToPowerOfTwo": "False",
-        "MakeSquare": "False",
-        "TextureFormat": "Color"
-      }
     }
   }
 }
