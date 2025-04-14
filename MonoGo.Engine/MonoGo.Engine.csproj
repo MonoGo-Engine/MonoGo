@@ -8,8 +8,6 @@
 		<NoWarn>1701;1702;1591;8618</NoWarn>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<PackageProjectUrl />
-		<RepositoryUrl />
 		<Configurations>Debug;Release;gametest</Configurations>
 	</PropertyGroup>
 

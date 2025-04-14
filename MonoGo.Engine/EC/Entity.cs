@@ -243,7 +243,7 @@ namespace MonoGo.Engine.EC
 			component.Initialized = true;
             _depthListComponentsOutdated = true;
 
-            if (component is IHaveGUI GUI) GUI.Init();
+            if (component is IHaveGUI GUI) GUI.CreateUI();
 
             return component; // Doing a passthrough for nicer syntax.	
 		}

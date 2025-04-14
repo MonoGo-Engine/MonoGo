@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<OutputPath>..\..\bin\</OutputPath>
+	<DocumentationFile>..\..\bin\$(AssemblyName).xml</DocumentationFile>
+    <Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<IsPackable>true</IsPackable>
+	<Description>Iguina GUI integration for MonoGo.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Iguina" Version="1.1.3" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MonoGo.Engine\MonoGo.Engine.csproj" />
+  </ItemGroup>
+
+</Project>

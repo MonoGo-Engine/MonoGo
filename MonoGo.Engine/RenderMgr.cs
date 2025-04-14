@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.PostProcessing;
 using MonoGo.Engine.SceneSystem;
-using MonoGo.Engine.UI;
 
 namespace MonoGo.Engine
 {
@@ -69,10 +68,6 @@ namespace MonoGo.Engine
             else SceneSurface.Draw();
 
             GUISurface.Draw();
-
-            // Drawing the ui cursor here so that it is outside of the gui surface, because
-            // the mouse cursor shouldn't be included in the gui render target.
-            UISystem.DrawCursor();
         }
 
         private static void DrawPostFXScene()

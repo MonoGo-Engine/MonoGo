@@ -1,7 +1,7 @@
 ﻿using MonoGo.Engine.EC;
 using MonoGo.Engine.SceneSystem;
 
-namespace MonoGo.Engine.UI
+namespace MonoGo.Iguina
 {
     internal class UIController : Entity
     {
@@ -11,14 +11,14 @@ namespace MonoGo.Engine.UI
         {
             base.Update();
 
-            UISystem.Update();
+            GUIMgr.Update();
         }
 
         public override void Draw()
         {
             base.Draw();
 
-            UISystem.Draw();
+            GUIMgr.Draw();
         }
     }
 }

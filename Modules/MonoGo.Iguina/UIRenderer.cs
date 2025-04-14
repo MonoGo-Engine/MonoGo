@@ -1,37 +1,38 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Iguina.Defs;
+using Iguina.Drivers;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Numerics;
 
-namespace MonoGo.Engine.UI
+namespace MonoGo.Iguina
 {
-    internal static class Renderer
+    /// <summary>
+    /// Provide rendering for the GUI system.
+    /// </summary>
+    internal class UIRenderer : IRenderer
     {
-        private static ContentManager _content;
-        private static SpriteBatch _spriteBatch;
-        private static string _assetsRoot;
-        private static Texture2D _whiteTexture;
+        SpriteBatch _spriteBatch;
+        ContentManager _content;
+        string _assetsRoot;
+        Texture2D _whiteTexture;
 
-        private static Dictionary<string, Texture2D> _textures;
-        private static Dictionary<string, Sprite> _sprites;
-        private static Dictionary<string, SpriteFont> _fonts;
+        Dictionary<string, SpriteFont> _fonts;
+        Dictionary<string, Texture2D> _textures;
 
-        public static float GlobalTextScale = 1f;
+        public float GlobalTextScale = 0.75f;
 
         /// <summary>
         /// Create the monogame renderer.
         /// </summary>
         /// <param name="assetsPath">Root directory to load assets from. Check out the demo project for details.</param>
-        internal static void Init(string assetsPath)
+        public UIRenderer(string assetsPath)
         {
             _assetsRoot = assetsPath;
             _textures = new Dictionary<string, Texture2D>();
-            _sprites = new Dictionary<string, Sprite>();
             _fonts = new Dictionary<string, SpriteFont>();
 
             _spriteBatch = new SpriteBatch(GraphicsMgr.Device);
@@ -44,12 +45,12 @@ namespace MonoGo.Engine.UI
         /// <summary>
         /// Load / get font.
         /// </summary>
-        public static SpriteFont GetFont(string? fontName)
+        SpriteFont GetFont(string? fontName)
         {
             var fontNameOrDefault = !string.IsNullOrEmpty(fontName) ? fontName : "Default";
-            if (_fonts.TryGetValue(fontNameOrDefault, out var font)) 
-            { 
-                return font; 
+            if (_fonts.TryGetValue(fontNameOrDefault, out var font))
+            {
+                return font;
             }
 
             var ret = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), fontNameOrDefault).SpriteFont;
@@ -57,10 +58,25 @@ namespace MonoGo.Engine.UI
             return ret;
         }
 
+        internal void RegisterTexture(Texture2D texture, string textureId)
+        {
+            texture.Tag = textureId;
+            _textures[textureId] = texture;
+        }
+
+        internal Texture2D GetTextureByID(string textureId)
+        {
+            if (_textures.TryGetValue(textureId, out var texture))
+            {
+                return texture;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Load / get texture.
         /// </summary>
-        public static Texture2D GetTexture(string textureId)
+        Texture2D GetTexture(string textureId)
         {
             if (_textures.TryGetValue(textureId, out var texture))
             {
@@ -72,23 +88,10 @@ namespace MonoGo.Engine.UI
             return ret;
         }
 
-        public static Sprite GetSprite(string textureId)
-        {
-            if (_sprites.TryGetValue(textureId, out var sprite))
-            {
-                return sprite;
-            }
-
-            var texture = _content.Load<Texture2D>(Path.ChangeExtension(textureId, null));
-            var ret = new Sprite(new Frame(texture, RectangleF.Empty, Vector2.Zero), Vector2.Zero, textureId);
-            _sprites[textureId] = ret;
-            return ret;
-        }
-
         /// <summary>
         /// Load / get effect from id.
         /// </summary>
-        public static Effect? GetEffect(string? effectId)
+        Effect? GetEffect(string? effectId)
         {
             if (effectId == null) { return null; }
             var firstCharToUpper = string.Concat(effectId[..1].ToUpper(), effectId.AsSpan(1));
@@ -98,7 +101,7 @@ namespace MonoGo.Engine.UI
         /// <summary>
         /// Set active effect id.
         /// </summary>
-        public static void SetEffect(string? effectId)
+        void SetEffect(string? effectId)
         {
             if (_currEffectId != effectId)
             {
@@ -107,14 +110,14 @@ namespace MonoGo.Engine.UI
                 BeginBatch();
             }
         }
-        private static string? _currEffectId;
+        string? _currEffectId;
 
         /// <summary>
         /// Convert iguina color to mg color.
         /// </summary>
-        private static Color ToMgColor(Color color)
+        Microsoft.Xna.Framework.Color ToMgColor(Color color)
         {
-            var colorMg = new Color(color.R, color.G, color.B, color.A);
+            var colorMg = new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
             if (color.A < 255)
             {
                 float factor = (float)color.A / 255f;
@@ -128,7 +131,7 @@ namespace MonoGo.Engine.UI
         /// <summary>
         /// Called at the beginning of every frame.
         /// </summary>
-        public static void StartFrame()
+        public void StartFrame()
         {
             _currEffectId = null;
             _currScissorRegion = null;
@@ -138,57 +141,43 @@ namespace MonoGo.Engine.UI
         /// <summary>
         /// Called at the end of every frame.
         /// </summary>
-        public static void EndFrame()
+        public void EndFrame()
         {
             _spriteBatch.End();
         }
 
         /// <inheritdoc/>
-        public static Rectangle GetScreenBounds()
+        public Rectangle GetScreenBounds()
         {
             var size = GameMgr.WindowManager.CanvasSize;
             return new Rectangle(0, 0, (int)size.X, (int)size.Y);
         }
 
         /// <inheritdoc/>
-        public static void DrawTexture(string? effectIdentifier, Texture2D texture, Rectangle destRect, Rectangle sourceRect, Color color)
+        public void DrawTexture(string? effectIdentifier, Texture2D texture, Rectangle destRect, Rectangle sourceRect, Color color)
         {
             SetEffect(effectIdentifier);
             var colorMg = ToMgColor(color);
             _spriteBatch.Draw(texture,
-                new Rectangle(destRect.X, destRect.Y, destRect.Width, destRect.Height),
-                new Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height),
+                new Microsoft.Xna.Framework.Rectangle(destRect.X, destRect.Y, destRect.Width, destRect.Height),
+                new Microsoft.Xna.Framework.Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height),
                 colorMg);
         }
 
         /// <inheritdoc/>
-        public static void DrawTexture(string? effectIdentifier, string textureId, Rectangle destRect, Rectangle sourceRect, Color color)
+        public void DrawTexture(string? effectIdentifier, string textureId, Rectangle destRect, Rectangle sourceRect, Color color)
         {
             SetEffect(effectIdentifier);
             var texture = GetTexture(textureId);
             var colorMg = ToMgColor(color);
             _spriteBatch.Draw(texture,
-                new Rectangle(destRect.X, destRect.Y, destRect.Width, destRect.Height),
-                new Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height),
+                new Microsoft.Xna.Framework.Rectangle(destRect.X, destRect.Y, destRect.Width, destRect.Height),
+                new Microsoft.Xna.Framework.Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height),
                 colorMg);
         }
 
         /// <inheritdoc/>
-        public static void DrawSprite(string textureId, Rectangle destRect, Rectangle sourceRect, Color color)
-        {
-            var sprite = GetSprite(textureId);
-            var colorMg = ToMgColor(color);
-
-            sprite.Draw(
-                destRect.ToRectangleF(), 
-                0,
-                sourceRect.ToRectangleF(),
-                Angle.Right, 
-                colorMg);
-        }
-
-        /// <inheritdoc/>
-        public static Point MeasureText(string text, string? fontId, int fontSize, float spacing)
+        public Point MeasureText(string text, string? fontId, int fontSize, float spacing)
         {
             var spriteFont = GetFont(fontId);
             float scale = (fontSize / 24f) * GlobalTextScale; // 24 is the default font sprite size. you need to adjust this to your own sprite font.
@@ -197,7 +186,7 @@ namespace MonoGo.Engine.UI
         }
 
         /// <inheritdoc/>
-        public static int GetTextLineHeight(string? fontId, int fontSize)
+        public int GetTextLineHeight(string? fontId, int fontSize)
         {
             return (int)MeasureText("WI", fontId, fontSize, 1f).Y;
         }
@@ -205,7 +194,7 @@ namespace MonoGo.Engine.UI
         /// <inheritdoc/>
 
         [Obsolete("Note: currently we render outline in a primitive way. To improve performance and remove some visual artifact during transitions, its best to implement a shader that draw text with outline properly.")]
-        public static void DrawText(string? effectIdentifier, string text, string? fontId, int fontSize, Point position, Color fillColor, Color outlineColor, int outlineWidth, float spacing)
+        public void DrawText(string? effectIdentifier, string text, string? fontId, int fontSize, Point position, Color fillColor, Color outlineColor, int outlineWidth, float spacing)
         {
             SetEffect(effectIdentifier);
 
@@ -225,38 +214,38 @@ namespace MonoGo.Engine.UI
 
                 // draw outline
                 var outline = ToMgColor(outlineColor);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X - outlineWidth, position.Y), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X, position.Y - outlineWidth), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X + outlineWidth, position.Y), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X, position.Y + outlineWidth), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X - outlineWidth, position.Y - outlineWidth), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X - outlineWidth, position.Y + outlineWidth), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X + outlineWidth, position.Y - outlineWidth), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X + outlineWidth, position.Y + outlineWidth), outline, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X - outlineWidth, position.Y), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X, position.Y - outlineWidth), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X + outlineWidth, position.Y), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X, position.Y + outlineWidth), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X - outlineWidth, position.Y - outlineWidth), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X - outlineWidth, position.Y + outlineWidth), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X + outlineWidth, position.Y - outlineWidth), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X + outlineWidth, position.Y + outlineWidth), outline, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
             }
 
             // draw fill
             {
                 var colorMg = ToMgColor(fillColor);
-                _spriteBatch.DrawString(spriteFont, text, new Vector2(position.X, position.Y), colorMg, 0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
+                _spriteBatch.DrawString(spriteFont, text, new Microsoft.Xna.Framework.Vector2(position.X, position.Y), colorMg, 0f, new Microsoft.Xna.Framework.Vector2(0, 0), scale, SpriteEffects.None, 0f);
             }
         }
 
         /// <inheritdoc/>
-        public static void DrawRectangle(Rectangle rectangle, Color color)
+        public void DrawRectangle(Rectangle rectangle, Color color)
         {
             SetEffect(null);
 
             var texture = _whiteTexture;
             var colorMg = ToMgColor(color);
             _spriteBatch.Draw(texture,
-                new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height),
+                new Microsoft.Xna.Framework.Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height),
                 null,
                 colorMg);
         }
 
         /// <inheritdoc/>
-        public static void SetScissorRegion(Rectangle region)
+        public void SetScissorRegion(Rectangle region)
         {
             _currScissorRegion = region;
             _currEffectId = null;
@@ -265,39 +254,37 @@ namespace MonoGo.Engine.UI
         }
 
         /// <inheritdoc/>
-        public static Rectangle? GetScissorRegion()
+        public Rectangle? GetScissorRegion()
         {
             return _currScissorRegion;
         }
 
         // current scissor region
-        private static Rectangle? _currScissorRegion = null;
+        Rectangle? _currScissorRegion = null;
 
         /// <summary>
         /// Begin a new rendering batch.
         /// </summary>
-        private static void BeginBatch()
+        void BeginBatch()
         {
             var effect = GetEffect(_currEffectId);
             if (_currScissorRegion != null)
             {
-                GraphicsMgr.Device.ScissorRectangle = new Rectangle(_currScissorRegion.Value.X, _currScissorRegion.Value.Y, _currScissorRegion.Value.Width, _currScissorRegion.Value.Height);
+                GraphicsMgr.Device.ScissorRectangle = new Microsoft.Xna.Framework.Rectangle(_currScissorRegion.Value.X, _currScissorRegion.Value.Y, _currScissorRegion.Value.Width, _currScissorRegion.Value.Height);
             }
-            var raster = new RasterizerState
-            {
-                CullMode = GraphicsMgr.Device.RasterizerState.CullMode,
-                DepthBias = GraphicsMgr.Device.RasterizerState.DepthBias,
-                FillMode = GraphicsMgr.Device.RasterizerState.FillMode,
-                MultiSampleAntiAlias = GraphicsMgr.Device.RasterizerState.MultiSampleAntiAlias,
-                SlopeScaleDepthBias = GraphicsMgr.Device.RasterizerState.SlopeScaleDepthBias,
-                ScissorTestEnable = _currScissorRegion.HasValue
-            };
+            var raster = new RasterizerState();
+            raster.CullMode = GraphicsMgr.Device.RasterizerState.CullMode;
+            raster.DepthBias = GraphicsMgr.Device.RasterizerState.DepthBias;
+            raster.FillMode = GraphicsMgr.Device.RasterizerState.FillMode;
+            raster.MultiSampleAntiAlias = GraphicsMgr.Device.RasterizerState.MultiSampleAntiAlias;
+            raster.SlopeScaleDepthBias = GraphicsMgr.Device.RasterizerState.SlopeScaleDepthBias;
+            raster.ScissorTestEnable = _currScissorRegion.HasValue;
             GraphicsMgr.Device.RasterizerState = raster;
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: effect, rasterizerState: raster);
         }
 
         /// <inheritdoc/>
-        public static void ClearScissorRegion()
+        public void ClearScissorRegion()
         {
             _currScissorRegion = null;
             _currEffectId = null;
@@ -306,25 +293,25 @@ namespace MonoGo.Engine.UI
         }
 
         /// <inheritdoc/>
-        public static Color GetPixelFromTexture(string textureId, Point sourcePosition)
+        public Color GetPixelFromTexture(string textureId, Point sourcePosition)
         {
             var texture = GetTexture(textureId);
-            var pixelData = new Color[1];
+            var pixelData = new Microsoft.Xna.Framework.Color[1];
             if (sourcePosition.X < 0) sourcePosition.X = 0;
             if (sourcePosition.Y < 0) sourcePosition.Y = 0;
             if (sourcePosition.X >= texture.Width) sourcePosition.X = texture.Width - 1;
             if (sourcePosition.Y >= texture.Height) sourcePosition.Y = texture.Height - 1;
-            texture.GetData(0, new Rectangle(sourcePosition.X, sourcePosition.Y, 1, 1), pixelData, 0, 1);
+            texture.GetData(0, new Microsoft.Xna.Framework.Rectangle(sourcePosition.X, sourcePosition.Y, 1, 1), pixelData, 0, 1);
             var pixelColor = pixelData[0];
             return new Color(pixelColor.R, pixelColor.G, pixelColor.B, pixelColor.A);
         }
 
         /// <inheritdoc/>
-        public static Point? FindPixelOffsetInTexture(string textureId, Rectangle sourceRect, Color color, bool returnNearestColor)
+        public Point? FindPixelOffsetInTexture(string textureId, Rectangle sourceRect, Color color, bool returnNearestColor)
         {
             var texture = GetTexture(textureId);
-            var pixelData = new Color[sourceRect.Width * sourceRect.Height];
-            texture.GetData(0, new Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height), pixelData, 0, pixelData.Length);
+            var pixelData = new Microsoft.Xna.Framework.Color[sourceRect.Width * sourceRect.Height];
+            texture.GetData(0, new Microsoft.Xna.Framework.Rectangle(sourceRect.X, sourceRect.Y, sourceRect.Width, sourceRect.Height), pixelData, 0, pixelData.Length);
             Point? ret = null;
             float nearestDistance = 255f * 255f * 255f * 255f;
             for (int x = 0; x < sourceRect.Width; x++)
@@ -354,9 +341,9 @@ namespace MonoGo.Engine.UI
         /// MonoGame measure string sucks and return wrong result.
         /// So I copied the code that render string and changed it to measure instead.
         /// </summary>
-        public static Point MeasureStringNew(SpriteFont spriteFont, string text, float scale)
+        Point MeasureStringNew(SpriteFont spriteFont, string text, float scale)
         {
-            var matrix = Matrix.Identity;
+            var matrix = Microsoft.Xna.Framework.Matrix.Identity;
             {
                 matrix.M11 = scale;
                 matrix.M22 = scale;
@@ -365,13 +352,14 @@ namespace MonoGo.Engine.UI
             }
 
             // fix a bug in measuring just a single space
-            if (text.Length == 1) 
+            if (text.Length == 1)
             {
                 var singleRet = spriteFont.MeasureString(text);
                 return new Point((int)Math.Ceiling(singleRet.X * scale), (int)Math.Ceiling(singleRet.Y * scale));
             }
+
             bool flag3 = true;
-            var zero2 = Vector2.Zero;
+            var zero2 = Microsoft.Xna.Framework.Vector2.Zero;
             Point ret = new Point();
             {
                 foreach (char c in text)
@@ -398,11 +386,11 @@ namespace MonoGo.Engine.UI
                         zero2.X += spriteFont.Spacing + glyph.LeftSideBearing;
                     }
 
-                    Vector2 position2 = zero2;
+                    Microsoft.Xna.Framework.Vector2 position2 = zero2;
 
                     position2.X += glyph.Cropping.X;
                     position2.Y += glyph.Cropping.Y;
-                    Vector2.Transform(ref position2, ref matrix, out position2);
+                    Microsoft.Xna.Framework.Vector2.Transform(ref position2, ref matrix, out position2);
                     ret.X = (int)Math.Max((float)(position2.X + (float)glyph.BoundsInTexture.Width * scale), (float)(ret.X));
                     ret.Y = (int)Math.Max((float)(position2.Y + (float)spriteFont.LineSpacing * scale), (float)(ret.Y));
 

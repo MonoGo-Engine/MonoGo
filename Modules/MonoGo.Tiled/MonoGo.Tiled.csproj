@@ -3,12 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<Description>Tiled Map Editor integration for MonoGo.</Description>
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>..\..\bin\</OutputPath>
 		<DocumentationFile>..\..\bin\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 		<Configurations>Debug;Release;gametest</Configurations>
+		<IsPackable>true</IsPackable>
+		<Description>Tiled Map Editor integration for MonoGo.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>

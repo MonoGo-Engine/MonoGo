@@ -462,7 +462,7 @@ namespace MonoGo.Engine.SceneSystem
 		{
 			_entities.Add(entity);
 			_depthListEntitiesOutdated = true;
-			if (entity is IHaveGUI GUI) GUI.Init();
+			if (entity is IHaveGUI GUI) GUI.CreateUI();
 		}
 
 		internal void RemoveEntity(Entity entity)

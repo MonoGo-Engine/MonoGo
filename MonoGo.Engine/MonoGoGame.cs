@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
-using MonoGo.Engine.UI;
 using MonoGo.Resources;
-using System.IO;
 
 namespace MonoGo.Engine
 {
@@ -42,7 +40,7 @@ namespace MonoGo.Engine
             GraphicsMgr.VertexBatch.DepthStencilState = depth;
         }
 
-        protected void LoadEngineContent(string UITheme = "MonoGoTheme")
+        protected void LoadEngineContent()
         {
             GraphicsMgr.Init(GraphicsDevice);
 
@@ -54,8 +52,6 @@ namespace MonoGo.Engine
             new FontResourceBox(nameof(EngineResources.Fonts), "Engine/Fonts");
 
             Text.CurrentFont = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), "Default");
-
-            UISystem.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Engine/GUI"), UITheme);
         }
 
         protected override void UnloadContent()
