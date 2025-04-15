@@ -16,7 +16,7 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.3" />
     <PackageReference Include="MonoGo.Engine" Version="*" />
     <PackageReference Include="MonoGo.Engine.WindowsDX" Version="*" />
     <PackageReference Include="MonoGo.Iguina" Version="*" />
