@@ -158,6 +158,22 @@ namespace MonoGo.Iguina
         }
 
         /// <summary>
+        /// Set the font size for the GUI according to your <c>SpriteFont</c> size.
+        /// </summary>
+        public static void SetFontSize(float size)
+        {
+            _renderer.FontSize = size;
+        }
+
+        /// <summary>
+        /// Set the global text scale for the GUI.
+        /// </summary>
+        public static void SetTextScale(float scale)
+        {
+            _renderer.GlobalTextScale = scale;
+        }
+
+        /// <summary>
         /// Register textures for the UISystem.
         /// </summary>
         /// <param name="texture">Texture to register.</param>

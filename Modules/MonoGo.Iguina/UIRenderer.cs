@@ -15,6 +15,9 @@ namespace MonoGo.Iguina
     /// </summary>
     internal class UIRenderer : IRenderer
     {
+        public float FontSize = 24f;
+        public float GlobalTextScale = 1f;
+
         SpriteBatch _spriteBatch;
         ContentManager _content;
         string _assetsRoot;
@@ -22,8 +25,6 @@ namespace MonoGo.Iguina
 
         Dictionary<string, SpriteFont> _fonts;
         Dictionary<string, Texture2D> _textures;
-
-        public float GlobalTextScale = 0.75f;
 
         /// <summary>
         /// Create the monogame renderer.
@@ -180,7 +181,7 @@ namespace MonoGo.Iguina
         public Point MeasureText(string text, string? fontId, int fontSize, float spacing)
         {
             var spriteFont = GetFont(fontId);
-            float scale = (fontSize / 24f) * GlobalTextScale; // 24 is the default font sprite size. you need to adjust this to your own sprite font.
+            float scale = (fontSize / FontSize) * GlobalTextScale;
             spriteFont.Spacing = spacing - 1f;
             return MeasureStringNew(spriteFont, text, scale);
         }
@@ -200,7 +201,7 @@ namespace MonoGo.Iguina
 
             var spriteFont = GetFont(fontId);
             spriteFont.Spacing = spacing - 1f;
-            float scale = (fontSize / 24f) * GlobalTextScale; // 24 is the default font sprite size. you need to adjust this to your own sprite font.
+            float scale = (fontSize / FontSize) * GlobalTextScale;
 
             // draw outline
             if ((outlineColor.A > 0) && (outlineWidth > 0))
