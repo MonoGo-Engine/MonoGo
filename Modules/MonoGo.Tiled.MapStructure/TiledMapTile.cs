@@ -28,6 +28,7 @@ namespace MonoGo.Tiled.MapStructure
         /// Diagonal flipping is a combination of rotation and mirroring.
         /// </remarks>
         /// <example>
+        /// <code>
         /// 0 0 ' 0 0     0 0 ' 0 0
         /// 0 ' ' 0 0 ==> 0 ' 0 0 '
         /// ' 0 ' 0 0 ==> ' ' ' ' '
@@ -39,6 +40,7 @@ namespace MonoGo.Tiled.MapStructure
         /// 2 3 => 1 3
         /// 
         /// (90 deg rotation) + (-1 xscale)
+        /// </code>
         /// </example>
         public bool FlipDiag;
 
