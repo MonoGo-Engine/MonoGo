@@ -1,26 +1,25 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGo.Engine;
 using MonoGo.Tiled.MapStructure;
 using MonoGo.Tiled.MapStructure.Objects;
+using System.Collections.Generic;
+using System.IO;
 
 namespace MonoGo.Tiled.ContentReaders
 {
-	/// <summary>
-	/// Reads sprite group file.
-	/// </summary>
-	public class TiledMapReader : ContentTypeReader<TiledMap>
+    /// <summary>
+    /// Reads Tiled map data from a content pipeline.
+    /// </summary>
+    public class TiledMapReader : ContentTypeReader<TiledMap>
 	{
-		/* 
-		 * Yes, I know, this is horrible. :S	
-		 * 
-		 * [Serializable] is not supported by Vector2, Rectangle and other fluff.
-		 */
-
-		protected override TiledMap Read(ContentReader input, TiledMap existingInstance)
+        /// <summary>
+        /// Reads a Tiled map from the content pipeline.
+        /// </summary>
+        /// <param name="input">The content reader used to read the map data.</param>
+        /// <param name="existingInstance">An existing instance of <see cref="TiledMap"/>, if available.</param>
+        /// <returns>A new instance of <see cref="TiledMap"/> populate
+        protected override TiledMap Read(ContentReader input, TiledMap existingInstance)
 		{
 			var tiledMap = new TiledMap
 			{
@@ -30,13 +29,10 @@ namespace MonoGo.Tiled.ContentReaders
 				Height = input.ReadInt32(),
 				TileWidth = input.ReadInt32(),
 				TileHeight = input.ReadInt32(),
-
 				RenderOrder = (RenderOrder)input.ReadByte(),
 				Orientation = (Orientation)input.ReadByte(),
-
 				StaggerAxis = (StaggerAxis)input.ReadByte(),
 				StaggerIndex = (StaggerIndex)input.ReadByte(),
-
 				HexSideLength = input.ReadInt32()
 			};
 
@@ -49,14 +45,19 @@ namespace MonoGo.Tiled.ContentReaders
 			return tiledMap;
 		}
 
-		#region Tilesets.
+        #region Tilesets
 
-		void ReadTilesets(ContentReader input, TiledMap map)
+        /// <summary>
+        /// Reads the tilesets from the content reader and populates the Tiled map.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to populate.</param>
+        private void ReadTilesets(ContentReader input, TiledMap map)
 		{
 			var tilesetsCount = input.ReadInt32();
 			var tilesets = new TiledMapTileset[tilesetsCount];
 
-			for(var i = 0; i < tilesetsCount; i += 1)
+			for (var i = 0; i < tilesetsCount; i += 1)
 			{
 				tilesets[i] = new TiledMapTileset();
 
@@ -67,7 +68,7 @@ namespace MonoGo.Tiled.ContentReaders
 				{
 					var texturesCount = input.ReadInt32();
 					tilesets[i].Textures = new Texture2D[texturesCount];
-					for(var k = 0; k < texturesCount; k += 1)
+					for (var k = 0; k < texturesCount; k += 1)
 					{
 						var path = Path.Combine(Path.GetDirectoryName(input.AssetName), input.ReadString());
 						tilesets[i].Textures[k] = input.ContentManager.Load<Texture2D>(path);
@@ -84,7 +85,7 @@ namespace MonoGo.Tiled.ContentReaders
 				tilesets[i].Offset = input.ReadVector2();
 				
 				var tiles = new TiledMapTilesetTile[tilesets[i].TileCount];
-				for(var k = 0; k < tiles.Length; k += 1)
+				for (var k = 0; k < tiles.Length; k += 1)
 				{
 					tiles[k] = ReadTilesetTile(input, map);
 					tiles[k].Tileset = tilesets[i];
@@ -93,53 +94,62 @@ namespace MonoGo.Tiled.ContentReaders
 				tilesets[i].BackgroundColor = input.ReadObject<Color?>();
 				tilesets[i].Properties = input.ReadObject<Dictionary<string, string>>();
 			}
-
 			map.Tilesets = tilesets;
 		}
 
 
-
-		TiledMapTilesetTile ReadTilesetTile(ContentReader input, TiledMap map)
+        /// <summary>
+        /// Reads a single tileset tile from the content reader.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to which the tile belongs.</param>
+        /// <returns>A populated <see cref="TiledMapTilesetTile"/> instance.</returns>
+        private TiledMapTilesetTile ReadTilesetTile(ContentReader input, TiledMap map)
 		{
 			var tile = new TiledMapTilesetTile();
 			tile.GID = input.ReadInt32();
 			tile.TextureID = input.ReadInt32();
 			tile.TexturePosition = input.ReadObject<Rectangle>();
-
 			tile.ObjectsDrawingOrder = (TiledMapObjectDrawingOrder)input.ReadByte();
 			
 			var objectsCount = input.ReadInt32();
 			var objects = new TiledObject[objectsCount];
 
-			for(var k = 0; k < objectsCount; k += 1)
+			for (var k = 0; k < objectsCount; k += 1)
 			{
 				objects[k] = ReadObject(input, map);
 			}
 			tile.Objects = objects;
-
 			tile.Properties = input.ReadObject<Dictionary<string, string>>();
 			
 			return tile;
 		}
 
-		#endregion Tilesets.
+        #endregion Tilesets
 
-
-		void ReadLayer(ContentReader input, TiledMapLayer layer)
+        /// <summary>
+        /// Reads a generic Tiled map layer from the content reader.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="layer">The layer to populate.</param>
+        private void ReadLayer(ContentReader input, TiledMapLayer layer)
 		{
 			layer.Name = input.ReadString();
 			layer.ID = input.ReadInt32();
 			layer.Visible = input.ReadBoolean();
 			layer.Opacity = input.ReadSingle();
 			layer.Offset = input.ReadVector2();
-
 			layer.Properties = input.ReadObject<Dictionary<string, string>>();
 		}
 
+        #region Tiles
 
-		#region Tiles.
-
-		void ReadTileLayers(ContentReader input, TiledMap map)
+        /// <summary>
+        /// Reads the tile layers from the content reader and populates the Tiled map.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to populate.</param>
+        private void ReadTileLayers(ContentReader input, TiledMap map)
 		{
 			var layersCount = input.ReadInt32();
 			var layers = new TiledMapTileLayer[layersCount];
@@ -172,7 +182,12 @@ namespace MonoGo.Tiled.ContentReaders
 			map.TileLayers = layers;
 		}
 
-		TiledMapTile ReadTile(ContentReader input)
+        /// <summary>
+        /// Reads a single tile from the content reader.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <returns>A populated <see cref="TiledMapTile"/> instance.</returns>
+        private TiledMapTile ReadTile(ContentReader input)
 		{
 			var tile = new TiledMapTile();
 			tile.GID = input.ReadInt32();
@@ -183,12 +198,16 @@ namespace MonoGo.Tiled.ContentReaders
 			return tile;
 		}
 
-		#endregion Tiles.
+        #endregion Tiles
 
-		
-		#region Objects.
+        #region Objects
 
-		void ReadObjectLayers(ContentReader input, TiledMap map)
+        /// <summary>
+        /// Reads the object layers from the content reader and populates the Tiled map.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to populate.</param>
+        private void ReadObjectLayers(ContentReader input, TiledMap map)
 		{
 			var layersCount = input.ReadInt32();
 			var layers = new TiledMapObjectLayer[layersCount];
@@ -213,12 +232,16 @@ namespace MonoGo.Tiled.ContentReaders
 
 				layers[i] = layer;
 			}
-
 			map.ObjectLayers = layers;
 		}
 
-
-		TiledObject ReadObject(ContentReader input, TiledMap map)
+        /// <summary>
+        /// Reads a collection of Tiled objects from the content reader.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to which the objects belong.</param>
+        /// <returns>An array of <see cref="TiledObject"/> instances.</returns>
+        private TiledObject ReadObject(ContentReader input, TiledMap map)
 		{
 			var obj = ReadBaseObject(input);
 			var objType = (TiledObjectType)input.ReadByte();
@@ -256,11 +279,15 @@ namespace MonoGo.Tiled.ContentReaders
 			return obj;
 		}
 
-
-		TiledObject ReadBaseObject(ContentReader input)
+        /// <summary>
+        /// Reads a single Tiled object from the content reader.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to which the object belongs.</param>
+        /// <returns>A populated <see cref="TiledObject"/> instance.</returns>
+        private TiledObject ReadBaseObject(ContentReader input)
 		{
 			var obj = new TiledObject();
-
 			obj.Name = input.ReadString();
 			obj.Type = input.ReadString();
 			obj.ID = input.ReadInt32();
@@ -319,16 +346,19 @@ namespace MonoGo.Tiled.ContentReaders
 			return obj;
 		}
 
-
 		TiledObject ReadRectangleObject(TiledObject baseObj) =>
 			new TiledRectangleObject(baseObj);
 
-		#endregion Objects.
-		
-		
-		#region Images.
-		
-		void ReadImageLayers(ContentReader input, TiledMap map)
+        #endregion Objects		
+
+        #region Images
+
+        /// <summary>
+        /// Reads the image layers from the content reader and populates the Tiled map.
+        /// </summary>
+        /// <param name="input">The content reader.</param>
+        /// <param name="map">The Tiled map to populate.</param>
+        private void ReadImageLayers(ContentReader input, TiledMap map)
 		{
 			var layersCount = input.ReadInt32();
 			var layers = new TiledMapImageLayer[layersCount];
@@ -344,11 +374,9 @@ namespace MonoGo.Tiled.ContentReaders
 
 				layers[i] = layer;
 			}
-
 			map.ImageLayers = layers;
 		}
 		
-		#endregion Images.
-
+		#endregion Images
 	}
 }
