@@ -6,39 +6,50 @@ using MonoGo.Engine.SceneSystem;
 
 namespace MonoGo.Iguina
 {
+    /// <summary>
+    /// Provides management functionality for the GUI system, including theme handling, 
+    /// control searching, and rendering.
+    /// </summary>
     public static class GUIMgr
     {
-        // ui system instance
+        /// <summary>
+        /// Gets the instance of the UI system.
+        /// </summary>
         public static UISystem System { get; private set; } = null!;
 
         /// <summary>
-        /// Path to the base theme folder of the UI system.
+        /// Gets or sets the path to the base theme folder of the UI system.
         /// </summary>
         public static string ThemeBaseFolder { get; private set; }
 
         /// <summary>
-        /// All the available theme folders from the compiled content directory.
+        /// Gets all available theme folders from the compiled content directory.
         /// </summary>
-        public static string[] ThemeFolders => Directory.GetDirectories(ThemeBaseFolder).Select(x => Path.GetFileNameWithoutExtension(x)!).ToArray();
+        public static string[] ThemeFolders => Directory.GetDirectories(ThemeBaseFolder)
+            .Select(x => Path.GetFileNameWithoutExtension(x)!)
+            .ToArray();
 
         /// <summary>
-        /// Path to the current active theme folder.
+        /// Gets the path to the currently active theme folder.
         /// </summary>
         public static string ThemeActiveFolder { get; private set; }
 
         /// <summary>
-        /// Name of the current active theme folder.
+        /// Gets the name of the currently active theme folder.
         /// </summary>
         public static string ThemeActiveName => Path.GetFileNameWithoutExtension(ThemeActiveFolder)!;
 
         /// <summary>
-        /// Triggers after a UI theme was loaded.
+        /// Occurs after a UI theme is loaded.
         /// </summary>
         public static Action OnThemeChanged { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether debug rendering is enabled.
+        /// </summary>
         public static bool DebugDraw
         {
-            get { return _debugDraw; }
+            get => _debugDraw;
             set
             {
                 _debugDraw = value;
@@ -51,10 +62,10 @@ namespace MonoGo.Iguina
         private static UIInput _input = null!;
 
         /// <summary>
-        /// Find the root owner by its type name.
+        /// Finds the root owner by its type name.
         /// </summary>
         /// <param name="owner">The type name of the owner.</param>
-        /// <returns>The root control of the owner.</returns>
+        /// <returns>The root control of the owner, or <c>null</c> if not found.</returns>
         public static Panel? FindRootOwner(string? owner)
         {
             if (string.IsNullOrEmpty(owner)) return null;
@@ -75,20 +86,21 @@ namespace MonoGo.Iguina
         }
 
         /// <summary>
-        /// Find the root owner of a <see cref="IHaveGUI"/> object.
+        /// Finds the root owner of a <see cref="IHaveGUI"/> object.
         /// </summary>
         /// <param name="owner">The owner object.</param>
-        /// <returns>The root control of the owner.</returns>
+        /// <returns>The root control of the owner, or <c>null</c> if not found.</returns>
         public static Panel? FindRootOwner(IHaveGUI? owner)
         {
             return FindRootOwner(owner?.GetType().Name);
         }
 
         /// <summary>
-        /// Find the root owner of a <see cref="Type"/> object.
+        /// Finds the root owner of a specified object type.
         /// </summary>
+        /// <typeparam name="T">The type of the owner.</typeparam>
         /// <param name="owner">The owner object.</param>
-        /// <returns>The root control of the owner.</returns>
+        /// <returns>The root control of the owner, or <c>null</c> if not found.</returns>
         public static Panel? FindRootOwner<T>(T? owner)
         {
             if (owner != null) return FindRootOwner(((dynamic)owner).Name);
@@ -96,9 +108,9 @@ namespace MonoGo.Iguina
         }
 
         /// <summary>
-        /// Get all root owners created so far.
+        /// Gets all root owners created so far.
         /// </summary>
-        /// <returns>The root owner controls.</returns>
+        /// <returns>A list of root owner controls.</returns>
         public static List<IHaveGUI> GetRootOwners()
         {
             var owners = new List<IHaveGUI>();
@@ -119,22 +131,19 @@ namespace MonoGo.Iguina
         }
 
         /// <summary>
-        /// Find and return first occurance of a control with a given identifier and specific type.
+        /// Finds and returns the first occurrence of a control with a given identifier and specific type.
         /// </summary>
-        /// <typeparam name="T">Control type to get.</typeparam>
-        /// <param name="identifier">Identifier to find.</param>
-        /// <returns>First found control with given identifier and type, or null if nothing found.</returns>
+        /// <typeparam name="T">The type of the control to find.</typeparam>
+        /// <param name="identifier">The identifier of the control.</param>
+        /// <returns>The first found control with the given identifier and type, or <c>null</c> if not found.</returns>
         public static T? Find<T>(string identifier) where T : Entity
         {
-            // should we return any control type?
             bool anyType = typeof(T) == typeof(Entity);
             T? ret = default;
 
-            // iterate children
             System.Root.Walk(
                 x =>
                 {
-                    // check if identifier and type matches - if so, return it
                     if (x.Identifier == identifier && (anyType || (x.GetType() == typeof(T))))
                     {
                         ret = (T)x;
@@ -143,55 +152,61 @@ namespace MonoGo.Iguina
                     return true;
                 });
 
-            // not found?
             return ret;
         }
 
         /// <summary>
-        /// Find and return first occurance of a control with a given identifier.
+        /// Finds and returns the first occurrence of a control with a given identifier.
         /// </summary>
-        /// <param name="identifier">Identifier to find.</param>
-        /// <returns>First found control with given identifier, or null if nothing found.</returns>
+        /// <param name="identifier">The identifier of the control.</param>
+        /// <returns>The first found control with the given identifier, or <c>null</c> if not found.</returns>
         public static Entity? Find(string identifier)
         {
             return Find<Entity>(identifier);
         }
 
         /// <summary>
-        /// Set the font size for the GUI according to your <c>SpriteFont</c> size.
+        /// Sets the font size for the GUI according to the <c>SpriteFont</c> size.
         /// </summary>
+        /// <param name="size">The font size to set.</param>
         public static void SetFontSize(float size)
         {
             _renderer.FontSize = size;
         }
 
         /// <summary>
-        /// Set the global text scale for the GUI.
+        /// Sets the global text scale for the GUI.
         /// </summary>
+        /// <param name="scale">The text scale to set.</param>
         public static void SetTextScale(float scale)
         {
             _renderer.GlobalTextScale = scale;
         }
 
         /// <summary>
-        /// Register textures for the UISystem.
+        /// Registers a texture for the UI system.
         /// </summary>
-        /// <param name="texture">Texture to register.</param>
-        /// <param name="textureId">ID of the texture to register.</param>
+        /// <param name="texture">The texture to register.</param>
+        /// <param name="textureId">The ID of the texture.</param>
         public static void RegisterTexture(Texture2D texture, string textureId)
         {
             _renderer.RegisterTexture(texture, textureId);
         }
 
         /// <summary>
-        /// Get a registered texture by its ID.
+        /// Gets a registered texture by its ID.
         /// </summary>
+        /// <param name="textureId">The ID of the texture.</param>
+        /// <returns>The texture associated with the given ID.</returns>
         public static Texture2D GetTextureByID(string textureId)
         {
             return _renderer.GetTextureByID(textureId);
         }
 
-        /// <param name="themeName">UI System theme name.</param>
+        /// <summary>
+        /// Loads a UI theme by its name.
+        /// </summary>
+        /// <param name="themeName">The name of the theme to load.</param>
         public static void LoadTheme(string themeName)
         {
             System.Root.ClearChildren();
@@ -199,11 +214,16 @@ namespace MonoGo.Iguina
             OnThemeChanged?.Invoke();
         }
 
+        /// <summary>
+        /// Initializes the GUI system with the specified theme folder and theme name.
+        /// </summary>
+        /// <param name="themeFolder">The path to the theme folder.</param>
+        /// <param name="themeName">The name of the theme to initialize.</param>
         public static void Init(string themeFolder, string themeName)
         {
             if (!SceneMgr.GUILayer.EntityExists<UIController>())
             {
-                new UIController(SceneMgr.GUILayer);
+                new UIController();
             }
             ThemeBaseFolder = themeFolder;
             ThemeActiveFolder = Path.Combine(themeFolder, themeName);
@@ -219,6 +239,9 @@ namespace MonoGo.Iguina
             };
         }
 
+        /// <summary>
+        /// Updates the GUI system. This method is called once per frame.
+        /// </summary>
         public static void Update()
         {
             _input.StartFrame();
@@ -226,6 +249,9 @@ namespace MonoGo.Iguina
             _input.EndFrame();
         }
 
+        /// <summary>
+        /// Draws the GUI system. This method is called once per frame.
+        /// </summary>
         public static void Draw()
         {
             _renderer.StartFrame();

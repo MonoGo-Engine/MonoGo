@@ -3,15 +3,15 @@
 namespace MonoGo.Iguina
 {
     /// <summary>
-    /// Extensions for making it easier to work with Iguina.
+    /// Provides extension methods to simplify working with the Iguina UI-System.
     /// </summary>
     public static class Extensions
     {
         /// <summary>
-        /// Enables smooth values for animations (tween, lerp).
+        /// Sets the value of a <see cref="Measurement"/> in pixels.
         /// </summary>
-        /// <param name="measurement">E.g.: Offset.</param>
-        /// <param name="value">New value (E.g.: possibly a fraction of Offset).</param>
+        /// <param name="measurement">The measurement to modify (e.g. Offset).</param>
+        /// <param name="value">The new value in pixels (could be a fraction of Offset).</param>
         public static void SetPixels(this ref Measurement measurement, float value)
         {
             measurement.Value = value;
