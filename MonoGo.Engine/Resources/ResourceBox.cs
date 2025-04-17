@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MonoGo.Engine.Resources
 {
@@ -47,13 +48,17 @@ namespace MonoGo.Engine.Resources
 		public T GetResource(string key) =>
 			_resources[key];
 
+        /// <summary>
+        /// Returns all resources inside this <c>ResourceBox</c>.
+        /// </summary>
+        public List<T> GetResources() => 
+			_resources.Select(x => x.Value).ToList();
 
-		/// <summary>
-		/// Returns the resource with a specific key.
-		/// </summary>
-		public bool TryGetResource(string key, out T value) =>
+        /// <summary>
+        /// Returns the resource with a specific key.
+        /// </summary>
+        public bool TryGetResource(string key, out T value) =>
 			_resources.TryGetValue(key, out value);
-
 
 		/// <summary>
 		/// Returns true, if the box contains resource with provided key.

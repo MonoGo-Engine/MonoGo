@@ -64,14 +64,37 @@ namespace MonoGo.Engine.Resources
 		public static bool ContainsResourceBox(string key) =>
 			_boxes.ContainsKey(key);
 
-
-
 		/// <summary>
-		/// Returns resource from the hub with the given name.
-		/// This method doesn't use the resource box name so if you have several resource boxes 
-		/// with the same type, it'll search all of them and pick the first match. 
+		/// Returns all resources from the ResourceHub.
 		/// </summary>
-		public static TValue GetResource<TValue>(string resourceKey)
+		/// <typeparam name="TValue"></typeparam>
+		/// <returns></returns>
+        public static List<TValue>? GetResources<TValue>()
+        {
+            foreach (var box in GetResourceBoxes<TValue>())
+            {
+				return ((ResourceBox<TValue>)box).GetResources();
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// Returns all resources from a specific ResourceBox.
+        /// </summary>
+        public static List<TValue>? GetResources<TValue>(string boxKey)
+        {
+			var box = GetResourceBox(boxKey) as ResourceBox<TValue>;
+			if (box != null) return box.GetResources();
+
+			return default;
+        }
+
+        /// <summary>
+        /// Returns resource from the hub with the given name.
+        /// This method doesn't use the resource box name so if you have several resource boxes 
+        /// with the same type, it'll search all of them and pick the first match. 
+        /// </summary>
+        public static TValue? GetResource<TValue>(string resourceKey)
 		{
 			foreach (var box in GetResourceBoxes<TValue>())
 			{
@@ -80,15 +103,13 @@ namespace MonoGo.Engine.Resources
 					return resource;
 				}
 			}
-
-			return default(TValue);
+			return default;
 		}
-
 
 		/// <summary>
 		/// Returns resource from the hub with the given name.
 		/// </summary>
-		public static TValue GetResource<TValue>(string boxKey, string resourceKey)
+		public static TValue? GetResource<TValue>(string boxKey, string resourceKey)
 		{
 			if (_boxes.TryGetValue(boxKey, out IResourceBox box))
 			{
@@ -99,10 +120,8 @@ namespace MonoGo.Engine.Resources
 
 				return ((ResourceBox<TValue>)box).GetResource(resourceKey);
 			}
-
-			return default(TValue);
+			return default;
 		}
-
 
 		/// <summary>
 		/// Returns resource from the hub with the given name.
@@ -113,10 +132,8 @@ namespace MonoGo.Engine.Resources
 			{
 				return ((ResourceBox<TValue>)box).ContainsResource(resourceKey);
 			}
-
 			return false;
 		}
-
 
 		/// <summary>
 		/// Returns resource from the hub with the given name.
