@@ -201,6 +201,11 @@ namespace MonoGo.Engine.PostProcessing
             }
             _bloomPreset = preset;
         }
+        public static BloomPresets BloomPreset
+        {
+            get => _bloomPreset;
+            set => Preset(value);
+        }
         private static BloomPresets _bloomPreset;
 
         private static Texture2D ScreenTexture 

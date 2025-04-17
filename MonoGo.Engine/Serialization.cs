@@ -18,6 +18,11 @@ using static MonoGo.Engine.RangeF;
 
 namespace MonoGo.Engine
 {
+    public enum SerializeType
+    {
+        PostFX
+    }
+
     /// <summary>
     /// This Serialization class is based on JSON and contains the <see cref="JsonSerializerOptions"/> and the <see cref="JsonConverter"/>'s used by the engine.
     /// </summary>
@@ -50,6 +55,24 @@ namespace MonoGo.Engine
                     new BaseTypeJsonConverter<Profile>(),
                     new BaseTypeJsonConverter<IModifier>()
                 }
+            };
+        }
+
+        public static string? Serialize(SerializeType type, string? fileName = null)
+        {
+            return type switch
+            {
+                SerializeType.PostFX => PostProcessing.Serialization.Serialize(fileName),
+                _ => null,
+            };
+        }
+
+        public static string? Deserialize(SerializeType type, string? fileName = null)
+        {
+            return type switch
+            {
+                SerializeType.PostFX => PostProcessing.Serialization.Deserialize(fileName),
+                _ => null,
             };
         }
 

@@ -78,6 +78,12 @@ namespace MonoGo.Engine.PostProcessing
 
             return CurrentLUT;
         }
+
+        public static void SetLut(string key)
+        {
+            CurrentLUT = LUTs.First(x => x.Name == key);
+        }
+
         private static void UpdateResolution()
         {
             if (Surface == null || Surface.Size != GameMgr.WindowManager.CanvasSize)
