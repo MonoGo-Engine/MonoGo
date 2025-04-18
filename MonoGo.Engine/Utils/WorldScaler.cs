@@ -53,24 +53,44 @@ namespace MonoGo.Engine.Utils
             return value / GameMgr.WindowManager.CanvasSize;
         }
 
-        public static float WorldToScreen(float value)
+        public static float WorldToScreenX(float value)
         {
             return value * GameMgr.WindowManager.CanvasSize.X;
         }
 
-        public static float ScreenToWorld(float value)
+        public static float WorldToScreenY(float value)
+        {
+            return value * GameMgr.WindowManager.CanvasSize.Y;
+        }
+
+        public static float ScreenToWorldX(float value)
         {
             return value / GameMgr.WindowManager.CanvasSize.X;
         }
 
-        public static float ToScreen(this float value)
+        public static float ScreenToWorldY(float value)
+        {
+            return value / GameMgr.WindowManager.CanvasSize.Y;
+        }
+
+        public static float ToScreenX(this float value)
         {
             return value * GameMgr.WindowManager.CanvasSize.X;
         }
 
-        public static float ToWorld(this float value)
+        public static float ToScreenY(this float value)
+        {
+            return value * GameMgr.WindowManager.CanvasSize.Y;
+        }
+
+        public static float ToWorldX(this float value)
         {
             return value / GameMgr.WindowManager.CanvasSize.X;
+        }
+
+        public static float ToWorldY(this float value)
+        {
+            return value / GameMgr.WindowManager.CanvasSize.Y;
         }
 
         public static Vector2 ToScreen(this Vector2 value)
