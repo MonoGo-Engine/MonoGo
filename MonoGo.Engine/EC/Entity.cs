@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MonoGo.Engine.Cameras;
+using MonoGo.Engine.SceneSystem;
+using MonoGo.Engine.Utils.Coroutines;
+using MonoGo.Engine.Utils.CustomCollections;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using MonoGo.Engine.Utils.Coroutines;
-using MonoGo.Engine.SceneSystem;
-using MonoGo.Engine.Utils.CustomCollections;
-using MonoGo.Engine.Cameras;
 using System.Linq;
 
 namespace MonoGo.Engine.EC
@@ -40,10 +40,28 @@ namespace MonoGo.Engine.EC
         public bool Destroyed {get; private set;} = false;
 
 		/// <summary>
-		/// If false, Update and Destroy events won't be executed.
-		/// NOTE: This also applies to entity's components.
+		/// Enables and makes Entity Visible in one go.
 		/// </summary>
-		public bool Enabled 
+        public void Activate()
+        {
+            Enabled = true;
+            Visible = true;
+        }
+
+        /// <summary>
+        /// Disables and makes Entity Invisible in one go.
+        /// </summary>
+        public void DeActivate()
+        {
+            Enabled = false;
+            Visible = false;
+        }
+
+        /// <summary>
+        /// If false, Update and Destroy events won't be executed.
+        /// NOTE: This also applies to entity's components.
+        /// </summary>
+        public bool Enabled 
 		{
 			get { return _enabled; }
 			set
