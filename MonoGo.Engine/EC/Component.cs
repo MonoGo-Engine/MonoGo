@@ -23,6 +23,24 @@
         public bool Initialized {get; internal set;} = false;
 
         /// <summary>
+		/// Enables and makes Component Visible in one go.
+		/// </summary>
+        public void Activate()
+        {
+            Enabled = true;
+            Visible = true;
+        }
+
+        /// <summary>
+        /// Disables and makes Component Invisible in one go.
+        /// </summary>
+        public void DeActivate()
+        {
+            Enabled = false;
+            Visible = false;
+        }
+
+        /// <summary>
         /// If component is enabled, it will be processed by Create and Update methods.
         /// </summary>
         public bool Enabled
