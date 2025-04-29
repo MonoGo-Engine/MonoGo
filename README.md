@@ -7,20 +7,26 @@ Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.
 
 # Setup
 
-The easiest way of using this game engine is to install the templates:
+### Automatic
+The easiest and recomended way of using this game engine is to install the templates for Visual Studio:
 - ```dotnet new install MonoGo.Templates```
 
-If you prefere a more manual process you could also install the packages one by one in your existing MonoGame project like this:
-  - ```dotnet add package MonoGo.Engine```
-  - ```dotnet add package MonoGo.Engine.DesktopGL``` or ```dotnet add package MonoGo.Engine.WindowsDX```
-  - ```dotnet add package MonoGo.Engine.Pipeline```
-  - ```dotnet add package NPLEditor.Task``` [(i)](https://github.com/BlizzCrafter/NPL-Editor) or ```dotnet add package MonoGame.Content.Builder.Task```
+### Manual
+- ```dotnet add package MonoGo.Engine```
+- ```dotnet add package MonoGo.Engine.DesktopGL``` or ```dotnet add package MonoGo.Engine.WindowsDX```
+- ```dotnet add package MonoGo.Engine.Pipeline```
+- ```dotnet add package NPLEditor.Task``` [(i)](https://github.com/BlizzCrafter/NPL-Editor) or ```dotnet add package MonoGame.Content.Builder.Task```
 
-- Install **Optional** Packages (You don't need to!):
-  - ```dotnet add package MonoGo.Iguina``` (GUI Module)
-  - ```dotnet add package MonoGo.Tiled``` (Tiled Module)
- 
-Of course it's also possible to build everything from source and working directly with the engine, which is very useful for debugging.
+- Install **optional** [modules](#modules).
+
+> [!IMPORTANT]
+> The engine needs to load engine specific content, which isn't available as a nuget package. But you could just copy over the "Engine" folder of the [sample project](#sample-project) and you should be good to go!
+> This step is only neccessary when installing everything manually. The Visual Studio templates are coming with everything needed to directly start using the engine!
+
+---
+
+> [!NOTE]
+> You could also clone this repo and work directly with the source code which is useful for debugging!
 
 # Features
 * Graphics Pipeline and Automated Batch\Vertex Buffer Management.
@@ -39,9 +45,9 @@ Of course it's also possible to build everything from source and working directl
 * Extensive GUI-System.
 * Enhanced Content Management.
 * FMOD Audio Support (As a standalone [Library](https://github.com/Martenfur/FmodForFoxes/)).
-### Modules:
-* Tiled Map Support via [Tiled](https://www.mapeditor.org/).
-* Iguina UI-System Support via [Iguina](https://github.com/RonenNess/Iguina).
+### Modules
+* [(i)](https://www.mapeditor.org/) [![Tiled](https://img.shields.io/badge/NuGet-MonoGo.Tiled-blue.svg?style=flat-square&logo=NuGet&logoColor=0289CC&logoSize=auto&colorA=262626&colorB=707070)](https://www.nuget.org/packages/MonoGo.Tiled) 
+* [(i)](https://github.com/RonenNess/Iguina) [![Iguina](https://img.shields.io/badge/NuGet-MonoGo.Iguina-blue.svg?style=flat-square&logo=NuGet&logoColor=0289CC&logoSize=auto&colorA=262626&colorB=707070)](https://www.nuget.org/packages/MonoGo.Iguina)
 
 # Sample Project
 
