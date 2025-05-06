@@ -42,7 +42,7 @@ namespace MonoGo.Engine.EC
 		/// <summary>
 		/// Enables and makes Entity Visible in one go.
 		/// </summary>
-        public void Activate()
+        public virtual void Activate()
         {
             Enabled = true;
             Visible = true;
@@ -51,7 +51,7 @@ namespace MonoGo.Engine.EC
         /// <summary>
         /// Disables and makes Entity Invisible in one go.
         /// </summary>
-        public void DeActivate()
+        public virtual void DeActivate()
         {
             Enabled = false;
             Visible = false;
