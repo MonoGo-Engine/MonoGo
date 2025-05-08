@@ -28,6 +28,12 @@ namespace MonoGo.Engine.Utils
         public static Vector2 WorldScaleVector { get; set; } = Vector2.One;
 
         /// <summary>
+        /// The factor of how much the world scaled based on <c>WorldScaleBase</c>.
+        /// </summary>
+        /// <remarks>Use this value to scale the contents of your world.</remarks>
+        public static float WorldScaleFactor { get; } = (WorldScaleVector.X + WorldScaleVector.Y) / 2f;
+
+        /// <summary>
         /// Initialize the WorldScaler for helping scale your world and world-contents.
         /// </summary>
         /// <param name="worldScaleBase">Usually your world map size.</param>
@@ -41,6 +47,11 @@ namespace MonoGo.Engine.Utils
             WorldScaleVector = new Vector2(
                 GameMgr.WindowManager.CanvasSize.X / WorldScaleBase.X,
                 GameMgr.WindowManager.CanvasSize.Y / WorldScaleBase.Y);
+        }
+
+        public static float Scale(this float value)
+        {
+            return value * ((WorldScaleVector.X + WorldScaleVector.Y) / 2f);
         }
 
         public static Vector2 WorldToScreen(Vector2 value)
@@ -81,6 +92,12 @@ namespace MonoGo.Engine.Utils
         public static float ToScreenY(this float value)
         {
             return value * GameMgr.WindowManager.CanvasSize.Y;
+        }
+
+        public static float ToWorld(this float value, bool scale = false)
+        {
+            if (scale) value = value.Scale();
+            return value / ((GameMgr.WindowManager.CanvasSize.X + GameMgr.WindowManager.CanvasSize.Y) / 2f);
         }
 
         public static float ToWorldX(this float value)
