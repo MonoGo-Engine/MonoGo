@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Text.Json.Serialization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MonoGo.Engine.Particles
 {
@@ -14,7 +13,7 @@ namespace MonoGo.Engine.Particles
         public Emitter[] Emitters { get; set; }
 
         [JsonIgnore]
-        public bool StopEmitting { get; set; } = false;
+        public bool StopEmitting { get; private set; } = false;
 
         public T[] Modifiers<T>(string name = default)
         {

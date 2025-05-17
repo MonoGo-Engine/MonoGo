@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MonoGo.Engine.EC;
+using System.Linq;
 
 namespace MonoGo.Engine.Particles
 {
@@ -10,15 +10,21 @@ namespace MonoGo.Engine.Particles
     /// <remarks>Automatic loading updating, following, attracting, serializong and drawing.</remarks>
     public class ParticleEffectComponent : Component, IAmMovable
     {
+        public void Start() => ParticleEffect.StartEmitters();
+        public void Stop() => ParticleEffect.StopEmitters();
+        public void InstantStop() => ParticleEffect.FastForward(new Vector2(-999f, - 999f), 999f, 0.1f);
+        public int ActiveParticles => ParticleEffect.ActiveParticles;
+
         public ParticleEffect ParticleEffect { get; set; }
-        
+
         public Vector2 Position { get; set; }
         public IAmMovable OwnerMovable { get; private set; }
         public bool FollowOwner { get; private set; } = true;
+        public bool Trigger { get; set; } = true;
 
         public ParticleEffectComponent(
             ParticleEffect particleEffect,
-            Vector2 position)
+            Vector2 position = default)
         {
             Visible = true;
 
@@ -28,7 +34,7 @@ namespace MonoGo.Engine.Particles
 
         public ParticleEffectComponent(
             string particleEffectFilePath,
-            Vector2 position)
+            Vector2 position = default)
         {
             Visible = true;
 
@@ -48,7 +54,11 @@ namespace MonoGo.Engine.Particles
             base.Update();
 
             ParticleEffect.Update((float)GameMgr.ElapsedTime);
-            ParticleEffect.Trigger(FollowOwner ? OwnerMovable.Position : Position);
+
+            if (Trigger)
+            {
+                ParticleEffect.Trigger(FollowOwner ? OwnerMovable.Position : Position);
+            }
         }
 
         public void ToggleFollowOwner()

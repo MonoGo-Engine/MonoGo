@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using MonoGo.Engine.Particles.Profiles;
-using MonoGo.Engine.Particles.Modifiers;
-using System.Text.Json.Serialization;
 using MonoGo.Engine.Drawing;
-using System.Linq;
+using MonoGo.Engine.Particles.Modifiers;
+using MonoGo.Engine.Particles.Profiles;
 using MonoGo.Engine.Resources;
+using System;
+using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace MonoGo.Engine.Particles
 {
@@ -265,7 +265,7 @@ namespace MonoGo.Engine.Particles
                         color *= particle->Opacity;
                     else
                         color.A = (byte)(particle->Opacity * 255);
-                                        
+
                     Sprite.Draw(
                         new Vector2(particle->Position.X, particle->Position.Y),
                         0,
