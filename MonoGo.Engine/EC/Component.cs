@@ -25,7 +25,7 @@
         /// <summary>
 		/// Enables and makes Component Visible in one go.
 		/// </summary>
-        public void Activate()
+        public virtual void Activate()
         {
             Enabled = true;
             Visible = true;
@@ -34,7 +34,7 @@
         /// <summary>
         /// Disables and makes Component Invisible in one go.
         /// </summary>
-        public void DeActivate()
+        public virtual void DeActivate()
         {
             Enabled = false;
             Visible = false;
