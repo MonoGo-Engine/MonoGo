@@ -17,7 +17,7 @@ namespace MonoGo.Engine
         public static bool ColorGradingFX { get; set; } = true;
         public static bool BloomFX { get; set; } = true;
 
-        public static ViewportAdapter ViewportAdapter { get; set; }
+        public static ViewportAdapter ViewportAdapter { get; set; } = new DefaultViewportAdapter();
         public static Surface SceneSurface { get; set; }
         public static Surface GUISurface { get; set; }
 
