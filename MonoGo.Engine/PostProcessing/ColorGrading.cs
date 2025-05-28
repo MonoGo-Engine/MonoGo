@@ -18,6 +18,8 @@ namespace MonoGo.Engine.PostProcessing
         public static Sprite CurrentLUT { get; set; }
         public static Sprite[] LUTs { get; private set; }
 
+        public static float Gamma { get; set; } = 1f;
+
         private static Effect _shaderEffect;
 
         internal static void Init()
@@ -43,6 +45,7 @@ namespace MonoGo.Engine.PostProcessing
                 GraphicsMgr.VertexBatch.Effect = _shaderEffect;
                 _shaderEffect.Parameters["Input"].SetValue(renderTarget);
                 _shaderEffect.Parameters["LUT"].SetValue(CurrentLUT[0].Texture);
+                _shaderEffect.Parameters["Gamma"].SetValue(Gamma);
                 _shaderEffect.Parameters["World"].SetValue(GraphicsMgr.VertexBatch.World);
                 _shaderEffect.Parameters["View"].SetValue(GraphicsMgr.VertexBatch.View);
                 _shaderEffect.Parameters["Projection"].SetValue(GraphicsMgr.VertexBatch.Projection);
