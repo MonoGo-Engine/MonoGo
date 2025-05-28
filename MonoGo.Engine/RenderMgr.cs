@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.PostProcessing;
 using MonoGo.Engine.SceneSystem;
+using MonoGo.Engine.ViewportAdapters;
 
 namespace MonoGo.Engine
 {
@@ -16,6 +17,7 @@ namespace MonoGo.Engine
         public static bool ColorGradingFX { get; set; } = true;
         public static bool BloomFX { get; set; } = true;
 
+        public static ViewportAdapter ViewportAdapter { get; set; }
         public static Surface SceneSurface { get; set; }
         public static Surface GUISurface { get; set; }
 
@@ -34,7 +36,7 @@ namespace MonoGo.Engine
         {
             UpdateResolution();
 
-            Surface.SetTarget(SceneSurface, GraphicsMgr.VertexBatch.View);
+            Surface.SetTarget(SceneSurface, ViewportAdapter.GetScaleMatrix() * GraphicsMgr.VertexBatch.View);
             GraphicsMgr.Device.Clear(GraphicsMgr.CurrentCamera.BackgroundColor);
         }
 
