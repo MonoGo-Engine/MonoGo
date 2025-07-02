@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using Microsoft.Xna.Framework;
 
 namespace MonoGo.Engine.Utils
 {
@@ -15,10 +14,7 @@ namespace MonoGo.Engine.Utils
 		public static double Lerp(double a, double b, double value) =>
 			a + (b - a) * value;
 
-
 		#endregion Math.
-
-
 		#region Distance.
 
 		/// <summary>
@@ -26,19 +22,16 @@ namespace MonoGo.Engine.Utils
 		/// </summary>
 		public static float Distance(Vector2 p1, Vector2 p2) =>
 			(p2 - p1).Length();
-		
+
 		#endregion Distance.
-
-
-
 		#region Intersestions.
 
 		/// <summary>
 		/// Checks if a point lies within a rectangle.
 		/// </summary>
-		public static bool PointInRectangle(Vector2 point, Vector2 rectPoint1, Vector2 rectPoint2) =>	
+		public static bool PointInRectangle(Vector2 point, Vector2 rectPoint1, Vector2 rectPoint2) =>
 			point.X >= rectPoint1.X && point.X <= rectPoint2.X && point.Y >= rectPoint1.Y && point.Y <= rectPoint2.Y;
-		
+
 		/// <summary>
 		/// Checks if a point lies within a rectangle.
 		/// </summary>
@@ -49,7 +42,6 @@ namespace MonoGo.Engine.Utils
 			var pt2 = rectCenter + rectHalfSize;
 			return point.X >= pt1.X && point.X <= pt2.X && point.Y >= pt1.Y && point.Y <= pt2.Y;
 		}
-		
 
 		/// <summary>
 		/// Checks if a point lies within a triangle.
@@ -59,11 +51,39 @@ namespace MonoGo.Engine.Utils
 			Vector2 p = point - triPoint1;
 			Vector2 v2 = triPoint2 - triPoint1;
 			Vector2 v3 = triPoint3 - triPoint1;
-			
-			float w1 = (triPoint1.X * v3.Y - point.X * v3.Y + p.Y * v3.X) / (v2.Y * v3.X - v2.X * v3.Y); 
+
+			float w1 = (triPoint1.X * v3.Y - point.X * v3.Y + p.Y * v3.X) / (v2.Y * v3.X - v2.X * v3.Y);
 			float w2 = (point.Y - triPoint1.Y - w1 * v2.Y) / v3.Y;
-			
+
 			return (w1 >= 0 && w2 >= 0 && ((w1 + w2) <= 1));
+		}
+
+		/// <summary>
+		/// Determines whether a specified point lies within a polygon defined by a list of vertices.
+		/// </summary>
+		/// <remarks>The polygon is assumed to be non-self-intersecting and defined by its vertices in clockwise or
+		/// counterclockwise order. This method uses the ray-casting algorithm to determine whether the point is inside the
+		/// polygon.</remarks>
+		/// <param name="point">The point to test, represented as a <see cref="Vector2"/>.</param>
+		/// <param name="polygonPoints">A list of <see cref="Vector2"/> representing the vertices of the polygon in order.</param>
+		/// <returns><see langword="true"/> if the point is inside the polygon; otherwise, <see langword="false"/>.</returns>
+		public static bool IsPointInPolygon(Vector2 point, List<Vector2> polygonPoints)
+		{
+			bool inside = false;
+			int count = polygonPoints.Count;
+
+			for (int i = 0, j = count - 1; i < count; j = i++)
+			{
+				Vector2 pi = polygonPoints[i];
+				Vector2 pj = polygonPoints[j];
+
+				// Check if the horizontal line of a point crosses an edge of the polygon.
+				bool intersects = ((pi.Y > point.Y) != (pj.Y > point.Y)) &&
+								  (point.X < (pj.X - pi.X) * (point.Y - pi.Y) / (pj.Y - pi.Y + float.Epsilon) + pi.X);
+
+				if (intersects) inside = !inside;
+			}
+			return inside;
 		}
 
 		/// <summary>
@@ -71,16 +91,16 @@ namespace MonoGo.Engine.Utils
 		/// </summary>
 		public static bool RectangleInRectangle(Vector2 rect1Pt1, Vector2 rect1Pt2, Vector2 rect2Pt1, Vector2 rect2Pt2) =>
 			rect1Pt1.X <= rect2Pt2.X && rect1Pt2.X >= rect2Pt1.X && rect1Pt1.Y <= rect2Pt2.Y && rect1Pt2.Y >= rect2Pt1.Y;
-		
+
 		/// <summary>
 		/// Checks if two rectangles intersect.
 		/// </summary>
 		public static bool RectangleInRectangleBySize(Vector2 rect1Center, Vector2 rect1Size, Vector2 rect2Center, Vector2 rect2Size)
 		{
 			var delta = rect2Center - rect1Center;
-			var size = (rect2Size + rect1Size) / 2f; 
+			var size = (rect2Size + rect1Size) / 2f;
 
-			return Math.Abs(delta.X) <= size.X && Math.Abs(delta.Y) <= size.Y; 
+			return Math.Abs(delta.X) <= size.X && Math.Abs(delta.Y) <= size.Y;
 		}
 
 		/// <summary>
@@ -95,7 +115,7 @@ namespace MonoGo.Engine.Utils
 
 			return Math.Sign(Vector2.Dot(point - linePt1, v));
 		}
-		
+
 		/// <summary>
 		/// Checks if two lines cross. Returns 1 if lines cross, 0 if not and 2 if lines overlap.
 		/// </summary>
@@ -103,7 +123,7 @@ namespace MonoGo.Engine.Utils
 		{
 			var line1 = new Vector2(line1Pt2.Y - line1Pt1.Y, line1Pt1.X - line1Pt2.X);
 			var line2 = new Vector2(line2Pt2.Y - line2Pt1.Y, line2Pt1.X - line2Pt2.X);
-			
+
 			var side1 = Math.Sign(Vector2.Dot(line2Pt1 - line1Pt1, line1));
 			var side2 = Math.Sign(Vector2.Dot(line2Pt2 - line1Pt1, line1));
 			var side3 = Math.Sign(Vector2.Dot(line1Pt1 - line2Pt1, line2));
@@ -118,11 +138,10 @@ namespace MonoGo.Engine.Utils
 			{
 				return 2;
 			}
-						
+
 			return 0;
 		}
 
-		
 		/// <summary>
 		/// Checks if two linew cross. Returns 1 if lines cross, 0 if not and 2 if lines overlap.
 		/// Also calculates intersection point.
@@ -153,8 +172,6 @@ namespace MonoGo.Engine.Utils
 
 		#endregion Intersections.
 
-
-
 		/// <summary>
 		/// Indicates if the vertices are in clockwise order.
 		/// Warning: If the area of the polygon is 0, it is unable to determine the winding.
@@ -167,7 +184,6 @@ namespace MonoGo.Engine.Utils
 
 			return (GetSignedArea(vertices) > 0.0f);
 		}
-
 
 		/// <summary>
 		/// Gets the signed area.
@@ -196,7 +212,6 @@ namespace MonoGo.Engine.Utils
 			area /= 2.0f;
 			return area;
 		}
-
 
 		/// <summary>
 		/// Gets the area.
