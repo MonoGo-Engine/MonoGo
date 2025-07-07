@@ -67,7 +67,7 @@ namespace MonoGo.Engine.Utils
 		/// <param name="point">The point to test, represented as a <see cref="Vector2"/>.</param>
 		/// <param name="polygonPoints">A list of <see cref="Vector2"/> representing the vertices of the polygon in order.</param>
 		/// <returns><see langword="true"/> if the point is inside the polygon; otherwise, <see langword="false"/>.</returns>
-		public static bool IsPointInPolygon(Vector2 point, List<Vector2> polygonPoints)
+		public static bool PointInPolygon(Vector2 point, List<Vector2> polygonPoints)
 		{
 			bool inside = false;
 			int count = polygonPoints.Count;
