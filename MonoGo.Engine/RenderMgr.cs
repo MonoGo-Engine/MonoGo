@@ -4,6 +4,8 @@ using MonoGo.Engine.Drawing;
 using MonoGo.Engine.PostProcessing;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.ViewportAdapters;
+using System;
+using System.Diagnostics;
 
 namespace MonoGo.Engine
 {
@@ -23,13 +25,17 @@ namespace MonoGo.Engine
 
         internal static void Init()
         {
-            ColorGrading.Init();
-            Bloom.Init();
+            try
+            {
+                ColorGrading.Init();
+                Bloom.Init();
 
-            SceneMgr.OnPreDraw += SceneMgr_OnPreDraw;
-            SceneMgr.OnPostDraw += SceneMgr_OnPostDraw;
-            SceneMgr.OnPreDrawGUI += SceneMgr_OnPreDrawGUI;
-            SceneMgr.OnPostDrawGUI += SceneMgr_OnPostDrawGUI;
+                SceneMgr.OnPreDraw += SceneMgr_OnPreDraw;
+                SceneMgr.OnPostDraw += SceneMgr_OnPostDraw;
+                SceneMgr.OnPreDrawGUI += SceneMgr_OnPreDrawGUI;
+                SceneMgr.OnPostDrawGUI += SceneMgr_OnPostDrawGUI;
+            }
+            catch (Exception e) { Debug.WriteLine($"--> RenderManager not initialized: {e.Message}"); }
         }
 
         private static void SceneMgr_OnPreDraw()
@@ -99,8 +105,8 @@ namespace MonoGo.Engine
 
         public static void Dispose()
         {
-            SceneSurface.Dispose();
-            GUISurface.Dispose();
+            SceneSurface?.Dispose();
+            GUISurface?.Dispose();
             ColorGrading.Dispose();
             Bloom.Dispose();
         }

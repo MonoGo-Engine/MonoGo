@@ -4,6 +4,8 @@ using MonoGo.Engine.Drawing;
 using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
 using MonoGo.Resources;
+using System;
+using System.Diagnostics;
 
 namespace MonoGo.Engine
 {
@@ -44,14 +46,16 @@ namespace MonoGo.Engine
         {
             GraphicsMgr.Init(GraphicsDevice);
 
-            //var resourcePaths = ResourceInfoMgr.GetResourcePaths("**");
+            try
+            {
+                new SpriteGroupResourceBox(nameof(EngineResources.ParticleSprites), "Engine/Particles");
+                new SpriteGroupResourceBox(nameof(EngineResources.LUTSprites), "Engine/LUT");
+                new DirectoryResourceBox<Effect>(nameof(EngineResources.Effects), "Engine/Effects");
+                new FontResourceBox(nameof(EngineResources.Fonts), "Engine/Fonts");
 
-            new SpriteGroupResourceBox(nameof(EngineResources.ParticleSprites), "Engine/Particles");
-            new SpriteGroupResourceBox(nameof(EngineResources.LUTSprites), "Engine/LUT");
-            new DirectoryResourceBox<Effect>(nameof(EngineResources.Effects), "Engine/Effects");
-            new FontResourceBox(nameof(EngineResources.Fonts), "Engine/Fonts");
-
-            Text.CurrentFont = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), "Default");
+                Text.CurrentFont = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), "Default");
+            }
+            catch (Exception e) { Debug.WriteLine($"--> Engine Content loading skipped: {e.Message}"); }
         }
 
         protected override void UnloadContent()
