@@ -15,6 +15,7 @@ namespace MonoGo.Engine
     /// </summary>
     public static class RenderMgr
     {
+        public static bool Initialized { get; internal set; } = false;
         public static bool PostProcessing { get; set; } = false;
         public static bool ColorGradingFX { get; set; } = true;
         public static bool BloomFX { get; set; } = true;
@@ -30,12 +31,14 @@ namespace MonoGo.Engine
                 ColorGrading.Init();
                 Bloom.Init();
 
-                SceneMgr.OnPreDraw += SceneMgr_OnPreDraw;
-                SceneMgr.OnPostDraw += SceneMgr_OnPostDraw;
-                SceneMgr.OnPreDrawGUI += SceneMgr_OnPreDrawGUI;
-                SceneMgr.OnPostDrawGUI += SceneMgr_OnPostDrawGUI;
+                Initialized = true;
             }
-            catch (Exception e) { Debug.WriteLine($"--> RenderManager not initialized: {e.Message}"); }
+            catch (Exception e) { Debug.WriteLine($"--> Shader Effects not initialized: {e.Message}"); }
+
+            SceneMgr.OnPreDraw += SceneMgr_OnPreDraw;
+            SceneMgr.OnPostDraw += SceneMgr_OnPostDraw;
+            SceneMgr.OnPreDrawGUI += SceneMgr_OnPreDrawGUI;
+            SceneMgr.OnPostDrawGUI += SceneMgr_OnPostDrawGUI;
         }
 
         private static void SceneMgr_OnPreDraw()
@@ -67,7 +70,7 @@ namespace MonoGo.Engine
                 Surface.ResetTarget();
             }
 
-            if (PostProcessing && (ColorGradingFX || BloomFX))
+            if (Initialized && PostProcessing && (ColorGradingFX || BloomFX))
             {
                 ColorGrading.Process();
                 Bloom.Process();
