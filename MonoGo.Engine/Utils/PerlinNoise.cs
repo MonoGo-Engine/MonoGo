@@ -72,21 +72,21 @@ namespace MonoGo.Engine.Utils
 		/// </summary>
 		static PerlinNoise() { for (int i = 0; i < 512; i++) perm[i] = p[i & 255]; }
 
-		#region Fractional Brownian Motion
-		/// <summary>
-		/// Generates a 2D Fractional Brownian Motion noise on top of Simplex noise generated
-		/// </summary>
-		/// <param name="type">Carmody or Gustavson Noise</param>
-		/// <param name="height">Height of the grid being generated</param>
-		/// <param name="x">X position</param>
-		/// <param name="y">Y position</param>
-		/// <param name="octaves">Number of layers</param>
-		/// <param name="frequency">Level of detail</param>
-		/// <param name="amplitude">How tall we want stuff</param>
-		/// <param name="gain">Persistence, makes amplitude shrink or not shrink (0.5f is standard with Lacunarity of 2.0f)</param>
-		/// <param name="lacunarity">Multiplied with frequency every octave (2.0f is standard)</param>
-		/// <returns>Noise value for input parameters</returns>
-		static float FractionalBrownianMotion(NoiseType type, int height, float x, float y, int octaves, float frequency, float amplitude, float gain = 0.5f, float lacunarity = 2.0f)
+        #region Fractional Brownian Motion
+        /// <summary>
+        /// Generates a 2D Fractional Brownian Motion noise on top of Simplex noise generated
+        /// </summary>
+        /// <param name="type">Carmody or Gustavson Noise</param>
+        /// <param name="height">Height of the grid being generated</param>
+        /// <param name="x">X position</param>
+        /// <param name="y">Y position</param>
+        /// <param name="octaves">Number of layers</param>
+        /// <param name="frequency">Level of detail</param>
+        /// <param name="amplitude">How tall we want stuff</param>
+        /// <param name="gain">Persistence, makes amplitude shrink or not shrink (0.5f is standard with Lacunarity of 2.0f)</param>
+        /// <param name="lacunarity">Multiplied with frequency every octave (2.0f is standard)</param>
+        /// <returns>Noise value for input parameters</returns>
+        public static float FractionalBrownianMotion(NoiseType type, int height, float x, float y, int octaves, float frequency, float amplitude, float gain = 0.5f, float lacunarity = 2.0f)
 		{
 			// For each grid point, get the value
 			float total = 0.0f;
@@ -108,21 +108,21 @@ namespace MonoGo.Engine.Utils
 			return total;
 		}
 
-		/// <summary>
-		/// Generates a 3D Fractional Brownian Motion noise on top of Simplex noise generated
-		/// </summary>
-		/// <param name="type">Carmody or Gustavson Noise</param>
-		/// <param name="height">Height of the grid being generated</param>
-		/// <param name="x">X position</param>
-		/// <param name="y">Y position</param>
-		/// <param name="z">Z position</param>
-		/// <param name="octaves">Number of layers</param>
-		/// <param name="frequency">Level of detail</param>
-		/// <param name="amplitude">How tall we want stuff</param>
-		/// <param name="gain">Persistence, makes amplitude shrink or not shrink (0.5f is standard with Lacunarity of 2.0f)</param>
-		/// <param name="lacunarity">Multiplied with frequency every octave (2.0f is standard)</param>
-		/// <returns>Noise value for input parameters</returns>
-		static float FractionalBrownianMotion(NoiseType type, int height, float x, float y, float z, int octaves, float frequency, float amplitude, float gain = 0.5f, float lacunarity = 2.0f)
+        /// <summary>
+        /// Generates a 3D Fractional Brownian Motion noise on top of Simplex noise generated
+        /// </summary>
+        /// <param name="type">Carmody or Gustavson Noise</param>
+        /// <param name="height">Height of the grid being generated</param>
+        /// <param name="x">X position</param>
+        /// <param name="y">Y position</param>
+        /// <param name="z">Z position</param>
+        /// <param name="octaves">Number of layers</param>
+        /// <param name="frequency">Level of detail</param>
+        /// <param name="amplitude">How tall we want stuff</param>
+        /// <param name="gain">Persistence, makes amplitude shrink or not shrink (0.5f is standard with Lacunarity of 2.0f)</param>
+        /// <param name="lacunarity">Multiplied with frequency every octave (2.0f is standard)</param>
+        /// <returns>Noise value for input parameters</returns>
+        public static float FractionalBrownianMotion(NoiseType type, int height, float x, float y, float z, int octaves, float frequency, float amplitude, float gain = 0.5f, float lacunarity = 2.0f)
 		{
 			// For each grid point, get the value
 			float total = 0.0f;
