@@ -88,7 +88,7 @@ namespace MonoGo.Engine.PostProcessing
 
         public static void SetLut(string key)
         {
-            CurrentLUT = LUTs.First(x => x.Name == key);
+            CurrentLUT = LUTs.First(x => x.Name.Contains(key));
         }
 
         private static void UpdateResolution()
