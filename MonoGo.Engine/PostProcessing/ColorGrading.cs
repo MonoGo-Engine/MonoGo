@@ -40,6 +40,8 @@ namespace MonoGo.Engine.PostProcessing
                 UpdateResolution();
 
                 var renderTarget = RenderMgr.SceneSurface.RenderTarget;
+                var oldSamplerState1 = GraphicsMgr.Device.SamplerStates[0];
+                var oldSamplerState2 = GraphicsMgr.Device.SamplerStates[1];
 
                 GraphicsMgr.VertexBatch.Texture = renderTarget;
                 GraphicsMgr.VertexBatch.Effect = _shaderEffect;
@@ -61,6 +63,8 @@ namespace MonoGo.Engine.PostProcessing
 
                 GraphicsMgr.VertexBatch.Effect = null;
                 GraphicsMgr.VertexBatch.Texture = null;
+                GraphicsMgr.Device.SamplerStates[0] = oldSamplerState1;
+                GraphicsMgr.Device.SamplerStates[1] = oldSamplerState2;
             }
         }
 
