@@ -11,6 +11,7 @@ namespace MonoGo.Engine.PostProcessing
     {
         Wide,
         WeakWide,
+        SuperWeak,
         GlareWide,
         SuperWide,
         Focussed,
@@ -106,6 +107,22 @@ namespace MonoGo.Engine.PostProcessing
                         _bloomRadius1 = 1.0f;
                         StreakLength = 2f;
                         DownsamplePasses = 2;
+                        break;
+                    }
+                case BloomPresets.SuperWeak:
+                    {
+                        _bloomStrength1 = 0.25f;
+                        _bloomStrength2 = 0.3f;
+                        _bloomStrength3 = 0.3f;
+                        _bloomStrength4 = 0.3f;
+                        _bloomStrength5 = 0.5f;
+                        _bloomRadius5 = 4.0f;
+                        _bloomRadius4 = 4.0f;
+                        _bloomRadius3 = 2.0f;
+                        _bloomRadius2 = 2.0f;
+                        _bloomRadius1 = 1.0f;
+                        StreakLength = 2f;
+                        DownsamplePasses = 5;
                         break;
                     }
                 case BloomPresets.GlareWide:
