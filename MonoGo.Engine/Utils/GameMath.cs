@@ -117,9 +117,42 @@ namespace MonoGo.Engine.Utils
 		}
 
 		/// <summary>
-		/// Checks if two lines cross. Returns 1 if lines cross, 0 if not and 2 if lines overlap.
+		/// Determines the relative position of a point with respect to a line segment.
 		/// </summary>
-		public static int LinesCross(Vector2 line1Pt1, Vector2 line1Pt2, Vector2 line2Pt1, Vector2 line2Pt2)
+		/// <param name="objectPosition">The position of the point to evaluate.</param>
+		/// <param name="linePt1">The starting point of the line segment.</param>
+		/// <param name="linePt2">The ending point of the line segment.</param>
+		/// <returns>A value between 0 and 1 indicating the relative position of <paramref name="objectPosition"/>  with respect to the
+		/// line segment defined by <paramref name="linePt1"/> and <paramref name="linePt2"/>. A return value of 1 indicates
+		/// that the point is outside the line segment in the direction of the line, while a value closer to 0 indicates
+		/// proximity to the line segment.</returns>
+        public static float PointOutside(Vector2 objectPosition, Vector2 linePt1, Vector2 linePt2)
+        {
+            // Check if objectPosition is outside of pos2.
+            Vector2 lineVector = linePt2 - linePt1;
+            Vector2 objectVector = objectPosition - linePt2;
+
+            // If dot-product is positive, objectPosition is outside (in direction of the line).
+            if (Vector2.Dot(lineVector, objectVector) > 0)
+                return 1f;
+
+            // Max distance between the two points.
+            float distanceMax = Vector2.Distance(linePt1, linePt2);
+
+            // Distance from pos2 to the objectPosition.
+            float distance = Vector2.Distance(linePt2, objectPosition);
+
+            // Normalize distance (0.0 bis 1.0).
+            float normalized = distance / distanceMax;
+
+            // Clamp to [0,1] and invert the result (1.0 - Value).
+            return 1f - Math.Clamp(normalized, 0f, 1f);
+        }
+
+        /// <summary>
+        /// Checks if two lines cross. Returns 1 if lines cross, 0 if not and 2 if lines overlap.
+        /// </summary>
+        public static int LinesCross(Vector2 line1Pt1, Vector2 line1Pt2, Vector2 line2Pt1, Vector2 line2Pt2)
 		{
 			var line1 = new Vector2(line1Pt2.Y - line1Pt1.Y, line1Pt1.X - line1Pt2.X);
 			var line2 = new Vector2(line2Pt2.Y - line2Pt1.Y, line2Pt1.X - line2Pt2.X);
