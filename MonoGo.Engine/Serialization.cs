@@ -4,9 +4,11 @@ using MonoGo.Engine.Particles.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using static MonoGo.Engine.AdditionalConverters;
 using static MonoGo.Engine.Axis;
@@ -58,20 +60,20 @@ namespace MonoGo.Engine
             };
         }
 
-        public static string? Serialize(SerializeType type, string? fileName = null)
+        public static JsonObject? Serialize(SerializeType type, string? fileName = null)
         {
             return type switch
             {
-                SerializeType.PostFX => PostProcessing.Serialization.Serialize(fileName),
+                SerializeType.PostFX => PostProcessing.Serialization.SerializePostFX(fileName),
                 _ => null,
             };
         }
 
-        public static string? Deserialize(SerializeType type, string? fileName = null)
+        public static JsonNode? Deserialize(SerializeType type, string? fileName = null)
         {
             return type switch
             {
-                SerializeType.PostFX => PostProcessing.Serialization.Deserialize(fileName),
+                SerializeType.PostFX => PostProcessing.Serialization.DeserializePostFX(fileName),
                 _ => null,
             };
         }
@@ -82,20 +84,35 @@ namespace MonoGo.Engine
         /// <typeparam name="TValue">The type to serialize.</typeparam>
         /// <param name="value">The object to serialize.</param>
         /// <returns>A JSON string representation of the value.</returns>
-        public static string Serialize<TValue>(TValue value)
+        public static string Serialize<TValue>(TValue value, string? fileName = null)
         {
-            return JsonSerializer.Serialize(value, SerializerOptions);
+            var jsonString = JsonSerializer.Serialize(value, SerializerOptions);
+
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
+                using (var writer = new StreamWriter(fs))
+                {
+                    writer.Write(jsonString);
+                }
+            }
+
+            return jsonString;
         }
 
-        /// <summary>
-        /// Parses the text representing a single JSON value into a <typeparamref name="TValue"/>.
-        /// </summary>
-        /// <typeparam name="TValue">The type to deserialize the JSON value into.</typeparam>
-        /// <param name="content">The string to deserialize.</param>
-        /// <returns>A <typeparamref name="TValue"/> representation of the JSON value.</returns>
-        public static TValue? Deserialize<TValue>(string content)
+        public static TValue? Deserialize<TValue>(string fileName)
         {
-            return JsonSerializer.Deserialize<TValue>(content, SerializerOptions);
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                string jsonString;
+                using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var reader = new StreamReader(fs))
+                {
+                    jsonString = reader.ReadToEnd();
+                }
+                return JsonSerializer.Deserialize<TValue>(jsonString, SerializerOptions);
+            }
+            return default;
         }
     }
 

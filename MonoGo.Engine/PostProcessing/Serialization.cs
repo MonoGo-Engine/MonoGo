@@ -5,9 +5,9 @@ using System.Text.Json.Nodes;
 
 namespace MonoGo.Engine.PostProcessing
 {
-    internal static class Serialization
+    public static class Serialization
     {
-        internal static string Serialize(string? fileName = null)
+        internal static JsonObject SerializePostFX(string? fileName = null)
         {
             var bloomNode = new JsonObject
             {
@@ -27,12 +27,7 @@ namespace MonoGo.Engine.PostProcessing
                 { "ColorGrading", colorGradingNode }
             };
 
-            var jsonObject = new JsonObject()
-            {
-                { "PostFX", postFXNode }
-            };
-
-            var jsonString = Engine.Serialization.Serialize(jsonObject);
+            var jsonString = Engine.Serialization.Serialize(postFXNode);
 
             if (!string.IsNullOrEmpty(fileName))
             {
@@ -43,50 +38,41 @@ namespace MonoGo.Engine.PostProcessing
                 }
             }
 
-            return jsonObject.ToString();
+            return postFXNode;
         }
 
-        internal static string? Deserialize(string? fileName = null)
+        internal static JsonNode? DeserializePostFX(string? fileName = null)
         {
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                string jsonString;
-                using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (var reader = new StreamReader(fs))
-                {
-                    jsonString = reader.ReadToEnd();
-                }
-                var jsonObject = Engine.Serialization.Deserialize<JsonNode>(jsonString);
+            var jsonObject = Engine.Serialization.Deserialize<JsonObject>(fileName);
+            return ReadPostFX(jsonObject);
+        }
 
-                if (jsonObject != null)
+        public static JsonNode? ReadPostFX(JsonNode? jsonObject)
+        {
+            if (jsonObject != null)
+            {
+                var bloom = jsonObject["Bloom"];
+                if (bloom != null)
                 {
-                    var postFX = jsonObject["PostFX"];
-                    if (postFX != null)
+                    if (Enum.TryParse<BloomPresets>(bloom["Preset"]!.ToString(), true, out var preset))
                     {
-                        var bloom = postFX["Bloom"];
-                        if (bloom != null)
-                        {
-                            if (Enum.TryParse<BloomPresets>(bloom["Preset"]!.ToString(), true, out var preset))
-                            {
-                                Bloom.Preset(preset);
-                            }
-                            if (float.TryParse(bloom["Threshold"]!.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out var threshold))
-                            {
-                                Bloom.Threshold = threshold;
-                            }
-                            if (float.TryParse(bloom["StreakLength"]!.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out var streakLength))
-                            {
-                                Bloom.StreakLength = streakLength;
-                            }
-                        }
-                        var colorGrading = postFX["ColorGrading"];
-                        if (colorGrading != null)
-                        {
-                            ColorGrading.SetLut(colorGrading["LUT"]!.ToString());
-                        }
+                        Bloom.Preset(preset);
                     }
-                    return jsonObject.ToString();
+                    if (float.TryParse(bloom["Threshold"]!.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out var threshold))
+                    {
+                        Bloom.Threshold = threshold;
+                    }
+                    if (float.TryParse(bloom["StreakLength"]!.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out var streakLength))
+                    {
+                        Bloom.StreakLength = streakLength;
+                    }
                 }
+                var colorGrading = jsonObject["ColorGrading"];
+                if (colorGrading != null)
+                {
+                    ColorGrading.SetLut(colorGrading["LUT"]!.ToString());
+                }
+                return jsonObject;
             }
             return null;
         }
