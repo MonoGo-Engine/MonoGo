@@ -106,10 +106,10 @@ namespace MonoGo.Engine.Drawing
 			return true;
 		}
 
-		/// <summary>
-		/// Returns sprite frame based on an animation value from 0 to 1.
-		/// </summary>
-		private Frame GetFrame(double animation) =>
+        /// <summary>
+        /// Returns sprite frame based on an animation value from 0 to 1.
+        /// </summary>
+        public Frame GetFrame(double animation) =>
 			_frames[Math.Max(0, Math.Min(_frames.Length - 1, (int)(animation * _frames.Length)))];
 		
 		
