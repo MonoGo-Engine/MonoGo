@@ -43,7 +43,7 @@ namespace MonoGo.Engine.PostProcessing
 
         internal static JsonNode? DeserializePostFX(string? fileName = null)
         {
-            var jsonObject = Engine.Serialization.Deserialize<JsonObject>(fileName);
+            var jsonObject = Engine.Serialization.Deserialize<JsonObject>(fileName: fileName);
             return ReadPostFX(jsonObject);
         }
 

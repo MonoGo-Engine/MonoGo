@@ -43,9 +43,11 @@ namespace MonoGo.Engine
                 WriteIndented = true,
                 PropertyNamingPolicy = null,
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                 Converters =
                 {
                     new VectorConverter(),
+                    new HexColorConverter(),
                     new RectangleConverter(),
                     new PointConverter(),
                     new AxisConverter(),
@@ -100,7 +102,33 @@ namespace MonoGo.Engine
             return jsonString;
         }
 
-        public static TValue? Deserialize<TValue>(string fileName)
+        /// <summary>
+        /// Serializes the specified value to a JSON node and optionally writes it to a file.
+        /// </summary>
+        /// <remarks>If a <paramref name="fileName"/> is provided, the method writes the JSON output to
+        /// the specified file. The file is created or overwritten if it already exists.</remarks>
+        /// <typeparam name="TValue">The type of the value to serialize.</typeparam>
+        /// <param name="value">The value to serialize into a JSON node.</param>
+        /// <param name="fileName">The optional file name to which the JSON representation will be written.  If <see langword="null"/> or
+        /// empty, the JSON is not written to a file.</param>
+        /// <returns>A <see cref="JsonNode"/> representing the serialized JSON of the specified value.</returns>
+        public static JsonNode SerializeToNode<TValue>(TValue value, string? fileName = null)
+        {
+            var jsonString = JsonSerializer.SerializeToNode(value, SerializerOptions);
+
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
+                using (var writer = new StreamWriter(fs))
+                {
+                    writer.Write(jsonString);
+                }
+            }
+
+            return jsonString;
+        }
+
+        public static TValue? Deserialize<TValue>(JsonNode? value = null, string? fileName = null)
         {
             if (!string.IsNullOrEmpty(fileName))
             {
@@ -112,7 +140,7 @@ namespace MonoGo.Engine
                 }
                 return JsonSerializer.Deserialize<TValue>(jsonString, SerializerOptions);
             }
-            return default;
+            else return JsonSerializer.Deserialize<TValue>(value, SerializerOptions);
         }
     }
 
@@ -150,6 +178,23 @@ namespace MonoGo.Engine
             {
                 return string.Format(CultureInfo.InvariantCulture,
                     $"({value.X.ToString(CultureInfo.InvariantCulture)}; {value.Y.ToString(CultureInfo.InvariantCulture)})");
+            }
+        }
+        internal class HexColorConverter : JsonConverter<Color>
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return (objectType == typeof(Color));
+            }
+
+            public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            {
+                return ColorHelper.HexToColor(reader.GetString()!);
+            }
+
+            public override void Write(Utf8JsonWriter writer, Color value, JsonSerializerOptions options)
+            {
+                writer.WriteStringValue(value.ToHex());
             }
         }
         internal class PointConverter : JsonConverter<Point>
