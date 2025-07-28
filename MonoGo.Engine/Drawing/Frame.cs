@@ -71,7 +71,7 @@ namespace MonoGo.Engine.Drawing
 			Vector2 scale, 
 			Angle rotation, 
 			Color color, 
-			SpriteFlipFlags flipFlags,
+			SpriteEffects flipFlags,
 			Vector4 zDepth
 		)
 		{
@@ -98,19 +98,19 @@ namespace MonoGo.Engine.Drawing
 
 		public void Draw(Vector2 position, Vector2 origin, Vector2 scale, Angle rotation, Color color, Vector4 zDepth)
 		{
-			var flipFlags = SpriteFlipFlags.None;
+			var flipFlags = SpriteEffects.None;
 
 			// Proper negative scaling.
 			if (scale.X < 0)
 			{
-				flipFlags = flipFlags | SpriteFlipFlags.FlipHorizontally;
+				flipFlags = flipFlags | SpriteEffects.FlipHorizontally;
 				scale.X *= -1;
 				origin.X = Size.X - origin.X;
 			}
 
 			if (scale.Y < 0)
 			{
-				flipFlags = flipFlags | SpriteFlipFlags.FlipVertically;
+				flipFlags = flipFlags | SpriteEffects.FlipVertically;
 				scale.Y *= -1;
 				origin.Y = Size.Y - origin.Y;
 			}
@@ -130,7 +130,7 @@ namespace MonoGo.Engine.Drawing
 				color,
 				rotation.RadiansF,
 				Origin,
-				SpriteFlipFlags.None,
+                SpriteEffects.None,
 				ZDepth
 			);
 		}
@@ -148,7 +148,7 @@ namespace MonoGo.Engine.Drawing
 				color,
 				rotation.RadiansF,
 				Vector2.Zero,
-				SpriteFlipFlags.None,
+				SpriteEffects.None,
 				zDepth
 			);
 		}

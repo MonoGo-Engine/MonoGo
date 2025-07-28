@@ -111,21 +111,21 @@ namespace MonoGo.Engine.Drawing
 			Vector4 zDepth
 		)
 		{
-			var mirroring = SpriteFlipFlags.None;
+			var mirroring = SpriteEffects.None;
 
 			// Proper negative scaling.
 			var scaleOffset = Vector2.Zero;
 
 			if (scale.X < 0)
 			{
-				mirroring = mirroring | SpriteFlipFlags.FlipHorizontally;
+				mirroring = mirroring | SpriteEffects.FlipHorizontally;
 				scale.X *= -1;
 				scaleOffset.X = Size.X;
 			}
 
 			if (scale.Y < 0)
 			{
-				mirroring = mirroring | SpriteFlipFlags.FlipVertically;
+				mirroring = mirroring | SpriteEffects.FlipVertically;
 				scale.Y *= -1;
 				scaleOffset.Y = Size.Y;
 			}
@@ -166,7 +166,7 @@ namespace MonoGo.Engine.Drawing
 				color,
 				rotation.RadiansF,
 				Origin,
-				SpriteFlipFlags.None,
+				SpriteEffects.None,
 				ZDepth
 			);
 		}
@@ -194,7 +194,7 @@ namespace MonoGo.Engine.Drawing
 				color,	
 				rotation.RadiansF, 
 				Origin,
-				SpriteFlipFlags.None, 
+				SpriteEffects.None, 
 				zDepth
 			);
 		}

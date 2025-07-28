@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
 using MonoGo.Engine.SceneSystem;
@@ -127,7 +128,7 @@ namespace MonoGo.Engine.Utils.Tilemaps
 
 						if (tilesetTile != null)
 						{
-							var flip = SpriteFlipFlags.None;
+							var flip = SpriteEffects.None;
 							var offset = Vector2.UnitY * (tilesetTile.Frame.Size.Y - TileHeight);
 							var rotation = 0;
 
@@ -149,7 +150,7 @@ namespace MonoGo.Engine.Utils.Tilemaps
 								offset.Y = -TileHeight;
 								offset.X = 0;
 
-								flip |= SpriteFlipFlags.FlipHorizontally;
+								flip |= SpriteEffects.FlipHorizontally;
 							}
 
 							if (tile.FlipHor)
@@ -157,11 +158,11 @@ namespace MonoGo.Engine.Utils.Tilemaps
 								// Sprite is rotated by 90 degrees, so X axis becomes Y.
 								if (tile.FlipDiag)
 								{
-									flip ^= SpriteFlipFlags.FlipVertically;
+									flip ^= SpriteEffects.FlipVertically;
 								}
 								else
 								{
-									flip ^= SpriteFlipFlags.FlipHorizontally;
+									flip ^= SpriteEffects.FlipHorizontally;
 								}
 							}
 
@@ -169,11 +170,11 @@ namespace MonoGo.Engine.Utils.Tilemaps
 							{
 								if (tile.FlipDiag)
 								{
-									flip ^= SpriteFlipFlags.FlipHorizontally;
+									flip ^= SpriteEffects.FlipHorizontally;
 								}
 								else
 								{
-									flip ^= SpriteFlipFlags.FlipVertically;
+									flip ^= SpriteEffects.FlipVertically;
 								}
 							}
 							// A bunch of Tiled magic.

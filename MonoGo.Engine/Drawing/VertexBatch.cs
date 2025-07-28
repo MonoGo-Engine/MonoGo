@@ -488,16 +488,14 @@ namespace MonoGo.Engine.Drawing
 			double rotation,
 			Vector2 origin,
 			Vector2 scale,
-			SpriteFlipFlags flipFlags,
+            SpriteEffects flipFlags,
 			Vector4 zDepth
 		)
 		{
-
 			origin = origin * scale;
 
 			Vector2 texCoordTL;
 			Vector2 texCoordBR;
-
 
 			var w = srcRectangle.Width * scale.X;
 			var h = srcRectangle.Height * scale.Y;
@@ -506,13 +504,13 @@ namespace MonoGo.Engine.Drawing
 			texCoordBR.X = (srcRectangle.X + srcRectangle.Width) / (float)_texture.Width;
 			texCoordBR.Y = (srcRectangle.Y + srcRectangle.Height) / (float)_texture.Height;
 
-			if ((flipFlags & SpriteFlipFlags.FlipVertically) != 0)
+			if ((flipFlags & SpriteEffects.FlipVertically) != 0)
 			{
 				var temp = texCoordBR.Y;
 				texCoordBR.Y = texCoordTL.Y;
 				texCoordTL.Y = temp;
 			}
-			if ((flipFlags & SpriteFlipFlags.FlipHorizontally) != 0)
+			if ((flipFlags & SpriteEffects.FlipHorizontally) != 0)
 			{
 				var temp = texCoordBR.X;
 				texCoordBR.X = texCoordTL.X;
@@ -564,7 +562,7 @@ namespace MonoGo.Engine.Drawing
 			Color color,
 			double rotation,
 			Vector2 origin,
-			SpriteFlipFlags flipFlags,
+			SpriteEffects flipFlags,
 			Vector4 zDepth
 		)
 		{
@@ -595,13 +593,13 @@ namespace MonoGo.Engine.Drawing
 
 
 
-			if ((flipFlags & SpriteFlipFlags.FlipVertically) != 0)
+			if ((flipFlags & SpriteEffects.FlipVertically) != 0)
 			{
 				var temp = texCoordBR.Y;
 				texCoordBR.Y = texCoordTL.Y;
 				texCoordTL.Y = temp;
 			}
-			if ((flipFlags & SpriteFlipFlags.FlipHorizontally) != 0)
+			if ((flipFlags & SpriteEffects.FlipHorizontally) != 0)
 			{
 				var temp = texCoordBR.X;
 				texCoordBR.X = texCoordTL.X;
