@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<OutputPath>..\..\bin\</OutputPath>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<IsPackable>true</IsPackable>
+	<Configurations>Debug;Release;gametest</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4">
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>compile</IncludeAssets>
+	</PackageReference>
+    <PackageReference Include="SpriterDotNet.Repacked" Version="1.6.1" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\" />
+    <Folder Include="Textures\" />
+  </ItemGroup>
+
+</Project>

@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{C0A95E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{7F57A7A1-737E-45C4-B9A8-53E4A08CC715}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGo.Spriter", "Modules\MonoGo.Spriter\MonoGo.Spriter.csproj", "{34169C45-BC5F-44AC-8BB0-A15C0F6C78DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGo.Spriter.Importer", "Modules\MonoGo.Spriter.Importer\MonoGo.Spriter.Importer.csproj", "{1D791851-6A59-473A-A7F3-3FE600B1E294}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
