@@ -4,7 +4,6 @@
 // of the zlib license.  See the LICENSE file for details.
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGo.Spriter
 {
@@ -12,6 +11,6 @@ namespace MonoGo.Spriter
     {
         float Width { get; }
         float Height { get; }
-        void Draw(SpriteBatch spriteBatch, Vector2 pivot, Vector2 position, Vector2 scale, float rotation, Color color, float depth);
+        void Draw(Vector2 pivot, Vector2 position, Vector2 scale, float rotation, Color color, float depth);
     }
 }

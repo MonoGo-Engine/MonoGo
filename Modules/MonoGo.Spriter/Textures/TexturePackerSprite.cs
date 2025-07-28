@@ -5,6 +5,8 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGo.Engine;
+using MonoGo.Engine.Drawing;
 using System;
 
 namespace MonoGo.Spriter.Textures
@@ -20,7 +22,7 @@ namespace MonoGo.Spriter.Textures
         private static readonly float SpriteAtlasRotation = MathHelper.ToRadians(-90);
 
         public Texture2D texture;
-        public Rectangle sourceRectangle;
+        public RectangleF sourceRectangle;
         public int width;
         public int height;
         public bool rotated;
@@ -32,7 +34,7 @@ namespace MonoGo.Spriter.Textures
         public TexturePackerSprite(Texture2D texture, Rectangle sourceRectangle, int width, int height, bool rotated, float trimLeft, float trimRight, float trimTop, float trimBottom)
         {
             this.texture = texture;
-            this.sourceRectangle = sourceRectangle;
+            this.sourceRectangle = sourceRectangle.ToRectangleF();
             this.width = width;
             this.height = height;
             this.rotated = rotated;
@@ -42,7 +44,7 @@ namespace MonoGo.Spriter.Textures
             this.trimBottom = trimBottom;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 pivot, Vector2 position, Vector2 scale, float rotation, Color color, float depth)
+        public void Draw(Vector2 pivot, Vector2 position, Vector2 scale, float rotation, Color color, float depth)
         {
             bool flipX = scale.X < 0;
             bool flipY = scale.Y < 0;
@@ -78,18 +80,9 @@ namespace MonoGo.Spriter.Textures
 
             if (rotated) rotation += SpriteAtlasRotation;
 
-            spriteBatch.Draw
-            (
-                texture: texture,
-                sourceRectangle: sourceRectangle,
-                origin: origin,
-                position: position,
-                scale: scale,
-                rotation: rotation,
-                color: color,
-                layerDepth: depth,
-                effects: effects
-            );
+            GraphicsMgr.VertexBatch.Texture = texture;
+            GraphicsMgr.VertexBatch.AddQuad(position, sourceRectangle, color, rotation, origin, scale, effects, Vector4.Zero);
+            GraphicsMgr.VertexBatch.Texture = null;
         }
     }
 }

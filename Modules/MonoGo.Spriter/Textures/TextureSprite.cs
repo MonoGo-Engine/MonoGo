@@ -5,6 +5,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGo.Engine.Drawing;
 using System;
 
 namespace MonoGo.Spriter.Textures
@@ -24,7 +25,7 @@ namespace MonoGo.Spriter.Textures
             this.texture = texture;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 pivot, Vector2 position, Vector2 scale, float rotation, Color color, float depth)
+        public void Draw(Vector2 pivot, Vector2 position, Vector2 scale, float rotation, Color color, float depth)
         {
             SpriteEffects effects = SpriteEffects.None;
 
@@ -46,7 +47,9 @@ namespace MonoGo.Spriter.Textures
             scale = new Vector2(Math.Abs(scale.X), Math.Abs(scale.Y));
             Vector2 origin = new Vector2(originX, originY);
 
-            spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, effects, depth);
+            GraphicsMgr.VertexBatch.Texture = texture;
+            GraphicsMgr.VertexBatch.AddQuad(position, color, rotation, origin, scale, effects, Vector4.Zero);
+            GraphicsMgr.VertexBatch.Texture = null;
         }
     }
 }

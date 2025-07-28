@@ -90,16 +90,13 @@ namespace MonoGo.Spriter
             DrawInfoPool = drawInfoPool ?? new Stack<SpriteDrawInfo>();
         }
 
-        /// <summary>
-        /// Draws the animation with the given SpriteBatch.
-        /// </summary>
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw()
         {
             for (int i = 0; i < DrawInfos.Count; ++i)
             {
                 SpriteDrawInfo di = DrawInfos[i];
                 ISprite sprite = di.Drawable;
-                sprite.Draw(spriteBatch, di.Pivot, di.Position, di.Scale, di.Rotation, di.Color, di.Depth);
+                sprite.Draw(di.Pivot, di.Position, di.Scale, di.Rotation, di.Color, di.Depth);
             }
         }
 

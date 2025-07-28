@@ -22,4 +22,8 @@
     <Folder Include="Textures\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MonoGo.Engine\MonoGo.Engine.csproj" />
+  </ItemGroup>
+
 </Project>
