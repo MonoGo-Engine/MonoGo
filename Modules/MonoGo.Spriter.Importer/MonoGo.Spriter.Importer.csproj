@@ -5,6 +5,7 @@
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<OutputPath>..\..\bin\</OutputPath>
 	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<IncludeBuildOutput>false</IncludeBuildOutput>
 	<IsPackable>true</IsPackable>
 	<Configurations>Debug;Release;gametest</Configurations>
   </PropertyGroup>
@@ -22,6 +23,11 @@
 
 <ItemGroup>
   <ProjectReference Include="..\MonoGo.Spriter\MonoGo.Spriter.csproj" />
+</ItemGroup>
+
+<ItemGroup Label="ContentBuildFiles">
+	<Content Include="$(OutputPath)MonoGo.Spriter.Importer.dll" Pack="true" PackagePath="contentFiles\" />
+	<Content Include="$(OutputPath)SpriterDotNet.dll" Pack="true" PackagePath="contentFiles\" />
 </ItemGroup>
 
 </Project>

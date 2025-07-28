@@ -2,6 +2,9 @@
 //
 // This software may be modified and distributed under the terms
 // of the zlib license.  See the LICENSE file for details.
+//
+// Edit: 28.07.2025 by BlizzCrafter
+// Replaced SpriteBatch rendering with VertexBatch rendering.
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
