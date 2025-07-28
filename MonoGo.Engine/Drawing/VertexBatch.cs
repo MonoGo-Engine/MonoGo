@@ -553,10 +553,78 @@ namespace MonoGo.Engine.Drawing
 					zDepth.W
 				);
 			}
-
 		}
 
-		public void AddQuad(
+        public void AddQuad(
+            Vector2 position,
+            Color color,
+            double rotation,
+            Vector2 origin,
+            Vector2 scale,
+            SpriteEffects flipFlags,
+            Vector4 zDepth
+        )
+        {
+            origin = origin * scale;
+
+            Vector2 texCoordTL = Vector2.Zero;
+			Vector2 texCoordBR = Vector2.One;
+
+            var w = _texture.Width * scale.X;
+            var h = _texture.Height * scale.Y;
+
+            if ((flipFlags & SpriteEffects.FlipVertically) != 0)
+            {
+                var temp = texCoordBR.Y;
+                texCoordBR.Y = texCoordTL.Y;
+                texCoordTL.Y = temp;
+            }
+            if ((flipFlags & SpriteEffects.FlipHorizontally) != 0)
+            {
+                var temp = texCoordBR.X;
+                texCoordBR.X = texCoordTL.X;
+                texCoordTL.X = temp;
+            }
+
+            if (rotation == 0f)
+            {
+                SetQuad(
+                    position.X - origin.X,
+                    position.Y - origin.Y,
+                    w,
+                    h,
+                    color,
+                    texCoordTL,
+                    texCoordBR,
+                    zDepth.X,
+                    zDepth.Y,
+                    zDepth.Z,
+                    zDepth.W
+                );
+            }
+            else
+            {
+                SetQuad(
+                    position.X,
+                    position.Y,
+                    -origin.X,
+                    -origin.Y,
+                    w,
+                    h,
+                    (float)Math.Sin(rotation),
+                    (float)Math.Cos(rotation),
+                    color,
+                    texCoordTL,
+                    texCoordBR,
+                    zDepth.X,
+                    zDepth.Y,
+                    zDepth.Z,
+                    zDepth.W
+                );
+            }
+        }
+
+        public void AddQuad(
 			RectangleF destRectangle,
 			RectangleF srcRectangle,
 			Color color,
