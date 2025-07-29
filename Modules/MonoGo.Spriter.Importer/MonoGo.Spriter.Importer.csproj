@@ -26,6 +26,7 @@
 </ItemGroup>
 
 <ItemGroup Label="ContentBuildFiles">
+	<Content Include="MonoGo.Spriter.targets" PackagePath="build/MonoGo.Spriter.targets" />
 	<Content Include="$(OutputPath)MonoGo.Spriter.Importer.dll" Pack="true" PackagePath="contentFiles\" />
 	<Content Include="$(OutputPath)SpriterDotNet.dll" Pack="true" PackagePath="contentFiles\" />
 </ItemGroup>
