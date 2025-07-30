@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
-using MonoGo.Resources;
 using System;
 using System.Diagnostics;
 

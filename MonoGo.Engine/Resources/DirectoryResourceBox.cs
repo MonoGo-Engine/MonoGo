@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using MonoGo.Engine;
-using MonoGo.Engine.Resources;
 using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace MonoGo.Resources
+namespace MonoGo.Engine.Resources
 {
     /// <summary>
     /// Loads all content from a specified directory.
