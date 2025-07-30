@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MonoGo.Engine.EC;
 
 namespace MonoGo.Engine.Utils
@@ -10,6 +11,13 @@ namespace MonoGo.Engine.Utils
 	/// </summary>
 	public class StateMachine<T>
 	{
+		/// <summary>
+		/// Occurs when the state changes, providing the new state as an argument.
+		/// </summary>
+		/// <remarks>This event is triggered whenever there is a change in the state of the object. 
+		/// Subscribers can use this event to perform actions in response to state changes.</remarks>
+		public event Action<T> OnStateChange;
+
 		/// <summary>
 		/// All the available states. Excuted on each update.
 		/// </summary>
@@ -156,6 +164,8 @@ namespace MonoGo.Engine.Utils
 			_stateStack.Push(state);
 			CallExitEvent(PreviousState);
 			CallEnterEvent(CurrentState);
+
+			OnStateChange?.Invoke(state);
 
 			return PreviousState;
 		}
