@@ -69,6 +69,51 @@ namespace MonoGo.Engine
 		/// </summary>
 		public double Difference(Angle other) =>
 			((Degrees - other.Degrees + 180.0) % 360.0 + 360.0) % 360.0 - 180.0;
+
+		/// <summary>
+		/// Checks if this angle is within a range around another angle.
+		/// </summary>
+		/// <param name="targetAngle">The target angle to check against</param>
+		/// <param name="tolerance">The tolerance in degrees (half-width of the range)</param>
+		/// <returns>True if this angle is within the tolerance range of the target angle</returns>
+		public bool IsWithinRange(Angle targetAngle, double tolerance) =>
+			Math.Abs(Difference(targetAngle)) <= tolerance;
+
+		/// <summary>
+		/// Checks if this angle is approximately pointing Right (0°).
+		/// Default range: 315° to 45° (90° total range, ±45° from 0°)
+		/// </summary>
+		/// <param name="tolerance">The tolerance in degrees from the Right direction (default: 45°)</param>
+		/// <returns>True if the angle is approximately pointing Right</returns>
+		public bool IsApproximatelyRight(double tolerance = 45.0) =>
+			IsWithinRange(Right, tolerance);
+
+		/// <summary>
+		/// Checks if this angle is approximately pointing Down (90°).
+		/// Default range: 45° to 135° (90° total range, ±45° from 90°)
+		/// </summary>
+		/// <param name="tolerance">The tolerance in degrees from the Down direction (default: 45°)</param>
+		/// <returns>True if the angle is approximately pointing Down</returns>
+		public bool IsApproximatelyDown(double tolerance = 45.0) =>
+			IsWithinRange(Down, tolerance);
+
+		/// <summary>
+		/// Checks if this angle is approximately pointing Left (180°).
+		/// Default range: 135° to 225° (90° total range, ±45° from 180°)
+		/// </summary>
+		/// <param name="tolerance">The tolerance in degrees from the Left direction (default: 45°)</param>
+		/// <returns>True if the angle is approximately pointing Left</returns>
+		public bool IsApproximatelyLeft(double tolerance = 45.0) =>
+			IsWithinRange(Left, tolerance);
+
+		/// <summary>
+		/// Checks if this angle is approximately pointing Up (270°).
+		/// Default range: 225° to 315° (90° total range, ±45° from 270°)
+		/// </summary>
+		/// <param name="tolerance">The tolerance in degrees from the Up direction (default: 45°)</param>
+		/// <returns>True if the angle is approximately pointing Up</returns>
+		public bool IsApproximatelyUp(double tolerance = 45.0) =>
+			IsWithinRange(Up, tolerance);
 				
 		public Vector2 ToVector2() =>
 			new Vector2((float)Math.Cos(Radians), (float)Math.Sin(Radians));
