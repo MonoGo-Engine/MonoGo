@@ -41,19 +41,26 @@ namespace MonoGo.Engine.ViewportAdapters
 
         public Vector2 VirtualSize => new Vector2(VirtualWidth, VirtualHeight);
         public Rectangle BoundingRectangle => new Rectangle(0, 0, VirtualWidth, VirtualHeight);
-        public Point Center => BoundingRectangle.Center;
+        public Vector2 Center => new Vector2(BoundingRectangle.Center.X, BoundingRectangle.Center.Y);
         public abstract Matrix GetScaleMatrix();
 
-        public Point PointToScreen(Point point)
-        {
-            return PointToScreen(point.X, point.Y);
-        }
-
-        public virtual Point PointToScreen(int x, int y)
+        /// <summary>
+        /// Transforms world coordinates to viewport coordinates
+        /// </summary>
+        public virtual Vector2 WorldToViewport(Vector2 worldPosition)
         {
             var scaleMatrix = GetScaleMatrix();
-            var invertedMatrix = Matrix.Invert(scaleMatrix);
-            return Vector2.Transform(new Vector2(x, y), invertedMatrix).ToPoint();
+            return Vector2.Transform(worldPosition, scaleMatrix);
+        }
+
+        /// <summary>
+        /// Transforms viewport coordinates to world coordinates  
+        /// </summary>
+        public virtual Vector2 ViewportToWorld(Vector2 viewportPosition)
+        {
+            var scaleMatrix = GetScaleMatrix();
+            var inverseMatrix = Matrix.Invert(scaleMatrix);
+            return Vector2.Transform(viewportPosition, inverseMatrix);
         }
 
         public virtual void Reset()

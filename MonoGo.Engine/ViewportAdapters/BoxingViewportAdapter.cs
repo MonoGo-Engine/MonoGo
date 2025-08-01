@@ -102,10 +102,30 @@ namespace MonoGo.Engine.ViewportAdapters
             OnClientSizeChanged(this, EventArgs.Empty);
         }
 
-        public override Point PointToScreen(int x, int y)
+        /// <summary>
+        /// Transforms world coordinates to viewport coordinates taking into account boxing offsets
+        /// </summary>
+        public override Vector2 WorldToViewport(Vector2 worldPosition)
         {
+            // First apply the base scaling transformation
+            var scaledPosition = base.WorldToViewport(worldPosition);
+            
+            // Then apply viewport offset for boxing
             var viewport = GameMgr.WindowManager.GraphicsDevice.Viewport;
-            return base.PointToScreen(x - viewport.X, y - viewport.Y);
+            return new Vector2(scaledPosition.X + viewport.X, scaledPosition.Y + viewport.Y);
+        }
+
+        /// <summary>
+        /// Transforms viewport coordinates to world coordinates taking into account boxing offsets
+        /// </summary>
+        public override Vector2 ViewportToWorld(Vector2 viewportPosition)
+        {
+            // First remove viewport offset for boxing
+            var viewport = GameMgr.WindowManager.GraphicsDevice.Viewport;
+            var offsetPosition = new Vector2(viewportPosition.X - viewport.X, viewportPosition.Y - viewport.Y);
+            
+            // Then apply the base inverse scaling transformation
+            return base.ViewportToWorld(offsetPosition);
         }
     }
 }
