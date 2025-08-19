@@ -67,14 +67,18 @@ namespace MonoGo.Engine.Utils
 			_stateStack.Push(startingState);
 			PreviousState = startingState;
 		}
-		
+
 
 		/// <summary>
 		/// Updates state machine and executes current state method.
 		/// </summary>
-		public virtual void Update() =>
-			_states[CurrentState](this, Owner);
-		
+		public virtual void Update()
+		{
+			if (_states.ContainsKey(CurrentState))
+			{
+				_states[CurrentState](this, Owner);
+			}
+		}
 
 		
 		/// <summary>
