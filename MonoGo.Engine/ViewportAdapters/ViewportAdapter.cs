@@ -1,4 +1,4 @@
-﻿/*MIT License
+/*MIT License
 
 Copyright (c) 2020 Craftwork Games
 
@@ -43,6 +43,13 @@ namespace MonoGo.Engine.ViewportAdapters
         public Rectangle BoundingRectangle => new Rectangle(0, 0, VirtualWidth, VirtualHeight);
         public Vector2 Center => new Vector2(BoundingRectangle.Center.X, BoundingRectangle.Center.Y);
         public abstract Matrix GetScaleMatrix();
+
+        public Vector2 GetScale()
+        {
+            float x = ViewportWidth / VirtualWidth;
+            float y = ViewportHeight / VirtualHeight;
+            return new Vector2(x, y);
+        }
 
         /// <summary>
         /// Transforms world coordinates to viewport coordinates

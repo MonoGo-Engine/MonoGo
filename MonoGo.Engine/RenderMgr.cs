@@ -45,7 +45,7 @@ namespace MonoGo.Engine
         {
             UpdateResolution();
 
-            Surface.SetTarget(SceneSurface, ViewportAdapter.GetScaleMatrix() * GraphicsMgr.VertexBatch.View);
+            Surface.SetTarget(SceneSurface, GraphicsMgr.VertexBatch.View);
             GraphicsMgr.Device.Clear(GraphicsMgr.CurrentCamera.BackgroundColor);
         }
 
@@ -85,10 +85,10 @@ namespace MonoGo.Engine
         {
             GraphicsMgr.VertexBatch.BlendState = BlendState.Additive;
 
-            if (ColorGradingFX) ColorGrading.Surface.Draw();
-            else SceneSurface.Draw();
+            if (ColorGradingFX) ColorGrading.Surface.Draw(Vector2.Zero, ViewportAdapter.GetScale(), Angle.Right);
+            else SceneSurface.Draw(Vector2.Zero, ViewportAdapter.GetScale(), Angle.Right);
 
-            if (BloomFX) Bloom.Surface.Draw();
+            if (BloomFX) Bloom.Surface.Draw(Vector2.Zero, ViewportAdapter.GetScale(), Angle.Right);
 
             GraphicsMgr.VertexBatch.BlendState = BlendState.AlphaBlend;
         }
