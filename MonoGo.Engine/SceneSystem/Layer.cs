@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Cameras;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
 using MonoGo.Engine.Utils.CustomCollections;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace MonoGo.Engine.SceneSystem
 {
@@ -233,11 +234,19 @@ namespace MonoGo.Engine.SceneSystem
 			}
 			return null;
 		}
-		
-		/// <summary>
-		/// Returns list of entities, which have component - enabled or disabled -  of given type.
-		/// </summary>
-		public List<Entity> GetEntityListByComponent<T>() where T : Component
+
+        /// <summary>
+        /// Finds first entity of given type name.
+        /// </summary>
+        public Entity? FindEntity(string name)
+        {
+            return _entities.ToList().FirstOrDefault(x => x.GetType().Name.Equals(name));
+        }
+
+        /// <summary>
+        /// Returns list of entities, which have component - enabled or disabled -  of given type.
+        /// </summary>
+        public List<Entity> GetEntityListByComponent<T>() where T : Component
 		{
 			var components = GetComponentList<T>();
 
