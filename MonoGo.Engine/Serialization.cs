@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MonoGo.Engine.Particles.Modifiers;
-using MonoGo.Engine.Particles.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,12 +12,24 @@ using static MonoGo.Engine.AdditionalConverters;
 using static MonoGo.Engine.Axis;
 using static MonoGo.Engine.HSLColor;
 using static MonoGo.Engine.HSLRange;
-using static MonoGo.Engine.Particles.ModifierExecutionStrategy;
 using static MonoGo.Engine.Range;
 using static MonoGo.Engine.RangeF;
 
 namespace MonoGo.Engine
 {
+    /// <summary>
+    /// Marks a <see cref="JsonConverter"/> to be automatically registered in the MonoGo serialization system.
+    /// </summary>
+    /// <remarks>
+    /// Apply this attribute to custom JSON converters in external modules to have them automatically
+    /// discovered and registered during serialization initialization.
+    /// The converter class must have a parameterless constructor.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    public sealed class MonoGoConverterAttribute : Attribute
+    {
+    }
+
     public enum SerializeType
     {
         PostFX
@@ -54,12 +64,65 @@ namespace MonoGo.Engine
                     new RangeConverter(),
                     new RangeFConverter(),
                     new HSLConverter(),
-                    new ColourRangeConverter(),
-                    new ModifierExecutionStrategyConverter(),
-                    new BaseTypeJsonConverter<Profile>(),
-                    new BaseTypeJsonConverter<IModifier>()
+                    new ColourRangeConverter()
                 }
             };
+
+            // Load external converters from loaded assemblies
+            LoadExternalConverters();
+        }
+
+        /// <summary>
+        /// Scans all loaded assemblies for types marked with <see cref="MonoGoConverterAttribute"/> 
+        /// and registers them as JSON converters.
+        /// </summary>
+        private static void LoadExternalConverters()
+        {
+            try
+            {
+                var assemblies = GameMgr.Assemblies.Values.ToArray();
+                
+                foreach (var assembly in assemblies)
+                {
+                    // Skip system assemblies for better performance
+                    var assemblyName = assembly.FullName;
+                    if (assemblyName == null || 
+                        assemblyName.StartsWith("System", StringComparison.OrdinalIgnoreCase) || 
+                        assemblyName.StartsWith("Microsoft", StringComparison.OrdinalIgnoreCase) ||
+                        assemblyName.StartsWith("netstandard", StringComparison.OrdinalIgnoreCase) ||
+                        assemblyName.StartsWith("mscorlib", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    try
+                    {
+                        var converterTypes = assembly.GetTypes()
+                            .Where(t => t.GetCustomAttribute<MonoGoConverterAttribute>() != null
+                                     && typeof(JsonConverter).IsAssignableFrom(t)
+                                     && !t.IsAbstract
+                                     && t.GetConstructor(Type.EmptyTypes) != null);
+
+                        foreach (var converterType in converterTypes)
+                        {
+                            var converter = (JsonConverter)Activator.CreateInstance(converterType)!;
+                            SerializerOptions.Converters.Add(converter);
+                        }
+                    }
+                    catch (ReflectionTypeLoadException)
+                    {
+                        // Assembly cannot be loaded, skip it
+                        continue;
+                    }
+                    catch (Exception)
+                    {
+                        // Skip assemblies that throw other exceptions during type loading
+                        continue;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Errors loading external converters should not prevent initialization
+            }
         }
 
         public static JsonObject? Serialize(SerializeType type, string? fileName = null)
@@ -144,9 +207,12 @@ namespace MonoGo.Engine
         }
     }
 
-    internal class AdditionalConverters
+    /// <summary>
+    /// Contains additional JSON converters used by the MonoGo engine.
+    /// </summary>
+    public static class AdditionalConverters
     {
-        internal class VectorConverter : JsonConverter<Vector2>
+        public class VectorConverter : JsonConverter<Vector2>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -180,7 +246,7 @@ namespace MonoGo.Engine
                     $"({value.X.ToString(CultureInfo.InvariantCulture)}; {value.Y.ToString(CultureInfo.InvariantCulture)})");
             }
         }
-        internal class HexColorConverter : JsonConverter<Color>
+        public class HexColorConverter : JsonConverter<Color>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -197,7 +263,7 @@ namespace MonoGo.Engine
                 writer.WriteStringValue(value.ToHex());
             }
         }
-        internal class PointConverter : JsonConverter<Point>
+        public class PointConverter : JsonConverter<Point>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -223,7 +289,7 @@ namespace MonoGo.Engine
                 writer.WriteEndObject();
             }
         }
-        internal class RectangleConverter : JsonConverter<Rectangle>
+        public class RectangleConverter : JsonConverter<Rectangle>
         {
             public override bool CanConvert(Type objectType)
             {
@@ -255,11 +321,21 @@ namespace MonoGo.Engine
                 writer.WriteEndObject();
             }
         }
-        internal class BaseTypeJsonConverter<T> : JsonConverter<T>
+        
+        /// <summary>
+        /// Generic JSON converter that supports polymorphic serialization of base types and their derived types.
+        /// Can be used by external modules to create converters for their own type hierarchies.
+        /// </summary>
+        /// <typeparam name="T">The base type or interface to serialize.</typeparam>
+        public class BaseTypeJsonConverter<T> : JsonConverter<T>
         {
             private readonly Dictionary<string, Type> _baseTypes;
 
-            internal BaseTypeJsonConverter()
+            /// <summary>
+            /// Initializes a new instance of the <see cref="BaseTypeJsonConverter{T}"/> class.
+            /// Scans the assembly containing type <typeparamref name="T"/> for all non-abstract types that implement or derive from it.
+            /// </summary>
+            public BaseTypeJsonConverter()
             {
                 var typeList = typeof(T).GetTypeInfo().Assembly.DefinedTypes
                 .Where(type => typeof(T).GetTypeInfo().IsAssignableFrom(type) && !type.IsAbstract);
