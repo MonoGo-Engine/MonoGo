@@ -1,8 +1,0 @@
-<Project InitialTargets="CopyContentBuildFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<ContentBuildFiles Include="$(MSBuildThisFileDirectory)\..\contentFiles\*.dll" />
-	</ItemGroup>
-<Target Name="CopyContentBuildFiles" BeforeTargets="Build;Compile;RunContentBuilder">
-    <Copy SourceFiles="@(ContentBuildFiles)" DestinationFolder="$(ProjectDir)Content\" />
-</Target>
-</Project>

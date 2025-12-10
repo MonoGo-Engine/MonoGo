@@ -7,7 +7,7 @@
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<IsPackable>true</IsPackable>
-		<Configurations>Debug;Release;gametest</Configurations>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
 	<Import Project="..\Modules\MonoGo.Tiled.MapStructure\MonoGo.Tiled.MapStructure.projitems" Label="Shared" />
@@ -22,12 +22,17 @@
 			<IncludeAssets>compile</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="StbImageSharp" Version="2.27.11" />
-	</ItemGroup>
-
+	</ItemGroup>	
 	<ItemGroup Label="ContentBuildFiles">
-		<Content Include="MonoGo.Pipeline.targets" PackagePath="build/MonoGo.Pipeline.targets" />
-		<Content Include="$(OutputPath)MonoGo.Pipeline.dll" Pack="true" PackagePath="contentFiles\" />
-		<Content Include="$(OutputPath)StbImageSharp.dll" Pack="true" PackagePath="contentFiles\" />
+	<Content Include="$(OutputPath)MonoGo.Pipeline.dll">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Pack>true</Pack>
+    <PackagePath>lib\$(TargetFramework)</PackagePath>
+  </Content>
+	<Content Include="$(OutputPath)StbImageSharp.dll">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Pack>true</Pack>
+    <PackagePath>lib\$(TargetFramework)</PackagePath>
+  </Content>
 	</ItemGroup>
-	
 </Project>

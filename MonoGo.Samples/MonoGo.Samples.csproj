@@ -31,11 +31,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\MonoGo.Iguina\MonoGo.Iguina.csproj" />
+    <ProjectReference Include="..\Modules\MonoGo.MercuryParticleEngine\MonoGo.MercuryParticleEngine.csproj" />
     <ProjectReference Include="..\Modules\MonoGo.Tiled\MonoGo.Tiled.csproj" />
     <ProjectReference Include="..\MonoGo.Engine.DesktopGL\MonoGo.Engine.DesktopGL.csproj" />
-    <ProjectReference Include="..\MonoGo.Engine.WindowsDX\MonoGo.Engine.WindowsDX.csproj" />
     <ProjectReference Include="..\MonoGo.Engine\MonoGo.Engine.csproj" />
-    <ProjectReference Include="..\MonoGo.MercuryParticleEngine\MonoGo.MercuryParticleEngine.csproj" />
   </ItemGroup>
   
   <Target Name="BuildContent" BeforeTargets="Build">
@@ -44,7 +43,6 @@
       <ContentTemp>$(ProjectDir)$(IntermediateOutputPath)</ContentTemp>
       <ContentArgs>build -p $(MonoGamePlatform) -s Assets -o $(ContentOutput) -i $(ContentTemp)</ContentArgs>
     </PropertyGroup>
-    <MSBuild Projects="..\Content\Content.csproj" Targets="Build;Run"
-      Properties="RunArguments=$(ContentArgs);" />
+    <MSBuild Projects="..\Content\Content.csproj" Targets="Build;Run" Properties="RunArguments=$(ContentArgs);" />
   </Target>
 </Project>

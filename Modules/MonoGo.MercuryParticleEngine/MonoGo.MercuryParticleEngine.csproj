@@ -16,6 +16,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MonoGo.Engine\MonoGo.Engine.csproj" />
+    <ProjectReference Include="..\..\MonoGo.Engine\MonoGo.Engine.csproj" />
   </ItemGroup>
 </Project>
