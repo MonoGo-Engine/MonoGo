@@ -45,6 +45,8 @@ namespace MonoGo.Engine
         {
             GraphicsMgr.Init(GraphicsDevice);
 
+            //var r = ResourceInfoMgr.GetResourcePaths("**");
+
             try
             {
                 new SpriteGroupResourceBox(nameof(EngineResources.ParticleSprites), "Engine/Particles");
