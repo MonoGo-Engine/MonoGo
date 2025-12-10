@@ -1,0 +1,15 @@
+{
+    "Default": {
+        "Icon": {
+			"SourceRect": {"X": 160, "Y": 96, "Width": 16, "Height": 16}
+        }
+    },
+    "Interacted": {
+        "Icon": {
+			"SourceRect": {"X": 176, "Y": 96, "Width": 16, "Height": 16}
+        }
+    },
+    "DefaultAnchor": "TopRight",
+    "DefaultWidth": {"Value": 32, "Units": "Pixels"},
+    "DefaultHeight": {"Value": 32, "Units": "Pixels"}
+}
