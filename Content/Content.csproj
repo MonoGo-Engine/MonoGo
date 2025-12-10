@@ -20,9 +20,6 @@
     <PackageReference Include="MonoGame.Tool.FFprobe" Version="7.0.0.9" />      
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MonoGo.Pipeline\MonoGo.Pipeline.csproj" />
   </ItemGroup>
 </Project>
