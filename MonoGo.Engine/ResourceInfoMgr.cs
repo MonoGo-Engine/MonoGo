@@ -24,24 +24,33 @@ namespace MonoGo.Engine
 
 
 		internal static void Init()
-		{
-			var assets = new List<string>();
-			try
+        {
+            var assets = new List<string>();
+            var contentPath = Path.GetFullPath(ContentDir);
+
+			// Alle Dateien rekursiv aus dem ContentDir laden
+			if (Directory.Exists(contentPath))
 			{
-				var contentFiles = Directory.GetFiles(Path.GetFullPath(ContentDir), "Content*");
-				foreach (var contentFile in contentFiles)
+				var files = Directory.GetFiles(contentPath, "*", SearchOption.AllDirectories);
+				foreach (var file in files)
 				{
-					try
+					// Relativen Pfad vom ContentDir aus ermitteln
+					var relativePath = Path.GetRelativePath(contentPath, file);
+					
+					// .xnb Endung entfernen, falls vorhanden
+					if (relativePath.EndsWith(".xnb"))
 					{
-						var content = Path.GetFileNameWithoutExtension(contentFile);
-						assets.AddRange(GameMgr.Game.Content.Load<string[]>(content));
+						relativePath = relativePath[..^4]; // Letzte 4 Zeichen (.xnb) entfernen
 					}
-					catch { continue; }
+
+                    // Backslashes durch Slashes ersetzen für Konsistenz
+                    var normalizedPath = relativePath.Replace("\\", "/");
+					assets.Add(normalizedPath);
 				}
-				Array.Resize(ref _assetPaths, assets.Count);
-				assets.CopyTo(_assetPaths);
 			}
-			catch { }
+
+            Array.Resize(ref _assetPaths, assets.Count);
+			assets.CopyTo(_assetPaths);
         }
 
 
