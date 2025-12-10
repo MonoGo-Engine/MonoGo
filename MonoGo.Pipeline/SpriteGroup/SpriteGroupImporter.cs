@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
-using System.Linq;
-using System.Text.Json.Nodes;
-using StbImageSharp;
+using System;
+using System.IO;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.RegularExpressions;
 
 /*
  * FUTURE NOTE:
@@ -33,7 +31,7 @@ namespace MonoGo.Pipeline.SpriteGroup
 
 		public override SpriteGroupData Import(string filename, ContentImporterContext context)
 		{
-			var groupData = new SpriteGroupData();
+            var groupData = new SpriteGroupData();
 
 			string[] textureRegex;
 
@@ -53,7 +51,7 @@ namespace MonoGo.Pipeline.SpriteGroup
 				groupData.TexturePadding = int.Parse(configData["texturePadding"].ToString());
 				groupData.RootDir = Path.GetDirectoryName(filename) + '/' + configData["rootDir"].ToString();
 				groupData.GroupName = Path.GetFileNameWithoutExtension(filename);
-
+                
 				var textureWildcards = (JsonArray)configData["singleTexturesWildcards"];
 
 				textureRegex = new string[textureWildcards.Count];
