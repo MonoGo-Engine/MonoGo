@@ -101,14 +101,14 @@ namespace MonoGo.Engine
 		{
             Game = game;
 			Game.IsMouseVisible = false;
+            Game.Window.TextInput += Input.TextInput!;
 
-			Input.MaxGamepadCount = 2;
+            Input.MaxGamepadCount = 2;
 
 			WindowManager = new WindowMgr(game);
 
 			LoadAssembliesAndTypes(game.GetType().Assembly);
 
-            StuffResolver.GetStuff<ITextInputBinder>()?.Init();
             Serialization.Init();
 			ResourceInfoMgr.Init();
 			SceneMgr.Init();

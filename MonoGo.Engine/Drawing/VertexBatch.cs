@@ -277,7 +277,7 @@ namespace MonoGo.Engine.Drawing
 
 			if (_alphaBlendEffect == null)
 			{
-				_alphaBlendEffect = StuffResolver.GetStuff<IAlphaBlendEffectLoader>().Load();
+				_alphaBlendEffect = GameMgr.Game.Content.Load<Effect>("Engine/Effects/AlphaBlend");
 			}
 			DefaultEffect = _alphaBlendEffect;
 		}
