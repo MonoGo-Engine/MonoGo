@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
 using MonoGo.Engine.Resources;
@@ -19,6 +21,12 @@ namespace MonoGo.Samples.Demos
         {
             layer.DepthSorting = true;
 
+            var pixel = new Texture2D(GraphicsMgr.Device, 1, 1);
+            pixel.SetData([Color.White]);
+
+            var frame = new Frame(pixel, pixel.Bounds.ToRectangleF(), new Vector2(0.5f));
+            var sprite = new Sprite(frame, frame.Origin, "Pixel");
+
             var particleEffect = new ParticleEffect
             {
                 Name = "Potpourri",
@@ -26,7 +34,7 @@ namespace MonoGo.Samples.Demos
                 {
                     new Emitter(1000, TimeSpan.FromSeconds(4), new PointProfile())
                     {
-                        Sprite = ResourceHub.GetResource<Sprite>("ParticleSprites", "Pixel"),
+                        Sprite = sprite,
                         Loop = true,
                         Name = "Splash",
                         Modifiers =

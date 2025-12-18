@@ -1,9 +1,9 @@
 ﻿using Iguina.Defs;
 using Iguina.Entities;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.PostProcessing;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.Utils;
 using MonoGo.Iguina;
@@ -70,10 +70,14 @@ namespace MonoGo.Samples
 		public SceneFactory CurrentFactory => Factories[CurrentSceneID];
 
         CameraController _cameraController;
+        Texture2D _pixel;
 
         public SceneSwitcher(CameraController cameraController) : base(SceneMgr.DefaultLayer)
 		{
 			_cameraController = cameraController;
+
+            _pixel = new Texture2D(GraphicsMgr.Device, 1, 1);
+            _pixel.SetData([Color.White]);
 
             GUIMgr.OnThemeChanged = () => RestartScene();
         }
@@ -251,8 +255,7 @@ namespace MonoGo.Samples
                     {
                         Anchor = Anchor.AutoInlineLTR
                     };
-                    var logoTexture = ResourceHub.GetResource<Sprite>("ParticleSprites", "Pixel")[0].Texture;
-                    GUIMgr.RegisterTexture(logoTexture, "Bloom");
+                    GUIMgr.RegisterTexture(_pixel, "Bloom");
                     logo.OverrideStyles.Icon = new IconTexture
                     {
                         TextureId = "Bloom",
