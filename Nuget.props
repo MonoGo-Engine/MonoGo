@@ -4,7 +4,7 @@
 		<Version>$(MonoGoVersion)</Version>
 		<Authors>Marcel Härtel</Authors>
 		<Product>MonoGo Engine</Product>
-		<Description>Cross-Platform .NET 8 C# 2D game engine build ontop of MonoGame.</Description>
+		<Description>Cross-Platform C# 2D game engine build ontop of MonoGame.</Description>
 		<PackageProjectUrl>https://github.com/BlizzCrafter/MonoGo</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MonoGo-Engine/MonoGo.git</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
