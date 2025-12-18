@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36804.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGNamespace", "Game\MGNamespace.csproj", "{2F58A08C-B5F7-951D-2F36-80EF444A5DD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Content\Content.csproj", "{308D26CE-7BAE-FAED-8776-ACA4E53E54E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F58A08C-B5F7-951D-2F36-80EF444A5DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F58A08C-B5F7-951D-2F36-80EF444A5DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F58A08C-B5F7-951D-2F36-80EF444A5DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F58A08C-B5F7-951D-2F36-80EF444A5DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{308D26CE-7BAE-FAED-8776-ACA4E53E54E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308D26CE-7BAE-FAED-8776-ACA4E53E54E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308D26CE-7BAE-FAED-8776-ACA4E53E54E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308D26CE-7BAE-FAED-8776-ACA4E53E54E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCB22169-5A68-4D20-9440-3E7ACE2D6B07}
+	EndGlobalSection
+EndGlobal

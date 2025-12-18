@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{3A7E39F6-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGo.Samples", "MonoGo.Samples\MonoGo.Samples.csproj", "{3E0AF327-B2BA-470C-A5C1-F933EAC90754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGo.MercuryParticleEngine", "MonoGo.MercuryParticleEngine\MonoGo.MercuryParticleEngine.csproj", "{F6BEB8EE-7805-467E-BE88-5A1F04BFF040}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGo.MercuryParticleEngine", "Modules\MonoGo.MercuryParticleEngine\MonoGo.MercuryParticleEngine.csproj", "{F6BEB8EE-7805-467E-BE88-5A1F04BFF040}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Content\Content.csproj", "{75DCCDFC-9A78-4A1B-9DB7-F9D5A90FADFB}"
 EndProject
