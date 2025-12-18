@@ -54,9 +54,8 @@ public class Builder : ContentBuilder
         contentCollection.Include<WildcardRule>("Engine/Effects/*.fx");
         contentCollection.Include<WildcardRule>("Engine/Fonts/*.spritefont");
 
-        contentCollection.IncludeCopy<WildcardRule>("Engine/GUI/*.json");
-        contentCollection.Include<WildcardRule>("Engine/GUI/*.png");
-
+        contentCollection.IncludeCopy<WildcardRule>("Demo/GUI/*.json");
+        contentCollection.Include<WildcardRule>("Demo/GUI/*.png");
         contentCollection.Include<WildcardRule>("Demo/Maps/*.png");
         contentCollection.Include<WildcardRule>("*.tmx", new TiledMapImporter(), new PassThroughProcessor());        
         contentCollection.Include<WildcardRule>("*.spritegroup", new SpriteGroupImporter(), new SpriteGroupProcessor());
