@@ -6,6 +6,8 @@
 		{
 			GameMgr.CurrentPlatform = Platform.Windows;
 			GameMgr.CurrentGraphicsBackend = GraphicsBackend.DirectX;
-		}
+
+            StuffResolver.AddStuffAs<IAlphaBlendEffectLoader>(new AlphaBlendEffectLoaderWindowsDX());
+        }
 	}
 }
