@@ -46,9 +46,9 @@ Install **optional** [modules](#modules).
 
 The included sample project itself contains alot more demos, but here are some impressions at least:
 
-![Color Picker](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo.Samples/refs/heads/master/docs/sample_00.jpg)
-![Tiled](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo.Samples/refs/heads/master/docs/sample_01.jpg)
-![PostFX](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo.Samples/refs/heads/master/docs/sample_02.jpg)
+![Color Picker](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo/refs/heads/dev/MonoGo.Samples/Screenshots/ColorPicker.png)
+![Tiled](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo/refs/heads/dev/MonoGo.Samples/Screenshots/Tiled.png)
+![PostFX](https://raw.githubusercontent.com/MonoGo-Engine/MonoGo/refs/heads/dev/MonoGo.Samples/Screenshots/PostFX.png)
 
 # Credits
 
