@@ -45,7 +45,7 @@ namespace MonoGo.Samples
             var fontBox = ResourceHub.GetResourceBox(nameof(EngineResources.Fonts)) as ResourceBox<IFont>;
             fontBox.AddResource("FancyFont", new TextureFont(fontSprite, 1, 1, TextureFont.Ascii, false));
 
-            GUIMgr.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Engine/GUI"), "MonoGoTheme");
+            GUIMgr.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Demo/GUI"), "MonoGoTheme");
         }
 
         /// <summary>

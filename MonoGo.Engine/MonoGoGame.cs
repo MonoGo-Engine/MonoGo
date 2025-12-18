@@ -49,7 +49,6 @@ namespace MonoGo.Engine
 
             try
             {
-                new SpriteGroupResourceBox(nameof(EngineResources.ParticleSprites), "Engine/Particles");
                 new SpriteGroupResourceBox(nameof(EngineResources.LUTSprites), "Engine/LUT");
                 new DirectoryResourceBox<Effect>(nameof(EngineResources.Effects), "Engine/Effects");
                 new FontResourceBox(nameof(EngineResources.Fonts), "Engine/Fonts");
