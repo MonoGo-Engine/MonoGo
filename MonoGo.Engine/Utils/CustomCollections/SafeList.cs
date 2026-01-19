@@ -57,7 +57,15 @@ namespace MonoGo.Engine.Utils.CustomCollections
 			}
 		}
 
-		public void Insert(int index, T item)
+        public T? Find(System.Predicate<T> match)
+		{
+			lock (_lock)
+			{
+				return _items.Find(match);
+			}
+        }
+
+        public void Insert(int index, T item)
 		{
 			lock (_lock)
 			{
