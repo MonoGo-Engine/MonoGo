@@ -28,7 +28,6 @@ namespace MonoGo.Pipeline.SpriteGroup
 	DisplayName = "Sprite Group Importer - MonoGo")]
 	public class SpriteGroupImporter : ContentImporter<SpriteGroupData>
 	{
-
 		public override SpriteGroupData Import(string filename, ContentImporterContext context)
 		{
             var groupData = new SpriteGroupData();
@@ -67,11 +66,9 @@ namespace MonoGo.Pipeline.SpriteGroup
 
 			#endregion Parsing config.
 
-
 			ImportTextures(groupData.RootDir, "", groupData, textureRegex);
 
 			return groupData;
-
 		}
 
 
@@ -96,7 +93,6 @@ namespace MonoGo.Pipeline.SpriteGroup
 
 				var configPath = Path.ChangeExtension(file.FullName, ".json");
 
-
 				#region Reading config.
 				/*
 				 * Just reading sprite jsons.
@@ -114,14 +110,14 @@ namespace MonoGo.Pipeline.SpriteGroup
 						};
 						JsonNode confData = JsonNode.Parse(conf, documentOptions: options);
 
-						spr.FramesH = int.Parse(confData["h"].ToString());
+						spr.Color = confData["color"] == null ? spr.Color : confData["color"].ToString();
+                        spr.FramesH = int.Parse(confData["h"].ToString());
 						spr.FramesV = int.Parse(confData["v"].ToString());
 
 						if (spr.FramesH < 1 || spr.FramesV < 1) // Frame amount cannot be lesser than 1.
 						{
 							throw new Exception();
 						}
-
 						
 						var originXKeyword = "originX";
 						var originYKeyword = "originY";
@@ -158,7 +154,6 @@ namespace MonoGo.Pipeline.SpriteGroup
 				}
 				#endregion Reading config.
 
-
 				if (PathMatchesRegex('/' + dirName + '/' + file.Name, textureRegex)) // Separating atlas sprites from single textures.
 				{
 					groupData.SingleTextures.Add(spr);
@@ -169,22 +164,16 @@ namespace MonoGo.Pipeline.SpriteGroup
 				}
 			}
 
-
 			// Recursively repeating for all subdirectories.
 			foreach (var dir in dirInfo.GetDirectories())
 			{
 				ImportTextures(dir.FullName, dirName + dir.Name + '/', groupData, textureRegex);
 			}
 			// Recursively repeating for all subdirectories.
-
 		}
-
-
 
 		private string WildCardToRegular(string value) =>
 			"^" + Regex.Escape(value).Replace("\\*", ".*") + "$";
-
-
 
 		/// <summary>
 		/// Checks if path matches regex filter.
@@ -202,6 +191,5 @@ namespace MonoGo.Pipeline.SpriteGroup
 			}
 			return false;
 		}
-
 	}
 }

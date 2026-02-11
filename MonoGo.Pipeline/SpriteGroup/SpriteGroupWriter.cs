@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Text;
-using Microsoft.Xna.Framework.Content.Pipeline;
-using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
+﻿using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+using System;
+using System.Collections.Generic;
 
 namespace MonoGo.Pipeline.SpriteGroup
 {
@@ -15,7 +11,6 @@ namespace MonoGo.Pipeline.SpriteGroup
 	[ContentTypeWriter]
 	public class SpriteGroupWriter : ContentTypeWriter<(List<RawSprite>, List<Bmp>)>
 	{
-
 		protected override void Write(ContentWriter output, (List<RawSprite>, List<Bmp>) value)
 		{
 			/*
@@ -56,14 +51,14 @@ namespace MonoGo.Pipeline.SpriteGroup
 			}
 			// Writing textures.
 
-
 			// Writing sprites.
 			output.Write(sprites.Count);
 			foreach(var sprite in sprites)
 			{
 				output.Write(sprite.Name);
-				
-				output.Write(sprite.Offset.X);
+				output.Write(sprite.Color);
+
+                output.Write(sprite.Offset.X);
 				output.Write(sprite.Offset.Y);
 				
 				output.Write(sprite.Frames[0].TexturePos.Width);
@@ -81,15 +76,10 @@ namespace MonoGo.Pipeline.SpriteGroup
 			// Writing sprites.
 		}
 
-
-
 		public override string GetRuntimeType(TargetPlatform targetPlatform) =>
 			typeof (Tuple<List<RawSprite>, List<Bmp>>).AssemblyQualifiedName;
 
-
-
 		public override string GetRuntimeReader(TargetPlatform targetPlatform) =>
 			"MonoGo.Engine.ContentReaders.SpriteGroupReader, MonoGo.Engine";
-
 	}
 }

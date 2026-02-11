@@ -46,7 +46,8 @@ namespace MonoGo.Engine.ContentReaders
 			for(var i = 0; i < spritesCount; i += 1)
 			{
 				var spriteName = input.ReadString();
-				var spriteOrigin = new Vector2(input.ReadInt32(), input.ReadInt32());
+				var spriteColor = input.ReadString();
+                var spriteOrigin = new Vector2(input.ReadInt32(), input.ReadInt32());
 				var spriteW = input.ReadInt32();
 				var spriteH = input.ReadInt32();
 				var framesCount = input.ReadInt32();
@@ -70,7 +71,11 @@ namespace MonoGo.Engine.ContentReaders
 						Vector2.Zero
 					);
 				}
-				dictionary.Add(spriteName, new Sprite(frames, spriteOrigin, spriteName));
+				var sprite = new Sprite(frames, spriteOrigin, spriteName)
+				{
+					Color = ColorHelper.HexToColor(spriteColor)
+				};
+                dictionary.Add(spriteName, sprite);
 			}
 			
 			//input.Dispose();

@@ -6,6 +6,7 @@ namespace MonoGo.Pipeline.SpriteGroup
 	public class RawSprite
 	{
 		public string Name = "NONE";
+		public string Color = "#FFFFFF";
 		public int FramesH = 1;
 		public int FramesV = 1;
 		public Point Offset = new Point(0, 0);
