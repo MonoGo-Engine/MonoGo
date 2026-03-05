@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>..\bin\</OutputPath>
 		<DocumentationFile>..\bin\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<Configurations>Debug;Release;gametest</Configurations>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="..\Resources\AlphaBlend_gl.mgfxo" Link="AlphaBlend_gl.mgfxo" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
+		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5-develop.13" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\MonoGo.Engine\MonoGo.Engine.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="..\Resources\AlphaBlend_gl.mgfxo" Link="AlphaBlend_gl.mgfxo" />
 	</ItemGroup>
 
 </Project>

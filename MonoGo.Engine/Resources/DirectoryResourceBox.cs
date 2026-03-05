@@ -34,20 +34,22 @@ namespace MonoGo.Engine.Resources
 
 			// TODO: Add Recursive flag to GetResourcePaths.
 			var paths = ResourceInfoMgr.GetResourcePaths(_resourceDir + "/*");
-
-			foreach (var path in paths)
+			if (paths != null)
 			{
-				try
+				foreach (var path in paths)
 				{
-					if (Path.HasExtension(path))
+					try
 					{
-						continue;
+						if (Path.HasExtension(path))
+						{
+							continue;
+						}
+						AddResource(Path.GetFileNameWithoutExtension(path), _content.Load<T>(path));
 					}
-					AddResource(Path.GetFileNameWithoutExtension(path), _content.Load<T>(path));
-				}
-				catch (InvalidCastException)
-				{ 
-					Debug.WriteLine("Failed to load " + path + ". It has a different type.");
+					catch (InvalidCastException)
+					{
+						Debug.WriteLine("Failed to load " + path + ". It has a different type.");
+					}
 				}
 			}
 		}

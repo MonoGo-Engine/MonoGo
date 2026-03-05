@@ -2,7 +2,6 @@
 {
     public enum EngineResources
     {
-        ParticleSprites,
         LUTSprites,
         Effects,
         Fonts

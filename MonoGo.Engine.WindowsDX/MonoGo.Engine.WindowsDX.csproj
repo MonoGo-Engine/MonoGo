@@ -1,21 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>..\bin\</OutputPath>
 		<DocumentationFile>..\bin\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 		<UseWindowsForms>true</UseWindowsForms>
-		<Configurations>Debug;Release;gametest</Configurations>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="..\Resources\AlphaBlend_dx.mgfxo" Link="AlphaBlend_dx.mgfxo" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.4" />
+		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.5-develop.13" />
 		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
@@ -24,6 +20,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\MonoGo.Engine\MonoGo.Engine.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="..\Resources\AlphaBlend_dx.mgfxo" Link="AlphaBlend_dx.mgfxo" />
 	</ItemGroup>
 
 </Project>

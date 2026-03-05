@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RollForward>Major</RollForward>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+	<IsPackable>false</IsPackable>
+	<Configurations>Debug;Release;gametest</Configurations>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+    <None Remove="Icon.ico" />
+    <None Remove="Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icon.ico" />
+    <EmbeddedResource Include="Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5-develop.13" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\MonoGo.Iguina\MonoGo.Iguina.csproj" />
+    <ProjectReference Include="..\Modules\MonoGo.MercuryParticleEngine\MonoGo.MercuryParticleEngine.csproj" />
+    <ProjectReference Include="..\Modules\MonoGo.Tiled\MonoGo.Tiled.csproj" />
+    <ProjectReference Include="..\MonoGo.Engine.DesktopGL\MonoGo.Engine.DesktopGL.csproj" />
+    <ProjectReference Include="..\MonoGo.Engine\MonoGo.Engine.csproj" />
+  </ItemGroup>
+  
+  <Target Name="BuildContent" BeforeTargets="Build">
+    <PropertyGroup>
+      <ContentOutput>$(ProjectDir)$(OutputPath)</ContentOutput>
+      <ContentTemp>$(ProjectDir)$(IntermediateOutputPath)</ContentTemp>
+      <ContentArgs>build -p $(MonoGamePlatform) -s Assets -o $(ContentOutput) -i $(ContentTemp)</ContentArgs>
+    </PropertyGroup>
+    <MSBuild Projects="..\Content\Content.csproj" Targets="Build;Run" Properties="RunArguments=$(ContentArgs);" />
+  </Target>
+</Project>

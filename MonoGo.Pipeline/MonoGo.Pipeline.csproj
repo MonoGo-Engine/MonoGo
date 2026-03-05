@@ -1,40 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>..\bin\</OutputPath>
 		<NoWarn>NU5100</NoWarn>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<IsPackable>true</IsPackable>
-		<Configurations>Debug;Release;gametest</Configurations>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
 
 	<Import Project="..\Modules\MonoGo.Tiled.MapStructure\MonoGo.Tiled.MapStructure.projitems" Label="Shared" />
 	
 	<ItemGroup>
-		<PackageReference Include="MonoGame.Framework.Content.Pipeline" Version="3.8.4">
+		<PackageReference Include="MonoGame.Framework.Content.Pipeline" Version="3.8.5-develop.13">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>compile</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4">
+		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5-develop.13">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>compile</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="StbImageSharp" Version="2.27.11" />
-	</ItemGroup>
-
+	</ItemGroup>	
 	<ItemGroup Label="ContentBuildFiles">
-		<Content Include="MonoGo.Pipeline.targets" PackagePath="build/MonoGo.Pipeline.targets" />
-		<Content Include="$(OutputPath)MonoGo.Pipeline.dll" Pack="true" PackagePath="contentFiles\" />
-		<Content Include="$(OutputPath)StbImageSharp.dll" Pack="true" PackagePath="contentFiles\" />
+	<Content Include="$(OutputPath)MonoGo.Pipeline.dll">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Pack>true</Pack>
+    <PackagePath>lib\$(TargetFramework)</PackagePath>
+  </Content>
+	<Content Include="$(OutputPath)StbImageSharp.dll">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Pack>true</Pack>
+    <PackagePath>lib\$(TargetFramework)</PackagePath>
+  </Content>
 	</ItemGroup>
-
-	<PropertyGroup Condition=" '$(Configuration)' == 'gametest' ">
-		<PostBuildEvent>
-			xcopy /y $(TargetDir)MonoGo.Pipeline.dll $(SolutionDir)debug\Content 
-			xcopy /y $(TargetDir)StbImageSharp.dll $(SolutionDir)debug\Content
-		</PostBuildEvent>
-	</PropertyGroup>
-	
 </Project>

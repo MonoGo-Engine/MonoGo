@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace MonoGo.Engine
 {
@@ -44,6 +45,22 @@ namespace MonoGo.Engine
             }
 
             return values[index - 1];
+        }
+
+        /// <summary>
+        /// Gets the Vector2 of the Axis.
+        /// </summary>
+        public static Vector2 ToVector2(this Axis value, float magnitude = 1.0f)
+        {
+            return new Vector2(value.X * magnitude, value.Y * magnitude);
+        }
+
+        /// <summary>
+        /// Gets the Axis of the Vector2.
+        /// </summary>
+        public static Axis ToAxis(this Vector2 value)
+        {
+            return new Axis(value.X, value.Y);
         }
     }
 }

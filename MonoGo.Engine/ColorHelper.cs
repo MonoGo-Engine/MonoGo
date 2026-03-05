@@ -45,14 +45,14 @@ namespace MonoGo.Engine
 
         public static HSLColor ToHsl(this Color c)
         {
-            return ToHsl(c.R, c.B, c.G);
+            return ToHsl(c.R, c.G, c.B);
         }
 
-        public static HSLColor ToHsl(float r, float b, float g)
+        public static HSLColor ToHsl(float r, float g, float b)
         {
             r = r / 255f;
-            b = b / 255f;
             g = g / 255f;
+            b = b / 255f;
 
             var max = Math.Max(Math.Max(r, g), b);
             var min = Math.Min(Math.Min(r, g), b);

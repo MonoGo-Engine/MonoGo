@@ -25,8 +25,7 @@ namespace MonoGo.Engine.DesktopGL
 
 			GameMgr.CurrentGraphicsBackend = GraphicsBackend.OpenGL;
 
-			StuffResolver.AddStuffAs<IAlphaBlendEffectLoader>(new AlphaBlendEffectLoaderDesktopGl());
-			StuffResolver.AddStuffAs<ITextInputBinder>(new TextInputBinderDesktopGL());
-		}
+            StuffResolver.AddStuffAs<IAlphaBlendEffectLoader>(new AlphaBlendEffectLoaderDesktopGl());
+        }
 	}
 }

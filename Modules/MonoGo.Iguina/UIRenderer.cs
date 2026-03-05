@@ -39,8 +39,8 @@ namespace MonoGo.Iguina
             _spriteBatch = new SpriteBatch(GraphicsMgr.Device);
             _content = new ContentManager(GameMgr.Game.Services, _assetsRoot);
 
-            // create white texture
-            _whiteTexture = ResourceHub.GetResource<Sprite>(nameof(EngineResources.ParticleSprites), "Pixel")[0].Texture;
+            _whiteTexture = new Texture2D(GraphicsMgr.Device, 1, 1);
+            _whiteTexture.SetData([Microsoft.Xna.Framework.Color.White]);
         }
 
         /// <summary>

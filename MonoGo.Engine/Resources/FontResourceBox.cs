@@ -30,20 +30,22 @@ namespace MonoGo.Engine.Resources
             _content.RootDirectory = ResourceInfoMgr.ContentDir;
 
             var paths = ResourceInfoMgr.GetResourcePaths(_resourceDir + "/*");
-
-            foreach (var path in paths)
+            if (paths != null)
             {
-                try
+                foreach (var path in paths)
                 {
-                    if (Path.HasExtension(path))
+                    try
                     {
-                        continue;
+                        if (Path.HasExtension(path))
+                        {
+                            continue;
+                        }
+                        AddResource(Path.GetFileNameWithoutExtension(path), new Font(_content.Load<SpriteFont>(path)));
                     }
-                    AddResource(Path.GetFileNameWithoutExtension(path), new Font(_content.Load<SpriteFont>(path)));
-                }
-                catch (InvalidCastException)
-                {
-                    Debug.WriteLine("Failed to load " + path + ". It has a different type.");
+                    catch (InvalidCastException)
+                    {
+                        Debug.WriteLine("Failed to load " + path + ". It has a different type.");
+                    }
                 }
             }
         }

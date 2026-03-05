@@ -1,0 +1,33 @@
+{
+	"Default": {
+		"FillTextureFramed": {
+			
+			"InternalSourceRect": {"X": 5, "Y": 112, "Width": 70, "Height": 7},
+			"ExternalSourceRect": {"X": 0, "Y": 112, "Width": 80, "Height": 7}
+		},
+        "Padding": {"Left": 40, "Right": 40, "Top": 0, "Bottom": 0},
+        "MarginBefore": {"X": 0, "Y": 18},
+        "MarginAfter": {"X": 0, "Y": 18}
+	},
+    "Targeted": {
+		"FillTextureFramed": {
+			
+			"InternalSourceRect": {"X": 5, "Y": 119, "Width": 70, "Height": 7},
+			"ExternalSourceRect": {"X": 0, "Y": 119, "Width": 80, "Height": 7}
+		}
+	},
+    "Interacted": {
+		"FillTextureFramed": {
+			
+			"InternalSourceRect": {"X": 5, "Y": 119, "Width": 70, "Height": 7},
+			"ExternalSourceRect": {"X": 0, "Y": 119, "Width": 80, "Height": 7}
+		}
+	},
+	"Disabled": {
+		"EffectIdentifier": "disabled"
+	},
+    "DefaultWidth": {"Value": 100, "Units": "PercentOfParent"},
+    "DefaultHeight": {"Value": 14, "Units": "Pixels"},
+	"InterpolateStatesSpeed": 5,
+	"InterpolateOffsetsSpeed": 10
+}

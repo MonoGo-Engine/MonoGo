@@ -78,7 +78,6 @@ float4 PS_Basic(VertexShaderOutput input) : COLOR0
 Techniques are chosen by the engine automatically.
 */
 
-#ifdef SM4
 
 #define TECHNIQUE(name, vsName, psName) \
 	technique name \
@@ -89,21 +88,6 @@ Techniques are chosen by the engine automatically.
 			PixelShader = compile ps_4_0_level_9_1 psName(); \
 		} \
 	}
-
-
-#else
-
-#define TECHNIQUE(name, vsName, psName) \
-	technique name \
-	{ \
-		pass Pass1 \
-		{ \
-			VertexShader = compile vs_3_0 vsName(); \
-			PixelShader = compile ps_3_0 psName(); \
-		} \
-	}
-
-#endif
 
 
 TECHNIQUE(Basic, VS_Texture, PS_Basic);
