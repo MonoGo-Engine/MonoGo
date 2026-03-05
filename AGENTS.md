@@ -76,7 +76,7 @@ The engine can operate entirely on its own, but offers optional modules. **BEFOR
 
 ## 14. Key Engine Utilities (Do NOT reinvent the wheel)
 * **Colors:** Use `MonoGo.Engine.ColorHelper` and `MonoGo.Engine.HSLColor` for conversions (Color, HSL, HEX). DO NOT use `System.Drawing.Color`.
-* **Math & Geometry:** Use `MonoGo.Engine.Utils.GameMath` for common calculations. Check `Vector2Extensions`, `RectangleExtensions`, and `NumberExtensions` before writing custom math. Always use `MonoGo.Engine.Angle` for angle representations to ensure correct 0..359 degree wrapping.
+* **Math & Geometry:** Use `MonoGo.Engine.Utils.GameMath` for common calculations. Check `Vector2Extensions`, `RectangleExtensions`, and `NumberExtensions` before writing custom math. Always use `MonoGo.Engine.Angle` for angle representations to ensure correct 0..359 degree wrapping. Use `MonoGo.Engine.Utils.SlowRotator` and `MonoGo.Engine.Utils.AngleDamper` for smooth angle transitions and damping over time.
 * **Collections:** Use `MonoGo.Engine.Utils.CustomCollections.SafeList<T>` when you need a list that allows safe modification during enumeration. Use `MonoGo.Engine.Utils.CustomCollections.Pool<T>` for object pooling (`IPoolable`) to prevent garbage collection spikes.
 * **Animations:** Use `MonoGo.Engine.Utils.Animation` and `MonoGo.Engine.Utils.Easing` for generic value interpolations and tweening.
 * **Input Management:** Use `MonoGo.Engine.Input` to check Keyboard, Mouse, and GamePad states.
