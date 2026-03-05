@@ -72,4 +72,4 @@ For license information please take a look at the [License.txt](https://github.c
 
 # Now Have Fun with MonoGo!
 
-![Banner](https://raw.githubusercontent.com/BlizzCrafter/MonoGo/refs/heads/master/logos/Social.png)
+![Banner](https://raw.githubusercontent.com/BlizzCrafter/MonoGo/refs/heads/master/Logos/Social.png)
