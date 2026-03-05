@@ -37,6 +37,7 @@ The engine utilizes static Manager classes for globally accessible states. Alway
 ## 6. Entity Component System (ECS) & Game Logic
 * **Architecture:** Create logic by extending `MonoGo.Engine.EC.Entity` or `MonoGo.Engine.EC.Component`.
 * **Coroutines & Jobs:** DO NOT use standard C# `async/await` for game-tick logic. Use `Entity.StartCoroutine(IEnumerator routine)` or `Entity.StartJob()` which are integrated directly into the engine's update loop.
+* **Alarms:** Do NOT use `System.Timers.Timer` or `System.Threading.Timer` for delayed logic. Use `MonoGo.Engine.Utils.Alarm` instead, as it safely ties into the game loop's time.
 * **State Machines:** The engine provides a native stack-based `MonoGo.Engine.Utils.StateMachine<T>`. Use this instead of building custom state managers.
 
 ## 7. Scene System & Content Management
@@ -48,6 +49,7 @@ The engine utilizes static Manager classes for globally accessible states. Alway
 * **World vs Screen Coordinates:** `Input.ScreenMousePosition` provides raw screen coordinates. To get transformed world-space coordinates, ALWAYS use `CameraMgr.Cameras[0].GetRelativeMousePosition()`.
 * **Surfaces (Managed RenderTargets):** Use `MonoGo.Engine.Drawing.Surface` instead of raw `RenderTarget2D`. Surfaces automatically integrate with `VertexBatch` and matrix transformations. They use a static stack-based targeting system: call `Surface.SetTarget(surface)` to begin rendering to it (this automatically handles matrix states and batch flushing) and `Surface.ResetTarget()` when done. Render the surface itself easily via `surface.Draw()`.
 * **Rendering & Debugging:** The engine uses a custom `MonoGo.Engine.Drawing.VertexBatch`. For debugging, utilize built-in drawing tools like `LineShape` and `CircleShape`.
+* **Culling & Layers:** Use `Camera.RenderMask` for bitwise culling of specific layers and scenes.
 
 ## 9. Serialization & Data Formats
 * **Engine Serialization:** Always refer to `MonoGo.Engine.Serialization` when serializing/deserializing engine formats.
@@ -74,7 +76,9 @@ The engine can operate entirely on its own, but offers optional modules. **BEFOR
 
 ## 14. Key Engine Utilities (Do NOT reinvent the wheel)
 * **Colors:** Use `MonoGo.Engine.ColorHelper` and `MonoGo.Engine.HSLColor` for conversions (Color, HSL, HEX). DO NOT use `System.Drawing.Color`.
-* **Math & Geometry:** Use `MonoGo.Engine.Utils.GameMath` for common calculations. Check `Vector2Extensions`, `RectangleExtensions`, and `NumberExtensions` before writing custom math.
+* **Math & Geometry:** Use `MonoGo.Engine.Utils.GameMath` for common calculations. Check `Vector2Extensions`, `RectangleExtensions`, and `NumberExtensions` before writing custom math. Always use `MonoGo.Engine.Angle` for angle representations to ensure correct 0..359 degree wrapping.
+* **Collections:** Use `MonoGo.Engine.Utils.CustomCollections.SafeList<T>` when you need a list that allows safe modification during enumeration. Use `MonoGo.Engine.Utils.CustomCollections.Pool<T>` for object pooling (`IPoolable`) to prevent garbage collection spikes.
+* **Animations:** Use `MonoGo.Engine.Utils.Animation` and `MonoGo.Engine.Utils.Easing` for generic value interpolations and tweening.
 * **Input Management:** Use `MonoGo.Engine.Input` to check Keyboard, Mouse, and GamePad states.
 * **Time:** Use `MonoGo.Engine.Utils.TimeKeeper.Global` for tracking elapsed time (`TimeKeeper.Global.TimeMultiplier` for slow-motion).
 
