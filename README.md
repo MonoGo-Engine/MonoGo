@@ -1,7 +1,8 @@
 ![Banner](https://raw.githubusercontent.com/BlizzCrafter/MonoGo/refs/heads/master/Logos/Banner.png)
 
 # Welcome to MonoGo!
-[![Version](https://img.shields.io/nuget/v/MonoGo.Engine?style=for-the-badge&logo=git&logoColor=E73C00&logoSize=auto&label=MonoGo.Engine&labelColor=262626&color=707070)](https://github.com/MonoGo-Engine) [![NuGet](https://img.shields.io/badge/NuGet-MonoGo.Templates-blue.svg?style=for-the-badge&logo=NuGet&logoColor=0289CC&logoSize=auto&colorA=262626&colorB=707070)](https://www.nuget.org/packages/MonoGo.Templates) [![Docs](https://img.shields.io/github/labels/MonoGo-Engine/MonoGo/Documentation?style=for-the-badge&logo=gitbook&logoColor=E2B004&logoSize=auto&labelColor=262626&color=707070)](https://monogo-engine.github.io/monogo.github.io/)
+[![Version](https://img.shields.io/nuget/v/MonoGo.Engine?style=for-the-badge&logo=git&logoColor=E73C00&logoSize=auto&label=MonoGo.Engine&labelColor=262626&color=707070)](https://github.com/MonoGo-Engine) 
+[![NuGet](https://img.shields.io/badge/NuGet-MonoGo.Templates-blue.svg?style=for-the-badge&logo=NuGet&logoColor=0289CC&logoSize=auto&colorA=262626&colorB=707070)](https://www.nuget.org/packages/MonoGo.Templates)
 
 A cross-platform C# 2D game engine built on top of MonoGame.
 
