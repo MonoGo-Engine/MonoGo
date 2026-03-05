@@ -46,7 +46,7 @@ The engine utilizes static Manager classes for globally accessible states. Alway
 ## 8. Cameras, Rendering & World Space
 * **Viewport Adapters:** For Independent-Resolution-Rendering, assign a ViewportAdapter to the RenderMgr (e.g., `RenderMgr.ViewportAdapter = new ScalingViewportAdapter(1280, 720);`).
 * **World vs Screen Coordinates:** `Input.ScreenMousePosition` provides raw screen coordinates. To get transformed world-space coordinates, ALWAYS use `CameraMgr.Cameras[0].GetRelativeMousePosition()`.
-* **Surfaces:** Cameras can render to their own `MonoGo.Engine.Drawing.Surface` (similar to MonoGame's `RenderTarget2D`).
+* **Surfaces (Managed RenderTargets):** Use `MonoGo.Engine.Drawing.Surface` instead of raw `RenderTarget2D`. Surfaces automatically integrate with `VertexBatch` and matrix transformations. They use a static stack-based targeting system: call `Surface.SetTarget(surface)` to begin rendering to it (this automatically handles matrix states and batch flushing) and `Surface.ResetTarget()` when done. Render the surface itself easily via `surface.Draw()`.
 * **Rendering & Debugging:** The engine uses a custom `MonoGo.Engine.Drawing.VertexBatch`. For debugging, utilize built-in drawing tools like `LineShape` and `CircleShape`.
 
 ## 9. Serialization & Data Formats
