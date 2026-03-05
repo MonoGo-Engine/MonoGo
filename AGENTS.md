@@ -99,6 +99,6 @@ Each demo showcases specific capabilities:
 * **`ShapeDemo.cs`**: Utilizing built-in debug drawing tools (`LineShape`, `CircleShape`, etc.).
 * **`SpriteDemo.cs`**: Sprite sheets, `Frame` usage, and animations.
 * **`TiledDemo.cs`**: Parsing and rendering Tiled maps (requires `MonoGo.Tiled`).
-* **`UIDemo.cs`**: Comprehensive GUI system implementation using `MonoGo.Iguina`.
+* **`UIDemo.cs`**: Comprehensive GUI system implementation (requires `MonoGo.Iguina`).
 * **`UtilsDemo.cs`**: Utilizing `GameMath`, `TimeKeeper`, `ColorHelper`, and general utilities.
 * **`VertexBatchDemo.cs`**: High-performance custom `VertexBatch` rendering (alternative to SpriteBatch).
