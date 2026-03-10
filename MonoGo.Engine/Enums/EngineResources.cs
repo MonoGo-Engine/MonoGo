@@ -2,7 +2,7 @@
 {
     public enum EngineResources
     {
-        LUTSprites,
+        LUT,
         Effects,
         Fonts
     }

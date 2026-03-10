@@ -26,7 +26,7 @@ namespace MonoGo.Engine.PostProcessing
         {
             _shaderEffect = ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), "ColorGrading");
 
-            var effectSpriteBox = ResourceHub.GetResourceBox(nameof(EngineResources.LUTSprites)) as SpriteGroupResourceBox;
+            var effectSpriteBox = ResourceHub.GetResourceBox(nameof(EngineResources.LUT)) as SpriteGroupResourceBox;
             LUTs = effectSpriteBox.Select(x => x.Value).ToArray();
 
             CurrentLUT = LUTs.ToList().FirstOrDefault(
