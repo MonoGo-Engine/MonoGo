@@ -3,6 +3,7 @@ using MonoGo.Engine.Drawing;
 using MonoGo.Engine.SceneSystem;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -97,6 +98,23 @@ namespace MonoGo.Engine
 		private static int _fpsCount;
 		private static double _fpsAddition;
 
+		/// <summary>
+		/// The current updates per second.
+		/// </summary>
+		public static int UPS { get; private set; }
+		private static int _upsCount;
+		private static double _upsAddition;
+
+		/// <summary>
+		/// Duration of the most recent update in milliseconds.
+		/// </summary>
+		public static double LastUpdateMs { get; private set; }
+
+		/// <summary>
+		/// Duration of the most recent draw in milliseconds.
+		/// </summary>
+		public static double LastDrawMs { get; private set; }
+
 		internal static void Init(Game game)
 		{
             Game = game;
@@ -109,6 +127,15 @@ namespace MonoGo.Engine
 
 			LoadAssembliesAndTypes(game.GetType().Assembly);
 
+			FPS = 0;
+			UPS = 0;
+			LastUpdateMs = 0;
+			LastDrawMs = 0;
+			_fpsCount = 0;
+			_fpsAddition = 0;
+			_upsCount = 0;
+			_upsAddition = 0;
+
             Serialization.Init();
 			ResourceInfoMgr.Init();
 			SceneMgr.Init();
@@ -119,6 +146,18 @@ namespace MonoGo.Engine
 		/// </summary>
 		internal static void Update(GameTime gameTime)
 		{
+			long updateStartTimestamp = Stopwatch.GetTimestamp();
+
+			_upsAddition += gameTime.ElapsedGameTime.TotalSeconds;
+			_upsCount += 1;
+
+			if (_upsAddition >= 1)
+			{
+				UPS = _upsCount;
+				_upsAddition -= 1;
+				_upsCount = 0;
+			}
+
 			// Elapsed time counters.
 			ElapsedTimeTotal = gameTime.TotalGameTime.TotalSeconds;
 
@@ -138,6 +177,8 @@ namespace MonoGo.Engine
 			SceneMgr.CallFixedUpdateEvents(gameTime);
 			SceneMgr.CallUpdateEvents(gameTime);
 			SceneMgr.PostUpdateRoutine();
+
+			LastUpdateMs = GetElapsedMilliseconds(updateStartTimestamp);
 		}
 
 		/// <summary>
@@ -145,6 +186,8 @@ namespace MonoGo.Engine
 		/// </summary>
 		internal static void Draw(GameTime gameTime)
 		{
+			long drawStartTimestamp = Stopwatch.GetTimestamp();
+
 			_fpsAddition += gameTime.ElapsedGameTime.TotalSeconds;
 			_fpsCount += 1;
 
@@ -156,6 +199,7 @@ namespace MonoGo.Engine
 			}
 
 			GraphicsMgr.Update(gameTime);
+			LastDrawMs = GetElapsedMilliseconds(drawStartTimestamp);
 		}
 
 		/// <summary>
@@ -163,6 +207,9 @@ namespace MonoGo.Engine
 		/// </summary>
 		public static void ExitGame() =>
 			Game.Exit();
+
+		private static double GetElapsedMilliseconds(long startTimestamp) =>
+			(Stopwatch.GetTimestamp() - startTimestamp) * 1000d / Stopwatch.Frequency;
 
 		#region Assembly loading.
 
