@@ -19,7 +19,6 @@ using System.Text.RegularExpressions;
  */
 namespace MonoGo.Pipeline.SpriteGroup
 {
-
 	/// <summary>
 	/// Sprite group importer. Parses json config, and loads textures,
 	/// which will be passed to AtlasProcessor.
@@ -66,12 +65,10 @@ namespace MonoGo.Pipeline.SpriteGroup
 
 			#endregion Parsing config.
 
-			ImportTextures(groupData.RootDir, "", groupData, textureRegex);
+			ImportTextures(groupData.RootDir, "", groupData, textureRegex, context);
 
 			return groupData;
 		}
-
-
 
 		/// <summary>
 		/// Recursively looks into root dir and loads textures. 
@@ -80,7 +77,7 @@ namespace MonoGo.Pipeline.SpriteGroup
 		/// <param name="dirName">Full path minus root.</param>
 		/// <param name="groupData">SpriteGroupData object.</param>
 		/// <param name="textureRegex">Regex filter. Determines if texture is part of atlas or single.</param>
-		private void ImportTextures(string dirPath, string dirName, SpriteGroupData groupData, string[] textureRegex)
+		private void ImportTextures(string dirPath, string dirName, SpriteGroupData groupData, string[] textureRegex, ContentImporterContext context)
 		{
 			var dirInfo = new DirectoryInfo(dirPath);
 
@@ -90,8 +87,9 @@ namespace MonoGo.Pipeline.SpriteGroup
 				spr.Name = dirName + Path.GetFileNameWithoutExtension(file.Name);
 
 				spr.RawTexture = new Bmp(file.FullName);
+				context.AddDependency(file.FullName); // Adding dependency to texture, so it will be reimported when texture changes.
 
-				var configPath = Path.ChangeExtension(file.FullName, ".json");
+                var configPath = Path.ChangeExtension(file.FullName, ".json");
 
 				#region Reading config.
 				/*
@@ -100,6 +98,7 @@ namespace MonoGo.Pipeline.SpriteGroup
 				 */
 				if (File.Exists(configPath))
 				{
+					context.AddDependency(configPath); // Adding dependency to sprite JSON, so it will be reimported when JSON changes.
 					try
 					{
 						var conf = File.ReadAllText(configPath);
@@ -167,7 +166,7 @@ namespace MonoGo.Pipeline.SpriteGroup
 			// Recursively repeating for all subdirectories.
 			foreach (var dir in dirInfo.GetDirectories())
 			{
-				ImportTextures(dir.FullName, dirName + dir.Name + '/', groupData, textureRegex);
+				ImportTextures(dir.FullName, dirName + dir.Name + '/', groupData, textureRegex, context);
 			}
 			// Recursively repeating for all subdirectories.
 		}
