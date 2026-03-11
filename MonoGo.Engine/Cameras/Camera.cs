@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using System;
-using MonoGo.Engine.Utils;
+using System.Collections.Generic;
 
 namespace MonoGo.Engine.Cameras
 {
@@ -48,10 +47,10 @@ namespace MonoGo.Engine.Cameras
 		/// </summary>
 		public Vector3 Offset;
 
-		/// <summary>
-		/// View rotation. Measured in degrees.
-		/// </summary>
-		public Angle Rotation;
+        /// <summary>
+        /// View rotation. Measured in degrees.
+        /// </summary>
+        public Angle Rotation;
 
 		/// <summary>
 		/// View zoom.
@@ -67,7 +66,6 @@ namespace MonoGo.Engine.Cameras
 		/// If depth buffer is enabled, vertices with Z closer than near plane will not be drawn.
 		/// </summary>
 		public float ZNearPlane = 0;
-
 
 		/// <summary>
 		/// Viewport coordinates. Sets where on screen view will be drawn.
@@ -90,8 +88,6 @@ namespace MonoGo.Engine.Cameras
 		/// </summary>
 		public Angle PortRotation;
 		
-
-
 		/// <summary>
 		/// Camera surface. Everything will be drawn on it.
 		/// NOTE: This reference can change to another surface!
@@ -118,7 +114,6 @@ namespace MonoGo.Engine.Cameras
 		/// </summary>
 		public bool ClearBackground = true;
 		
-
 		public Matrix View;
 		public Matrix Projection;
 		
@@ -176,7 +171,6 @@ namespace MonoGo.Engine.Cameras
 		internal Surface _postprocessorBuffer;
 		internal Surface _postprocessorLayerBuffer;
 
-
 		public Camera(Vector2 size, int priority = 0)
 		{
 			Surface = new Surface(size);
@@ -206,19 +200,20 @@ namespace MonoGo.Engine.Cameras
 			PostprocessingMode = PostprocessingMode.None;
 			Surface.Dispose();
 		}
-		
-		
-		public abstract Matrix ConstructViewMatrix();
-		
+
+        /// <summary>
+        /// Returns camera bounds in world coordinates.
+        /// </summary>
+        /// <param name="padding">Add optional padding around the bounds.</param>
+        public abstract RectangleF GetBounds(float padding = 0f);
+
+        public abstract Matrix ConstructViewMatrix();		
 		public abstract Matrix ConstructProjectionMatrix();
-			
-
-
+		
 		/// <summary>
 		/// Returns mouse position relative to the camera.
 		/// </summary>
 		public abstract Vector2 GetRelativeMousePosition();
-
 
 		/// <summary>
 		/// Applies shaders to the camera surface.

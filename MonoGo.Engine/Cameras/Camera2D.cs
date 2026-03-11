@@ -15,7 +15,21 @@ namespace MonoGo.Engine.Cameras
 			}
 		}
 
-		public Camera2D(Vector2 size, int priority = 0) : base(size, priority)
+        public override RectangleF GetBounds(float padding = 0f)
+        {
+            return new RectangleF(
+                Position.X - Offset.X / Zoom - padding,
+                Position.Y - Offset.Y / Zoom - padding,
+                Size.X / Zoom + padding * 2f,
+                Size.Y / Zoom + padding * 2f);
+        }
+
+        public Vector2 GetFocusPosition()
+        {
+            return GetBounds().Center;
+        }
+
+        public Camera2D(Vector2 size, int priority = 0) : base(size, priority)
 		{
 		}
 
