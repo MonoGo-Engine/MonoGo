@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.Enums;
 using MonoGo.Engine.Resources;
+using System.Linq;
 
 namespace MonoGo.Engine.PostProcessing
 {
@@ -88,7 +88,7 @@ namespace MonoGo.Engine.PostProcessing
 
         public static void SetLut(string key)
         {
-            var name = key.Split('/').Last();
+            var name = key.Split('/', '\\').Last().Replace(".png", string.Empty);
             CurrentLUT = LUTs.First(x => x.Name.Contains(name));
         }
 
