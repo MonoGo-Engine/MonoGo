@@ -3,6 +3,6 @@
 	<Import Project="Nuget.props" />
 	<Import Project="Directory.Build.local.props" Condition="Exists('Directory.Build.local.props')" />
 	<PropertyGroup>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
 	</PropertyGroup>
 </Project>
