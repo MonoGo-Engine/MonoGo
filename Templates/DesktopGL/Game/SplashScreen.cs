@@ -1,6 +1,5 @@
 ﻿using Iguina.Defs;
 using Iguina.Entities;
-using MonoGo.Engine.EC;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Iguina;
 using System.Reflection;
@@ -9,11 +8,8 @@ namespace MGNamespace
 {
     public class SplashScreen : GUIEntity
     {
-        private CameraController _cameraController;
-
-        public SplashScreen(CameraController cameraController) : base(SceneMgr.DefaultLayer)
+        public SplashScreen() : base(SceneMgr.DefaultLayer)
         {
-            _cameraController = cameraController;
         }
 
         public override void CreateUI()

@@ -14,8 +14,9 @@ namespace MGNamespace
             base.Initialize();
 
             // This is just a sample.
-            // Remove or modify the GameController as you wish!
-            new GameController();
+            // Remove or modify the GameController and SplashScreen as you wish!
+            new GameController(new Vector2(1280, 720), "MonoGo");
+            new SplashScreen();
         }
 
         protected override void LoadContent()
@@ -30,6 +31,9 @@ namespace MGNamespace
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            GameMgr.WindowManager.WindowTitle =
+               $"FPS: {GameMgr.FPS} | UPS: {GameMgr.UPS} | Update: {GameMgr.LastUpdateMs:0.00} ms | Draw: {GameMgr.LastDrawMs:0.00} ms";
 
             base.Update(gameTime);
         }

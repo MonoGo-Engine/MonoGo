@@ -1,14 +1,11 @@
-using Microsoft.Xna.Framework.Content.Pipeline;
-using Microsoft.Xna.Framework.Content.Pipeline.Processors;
 using MonoGame.AssetService.Builder;
 using MonoGame.Framework.Content.Pipeline.Builder;
-using MonoGo.Pipeline.AssetManifest;
 using MonoGo.Pipeline.SpriteGroup;
-using MonoGo.Pipeline.Tiled;
 using System.Reflection;
 
 /*#if DEBUG
 using System.Diagnostics;
+Debugger.Launch();
 #endif*/
 
 var contentCollectionArgs = new ContentBuilderParams()
@@ -24,10 +21,6 @@ Assembly.Load("MonoGo.Pipeline");
 Assembly.Load("MonoGame.AssetService.Builder");
 
 var builder = new Builder();
-
-/*#if DEBUG
-Debugger.Launch();
-#endif*/
 
 if (args is not null && args.Length > 0)
 {

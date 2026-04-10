@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MonoGo.Pipeline\MonoGo.Pipeline.csproj" />
     <PackageReference Include="MonoGame.Framework.Content.Pipeline" Version="3.8.5-develop.13" />
     <PackageReference Include="MonoGame.Framework.Native" Version="3.8.5-develop.13">
       <PrivateAssets>All</PrivateAssets>
@@ -20,15 +19,7 @@
     <PackageReference Include="MonoGame.Tool.Dxc" Version="1.8.2505.10" />
     <PackageReference Include="MonoGame.Tool.FFmpeg" Version="7.0.0.9" />
     <PackageReference Include="MonoGame.Tool.FFprobe" Version="7.0.0.9" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(UseLocalProjects)' == 'true'">
-    <ProjectReference Include="..\..\..\..\MonoGame.AssetService\MonoGame.AssetService\MonoGame.AssetService.csproj" />
-    <ProjectReference Include="..\..\..\..\MonoGame.AssetService\MonoGame.AssetService.Builder\MonoGame.AssetService.Builder.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(UseLocalProjects)' != 'true'">
-    <PackageReference Include="BlizzCrafter.MonoGame.AssetService" Version="1.0.0-preview.*" />
     <PackageReference Include="BlizzCrafter.MonoGame.AssetService.Builder" Version="1.0.0-preview.*" />
+    <PackageReference Include="MonoGo.Pipeline" Version="1.5.0" />
   </ItemGroup>
 </Project>
