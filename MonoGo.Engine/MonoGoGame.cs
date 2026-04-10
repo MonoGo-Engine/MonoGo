@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
-using MonoGo.Engine.Enums;
-using MonoGo.Engine.Resources;
 using System;
 using System.Diagnostics;
 
@@ -17,7 +15,8 @@ namespace MonoGo.Engine
     {
         public MonoGoGame()
         {
-            Content.RootDirectory = ResourceInfoMgr.ContentDir;
+            Content.RootDirectory = "Content";
+
             GameMgr.Init(this);
 
             if (GameMgr.CurrentPlatform == Platform.Android)
@@ -45,22 +44,16 @@ namespace MonoGo.Engine
         {
             GraphicsMgr.Init(GraphicsDevice);
 
-            //var r = ResourceInfoMgr.GetResourcePaths("**");
-
             try
             {
-                new SpriteGroupResourceBox(nameof(EngineResources.LUT), "Engine/LUT");
-                new DirectoryResourceBox<Effect>(nameof(EngineResources.Effects), "Engine/Effects");
-                new FontResourceBox(nameof(EngineResources.Fonts), "Engine/Fonts");
-
-                Text.CurrentFont = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), "Default");
+                Text.CurrentFont = GameMgr.AssetService.Load<IFont>("Engine/Fonts/Default");
             }
             catch (Exception e) { Debug.WriteLine($"--> Engine Content loading skipped: {e.Message}"); }
         }
 
         protected override void UnloadContent()
         {
-            ResourceHub.UnloadAll();
+            GameMgr.UnloadAssets();
         }
 
         protected override void Update(GameTime gameTime)

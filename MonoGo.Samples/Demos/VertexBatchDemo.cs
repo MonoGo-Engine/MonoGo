@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using System.Diagnostics;
 
@@ -23,7 +22,7 @@ namespace MonoGo.Samples.Demos
 
 		public VertexBatchDemo(Layer layer) : base(layer)
 		{
-            _test = ResourceHub.GetResource<Sprite>("DemoSprites", "BlizzCrafter");
+			_test = GameMgr.AssetService.Load<Sprite>("Demo.Misc.BlizzCrafter");
 			_vbatch = new VertexBatch(
 				GraphicsMgr.Device,
 				null,

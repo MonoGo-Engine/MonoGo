@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 
 namespace MonoGo.Samples.Misc
@@ -30,7 +29,7 @@ namespace MonoGo.Samples.Misc
 
         public Player(Layer layer, Vector2 position) : base(layer)
 		{
-			_playerSprite = ResourceHub.GetResource<Sprite>("DemoSprites", "Player");
+			_playerSprite = GameMgr.AssetService.Load<Sprite>("Demo.Misc.Player");
 			
 			// You can add components right in the constructor.
 			_position = AddComponent(new PositionComponent(position));

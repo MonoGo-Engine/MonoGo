@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using System;
 
@@ -59,7 +58,7 @@ namespace MonoGo.Samples.Demos
 
 			// You can set the texture for a primitive. Preferrably it shouldn't be in texture atlas.
 			// If in atlas, textures wouldn't be able to repeat.
-			_BlizzCrafterSprite = ResourceHub.GetResource<Sprite>("DemoSprites", "BlizzCrafter");
+			_BlizzCrafterSprite = GameMgr.AssetService.Load<Sprite>("Demo.Misc.BlizzCrafter");
 			_mesh.SetTextureFromFrame(_BlizzCrafterSprite[0]);
 			
 			var vIndex = 0;

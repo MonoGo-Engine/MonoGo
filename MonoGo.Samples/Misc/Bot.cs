@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.Utils;
 
@@ -18,7 +18,7 @@ namespace MonoGo.Samples.Misc
 
 		public Bot(Layer layer) : base(layer)
 		{
-			var botSprite = ResourceHub.GetResource<Sprite>("DemoSprites", "Bot");
+			var botSprite = GameMgr.AssetService.Load<Sprite>("Demo.Misc.Bot");
 
 			AddComponent(new PositionComponent(Vector2.Zero));
 			_actor = AddComponent(new ActorComponent(botSprite));

@@ -1,8 +1,7 @@
-﻿using Iguina;
-using Iguina.Defs;
+﻿using Iguina.Defs;
 using Iguina.Entities;
+using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Iguina;
 using System;
@@ -144,7 +143,7 @@ namespace MonoGo.Samples.Demos
                         Identifier = "LOGO",
                         Anchor = Anchor.AutoCenter
                     };
-                    var logoTexture = ResourceHub.GetResource<Sprite>("DemoSprites", "Logo")[0].Texture;
+                    var logoTexture = GameMgr.AssetService.Load<Sprite>("Demo.Misc.Logo")[0].Texture;
                     GUIMgr.RegisterTexture(logoTexture, "Logo");
 
                     logo.OverrideStyles.Icon = new IconTexture

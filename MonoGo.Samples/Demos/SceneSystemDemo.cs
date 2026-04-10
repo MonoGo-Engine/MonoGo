@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Samples.Misc;
 using System;
@@ -37,7 +36,7 @@ namespace MonoGo.Samples.Demos
 			backgroundLayer.Priority = 999;
 			
 			// Applying a shader to the thingy.
-			backgroundLayer.PostprocessorEffects.Add(ResourceHub.GetResource<Effect>("Effects", "Seizure"));
+			backgroundLayer.PostprocessorEffects.Add(GameMgr.AssetService.Load<Effect>("Engine/Effects/Seizure"));
 
 			// See ECDemo to learn how those work.
 			new Player(mainLayer, new Vector2(400, 300));

@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.Cameras;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.Utils;
 
@@ -54,8 +53,8 @@ namespace MonoGo.Samples.Demos
 
 		public UtilsDemo(Layer layer) : base(layer)
 		{
-			_grayscale = ResourceHub.GetResource<Effect>("Effects", "Grayscale");
-			_fireSprite = ResourceHub.GetResource<Sprite>("DemoSprites", "Fire");
+			_grayscale = GameMgr.AssetService.Load<Effect>("Engine/Effects/Grayscale");
+			_fireSprite = GameMgr.AssetService.Load<Sprite>("Demo.Misc.Fire");
 
 			// Animation.
 

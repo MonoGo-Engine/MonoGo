@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.Utils;
 using System;
@@ -27,11 +26,11 @@ namespace MonoGo.Samples.Demos
 
 		public SpriteDemo(Layer layer) : base(layer)
 		{
-            _test = ResourceHub.GetResource<Sprite>("DemoSprites", "Test");
-			_fireSprite = ResourceHub.GetResource<Sprite>("DemoSprites", "Fire");
+			_test = GameMgr.AssetService.Load<Sprite>("Demo.Misc.Test");
+			_fireSprite = GameMgr.AssetService.Load<Sprite>("Demo.Misc.Fire");
 
 			_batch = new SpriteBatch(GraphicsMgr.Device);
-			_seizure = ResourceHub.GetResource<Effect>("Effects", "Seizure");
+			_seizure = GameMgr.AssetService.Load<Effect>("Engine/Effects/Seizure");
 			InitSurface();
 		}
 
@@ -143,10 +142,10 @@ namespace MonoGo.Samples.Demos
 			position += new Vector2(16, 150);
 
 			GraphicsMgr.CurrentColor = Color.White;
-			Text.CurrentFont = ResourceHub.GetResource<IFont>("Fonts", "Default");
+			Text.CurrentFont = GameMgr.AssetService.Load<IFont>("Engine/Fonts/Default");
 			Text.Draw("This text is drawn using default" + Environment.NewLine + "MonoGame spritefont.", position);
 			position += Vector2.UnitY * 48;
-			Text.CurrentFont = ResourceHub.GetResource<IFont>("Fonts", "FancyFont");
+			Text.CurrentFont = new TextureFont(GameMgr.AssetService.Load<Sprite>("Demo.Misc.Font"), 1, 1, TextureFont.Ascii, false);
 			Text.Draw("This text is drawn using custom" + Environment.NewLine + "font made from a sprite.", position, Vector2.One * 1.1f, Vector2.Zero, new Angle(-10));
 		}
 

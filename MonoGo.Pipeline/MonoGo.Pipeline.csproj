@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -8,6 +8,8 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<IsPackable>true</IsPackable>
 		<Configurations>Debug;Release</Configurations>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<Import Project="..\Modules\MonoGo.Tiled.MapStructure\MonoGo.Tiled.MapStructure.projitems" Label="Shared" />
@@ -23,6 +25,14 @@
 		</PackageReference>
 		<PackageReference Include="StbImageSharp" Version="2.27.11" />
 	</ItemGroup>	
+	<ItemGroup Condition="'$(UseLocalProjects)' == 'true'">
+	  <ProjectReference Include="..\..\MonoGame.AssetService\MonoGame.AssetService.Builder\MonoGame.AssetService.Builder.csproj" />
+	</ItemGroup>
+
+  <ItemGroup Condition="'$(UseLocalProjects)' != 'true'">
+    <PackageReference Include="BlizzCrafter.MonoGame.AssetService.Builder" Version="1.0.1-preview.*" />
+  </ItemGroup>
+
 	<ItemGroup Label="ContentBuildFiles">
 	<Content Include="$(OutputPath)MonoGo.Pipeline.dll">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -34,5 +44,5 @@
     <Pack>true</Pack>
     <PackagePath>lib\$(TargetFramework)</PackagePath>
   </Content>
-	</ItemGroup>
+	</ItemGroup>	
 </Project>

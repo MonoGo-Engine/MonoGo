@@ -4,7 +4,6 @@ using MonoGo.Engine;
 using MonoGo.Engine.Cameras;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Engine.Utils;
 using MonoGo.Engine.ViewportAdapters;
@@ -66,7 +65,7 @@ namespace MonoGo.Samples
 			MainCamera.PostprocessingMode = PostprocessingMode.CameraAndLayers;
 
 			// Setting a default Font to avoid crashes when skipping the samples backwards.
-            Text.CurrentFont = ResourceHub.GetResource<IFont>("Fonts", "Default");
+            Text.CurrentFont = GameMgr.AssetService.Load<IFont>("Engine/Fonts/Default");
 
             SceneMgr.OnPreUpdate += OnPreUpdate;
             SceneMgr.OnPostUpdate += OnPostUpdate;

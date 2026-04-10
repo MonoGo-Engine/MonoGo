@@ -1,8 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
-using MonoGo.Engine.Enums;
-using MonoGo.Engine.Resources;
 using System.Linq;
 
 namespace MonoGo.Engine.PostProcessing
@@ -24,10 +22,12 @@ namespace MonoGo.Engine.PostProcessing
 
         internal static void Init()
         {
-            _shaderEffect = ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), "ColorGrading");
-
-            var effectSpriteBox = ResourceHub.GetResourceBox(nameof(EngineResources.LUT)) as SpriteGroupResourceBox;
-            LUTs = effectSpriteBox.Select(x => x.Value).ToArray();
+            _shaderEffect = GameMgr.AssetService.Load<Effect>("Engine/Effects/ColorGrading");
+            LUTs = GameMgr.AssetService
+                .GetEntries()
+                .Where(x => string.Equals(x.ContainerPath, "Engine/LUT", System.StringComparison.OrdinalIgnoreCase))
+                .Select(x => GameMgr.AssetService.Load<Sprite>(x.QualifiedAlias!))
+                .ToArray();
 
             CurrentLUT = LUTs.ToList().FirstOrDefault(
                 x => x.Name.Contains("Default", System.StringComparison.InvariantCultureIgnoreCase)) ?? NextLUT();

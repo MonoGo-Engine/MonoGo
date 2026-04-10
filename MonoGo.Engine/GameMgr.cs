@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
+using MonoGame.AssetService;
+using MonoGo.Engine.AssetService;
 using MonoGo.Engine.Drawing;
 using MonoGo.Engine.SceneSystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -15,15 +18,22 @@ namespace MonoGo.Engine
     /// <summary>
     /// Handles <see cref="Update(GameTime)"/> and <see cref="Draw(GameTime)"/> as well as <c>Game</c> initialization, internal engine loading and game speed. 
     /// </summary>
-    public static class GameMgr
+	public static class GameMgr
 	{
-		public static Platform CurrentPlatform { get; internal set; } = Platform.Other;
+		public static string ContentDirectory => Game.Content.RootDirectory;
+
+        public static Platform CurrentPlatform { get; internal set; } = Platform.Other;
 		public static GraphicsBackend CurrentGraphicsBackend { get; internal set; } = GraphicsBackend.Other;
 
 		/// <summary>
 		/// Main Game class.
 		/// </summary>
 		public static Game Game { get; private set; }
+
+		/// <summary>
+		/// Gets the global instance of the asset service used for managing assets within the game.
+		/// </summary>
+		public static MonoGoAssetService AssetService { get; private set; }
 
 		/// <summary>
 		/// Window manager. Can be used for screen and window stuff.
@@ -115,7 +125,7 @@ namespace MonoGo.Engine
 		/// </summary>
 		public static double LastDrawMs { get; private set; }
 
-		internal static void Init(Game game)
+        internal static void Init(Game game)
 		{
             Game = game;
 			Game.IsMouseVisible = false;
@@ -137,7 +147,7 @@ namespace MonoGo.Engine
 			_upsAddition = 0;
 
             Serialization.Init();
-			ResourceInfoMgr.Init();
+			InitAssetService();
 			SceneMgr.Init();
         }
 
@@ -211,12 +221,35 @@ namespace MonoGo.Engine
 		private static double GetElapsedMilliseconds(long startTimestamp) =>
 			(Stopwatch.GetTimestamp() - startTimestamp) * 1000d / Stopwatch.Frequency;
 
-		#region Assembly loading.
+		private static void InitAssetService()
+		{
+            var content = Game.Content;
 
-		/// <summary>
-		/// Loads all assemblies and extracts types form them.
-		/// </summary>
-		private static void LoadAssembliesAndTypes(Assembly entryAssembly)
+            string manifestPath = Path.Combine(Path.GetFullPath(content.RootDirectory), AssetManifestConventions.FileName);
+			var manifestProvider = new AssetManifestFileProvider(manifestPath);
+
+			AssetService = new MonoGoAssetService(
+				Game.Content,
+				manifestProvider,
+				new MonoGoAssetServiceOptions
+				{
+					ContentRootPath = Path.GetFullPath(content.RootDirectory),
+					AssetResolvers = [],
+					ContainerResolvers = [],
+				});
+        }
+
+        internal static void UnloadAssets()
+        {
+            AssetService?.ClearCaches();
+        }
+
+        #region Assembly loading.
+
+        /// <summary>
+        /// Loads all assemblies and extracts types form them.
+        /// </summary>
+        private static void LoadAssembliesAndTypes(Assembly entryAssembly)
 		{
 			// Loading all assemblies.
 			Assemblies = new Dictionary<string, Assembly>();

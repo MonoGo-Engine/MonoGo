@@ -1,12 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
-using MonoGo.Engine.Resources;
 using MonoGo.MercuryParticleEngine.Modifiers;
 using MonoGo.MercuryParticleEngine.Profiles;
-using System;
-using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace MonoGo.MercuryParticleEngine
@@ -38,11 +35,7 @@ namespace MonoGo.MercuryParticleEngine
             : this(GetCapacity, GetTerm, Profile)
         {
             this.TexturePath = TexturePath;
-
-            var resource = TexturePath.Split('/');
-            var resourceBox = resource.First();
-            var resourceName = resource.Last();
-            Sprite = ResourceHub.GetResource<Sprite>(resourceBox, resourceName);
+			Sprite = GameMgr.AssetService.Load<Sprite>(TexturePath);
         }
 
         [JsonPropertyName("Capacity")]

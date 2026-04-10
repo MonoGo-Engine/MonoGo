@@ -23,7 +23,7 @@ namespace MGNamespace
             // IMPORTANT: Don't delete! It loads engine specific stuff.
             LoadEngineContent();
 
-            GUIMgr.Init(Path.Combine(ResourceInfoMgr.ContentDir, "Game/GUI"), "MonoGoTheme");
+            GUIMgr.Init(Path.Combine(GameMgr.ContentDirectory, "Game/GUI"), "MonoGoTheme");
         }
 
         protected override void Update(GameTime gameTime)

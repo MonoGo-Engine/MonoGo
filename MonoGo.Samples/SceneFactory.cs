@@ -1,5 +1,5 @@
-﻿using MonoGo.Engine.Drawing;
-using MonoGo.Engine.Resources;
+using MonoGo.Engine;
+using MonoGo.Engine.Drawing;
 using MonoGo.Engine.SceneSystem;
 using System;
 
@@ -20,7 +20,7 @@ namespace MonoGo.Samples
 
 		public void CreateScene()
 		{
-            Text.CurrentFont = ResourceHub.GetResource<IFont>("Fonts", "Default");
+			Text.CurrentFont = GameMgr.AssetService.Load<IFont>("Engine/Fonts/Default");
 
             Scene = SceneMgr.CreateScene(Type.Name);
 			Scene.CreateLayer("default");

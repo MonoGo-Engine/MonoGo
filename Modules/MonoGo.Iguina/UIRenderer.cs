@@ -1,11 +1,9 @@
-﻿using Iguina.Defs;
+using Iguina.Defs;
 using Iguina.Drivers;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine;
 using MonoGo.Engine.Drawing;
-using MonoGo.Engine.Enums;
-using MonoGo.Engine.Resources;
 using System.Numerics;
 
 namespace MonoGo.Iguina
@@ -54,7 +52,7 @@ namespace MonoGo.Iguina
                 return font;
             }
 
-            var ret = ResourceHub.GetResource<IFont>(nameof(EngineResources.Fonts), fontNameOrDefault).SpriteFont;
+            var ret = GameMgr.AssetService.Load<IFont>($"Engine/Fonts/{fontNameOrDefault}").SpriteFont;
             _fonts[fontNameOrDefault] = ret;
             return ret;
         }
@@ -96,7 +94,7 @@ namespace MonoGo.Iguina
         {
             if (effectId == null) { return null; }
             var firstCharToUpper = string.Concat(effectId[..1].ToUpper(), effectId.AsSpan(1));
-            return ResourceHub.GetResource<Effect>(nameof(EngineResources.Effects), firstCharToUpper);
+            return GameMgr.AssetService.Load<Effect>($"Engine/Effects/{firstCharToUpper}");
         }
 
         /// <summary>

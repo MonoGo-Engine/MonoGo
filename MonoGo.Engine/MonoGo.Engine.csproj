@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
@@ -16,5 +16,13 @@
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
+
+	<ItemGroup Condition="'$(UseLocalProjects)' == 'true'">
+	  <ProjectReference Include="..\..\MonoGame.AssetService\MonoGame.AssetService\MonoGame.AssetService.csproj" />
+	</ItemGroup>
+
+  <ItemGroup Condition="'$(UseLocalProjects)' == 'false'">
+    <PackageReference Include="BlizzCrafter.MonoGame.AssetService" Version="1.0.0-preview.*" />
+  </ItemGroup>
 
 </Project>

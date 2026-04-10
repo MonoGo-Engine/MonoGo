@@ -1,6 +1,5 @@
-﻿using MonoGo.Engine;
+using MonoGo.Engine;
 using MonoGo.Engine.EC;
-using MonoGo.Engine.Resources;
 using MonoGo.Engine.SceneSystem;
 using MonoGo.Samples.Misc.Tiled;
 using MonoGo.Tiled;
@@ -40,7 +39,7 @@ namespace MonoGo.Samples.Demos
 			// You can write your own map builder, or use the default one.
 			// Default map builder can also be expanded.
 
-			_testMap = ResourceHub.GetResource<TiledMap>("Maps", "Test");
+			_testMap = GameMgr.AssetService.Load<TiledMap>("Demo/Maps/Test");
 
 			_builder = new SolidMapBuilder(_testMap);
 			_builder.Build();

@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework.Content.Pipeline;
+using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Processors;
+using MonoGame.AssetService.Builder;
 using MonoGame.Framework.Content.Pipeline.Builder;
+using MonoGo.Pipeline.AssetManifest;
 using MonoGo.Pipeline.SpriteGroup;
 using MonoGo.Pipeline.Tiled;
 using System.Reflection;
@@ -19,8 +21,9 @@ var contentCollectionArgs = new ContentBuilderParams()
 };
 
 Assembly.Load("MonoGo.Pipeline");
+Assembly.Load("MonoGame.AssetService.Builder");
 
-var builder = new Builder(contentCollectionArgs);
+var builder = new Builder();
 
 /*#if DEBUG
 Debugger.Launch();
@@ -35,17 +38,15 @@ else
     builder.Run(contentCollectionArgs);
 }
 
+if (builder.FailedToBuild == 0)
+{
+    builder.WriteAssetManifest();
+}
+
 return builder.FailedToBuild > 0 ? -1 : 0;
 
 public class Builder : ContentBuilder
 {
-    public ContentBuilderParams ContentCollectionArgs;
-
-    public Builder(ContentBuilderParams contentCollectionArgs) : base()
-    {
-        ContentCollectionArgs = contentCollectionArgs;
-    }
-
     public override IContentCollection GetContentCollection()
     {
         var contentCollection = new ContentCollection();
@@ -57,5 +58,15 @@ public class Builder : ContentBuilder
         contentCollection.Include<WildcardRule>("*.spritegroup", new SpriteGroupImporter(), new SpriteGroupProcessor());
 
         return contentCollection;
+    }
+
+    public void WriteAssetManifest()
+    {
+        var writer = new AssetManifestWriter(
+        [
+            new SpriteGroupManifestContributor(),
+        ]);
+
+        writer.Write(Parameters, GetContentCollection(), Logger);
     }
 }
