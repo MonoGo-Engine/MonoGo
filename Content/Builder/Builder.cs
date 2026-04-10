@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework.Content.Pipeline;
-using Microsoft.Xna.Framework.Content.Pipeline.Processors;
 using MonoGame.AssetService.Builder;
 using MonoGame.Framework.Content.Pipeline.Builder;
 using MonoGo.Pipeline.SpriteGroup;
@@ -17,8 +15,7 @@ var contentCollectionArgs = new ContentBuilderParams()
     SourceDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../Assets")),
     WorkingDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../")),
     OutputDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../bin")),
-    IntermediateDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../obj")),
-    Platform = TargetPlatform.DesktopGL
+    IntermediateDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../obj"))
 };
 
 Assembly.Load("MonoGo.Pipeline");
