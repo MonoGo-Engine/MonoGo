@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGo.Engine.Drawing;
+using System;
 using System.Linq;
 
 namespace MonoGo.Engine.PostProcessing
@@ -86,10 +87,31 @@ namespace MonoGo.Engine.PostProcessing
             return CurrentLUT;
         }
 
-        public static void SetLut(string key)
+        public static void SetLut(string assetIdentifier)
         {
-            var name = key.Split('/', '\\').Last().Replace(".png", string.Empty);
-            CurrentLUT = LUTs.First(x => x.Name.Contains(name));
+            if (string.IsNullOrWhiteSpace(assetIdentifier) || LUTs == null || LUTs.Length == 0)
+            {
+                return;
+            }
+
+            string normalizedIdentifier = assetIdentifier
+                .Replace(".png", string.Empty, StringComparison.OrdinalIgnoreCase)
+                .Replace('\\', '/')
+                .Trim();
+
+            string normalizedName = normalizedIdentifier
+                .Split('/', StringSplitOptions.RemoveEmptyEntries)
+                .LastOrDefault()?
+                .Split('.', StringSplitOptions.RemoveEmptyEntries)
+                .LastOrDefault()
+                ?? normalizedIdentifier;
+
+            CurrentLUT = LUTs.FirstOrDefault(x =>
+                string.Equals(x.Name, normalizedIdentifier, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(x.Name, normalizedName, StringComparison.OrdinalIgnoreCase)
+                || x.Name.EndsWith("/" + normalizedName, StringComparison.OrdinalIgnoreCase)
+                || x.Name.EndsWith("." + normalizedName, StringComparison.OrdinalIgnoreCase))
+                ?? CurrentLUT;
         }
 
         private static void UpdateResolution()
