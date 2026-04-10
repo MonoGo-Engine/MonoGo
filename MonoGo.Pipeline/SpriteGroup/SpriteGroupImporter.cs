@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
-using System;
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
@@ -29,41 +27,29 @@ namespace MonoGo.Pipeline.SpriteGroup
 	{
 		public override SpriteGroupData Import(string filename, ContentImporterContext context)
 		{
-            var groupData = new SpriteGroupData();
-
-			string[] textureRegex;
-
-			#region Parsing config.	
-
+            SpriteGroupDefinition definition;
 			try
 			{
-				var json = File.ReadAllText(filename);
-				var options = new JsonDocumentOptions()
-				{
-					AllowTrailingCommas = true,
-					CommentHandling = JsonCommentHandling.Skip,
-				};
-				JsonNode configData = JsonNode.Parse(json, documentOptions: options);
-
-				groupData.AtlasSize = int.Parse(configData["atlasSize"].ToString());
-				groupData.TexturePadding = int.Parse(configData["texturePadding"].ToString());
-				groupData.RootDir = Path.GetDirectoryName(filename) + '/' + configData["rootDir"].ToString();
-				groupData.GroupName = Path.GetFileNameWithoutExtension(filename);
-                
-				var textureWildcards = (JsonArray)configData["singleTexturesWildcards"];
-
-				textureRegex = new string[textureWildcards.Count];
-				for (var i = 0; i < textureWildcards.Count; i += 1)
-				{
-					textureRegex[i] = WildCardToRegular(textureWildcards[i].ToString());
-				}
+				definition = SpriteGroupDefinitionReader.Read(filename);
 			}
 			catch (Exception e)
 			{
-				throw new InvalidContentException("Importing spritegroup failed! " + e.Message);
+				throw new InvalidContentException(e.Message);
 			}
 
-			#endregion Parsing config.
+            var groupData = new SpriteGroupData
+            {
+                AtlasSize = definition.AtlasSize,
+                TexturePadding = definition.TexturePadding,
+                RootDir = definition.RootDirectory,
+                GroupName = definition.GroupName,
+            };
+
+			string[] textureRegex = new string[definition.SingleTextureWildcards.Length];
+			for (int i = 0; i < definition.SingleTextureWildcards.Length; i += 1)
+			{
+				textureRegex[i] = WildCardToRegular(definition.SingleTextureWildcards[i]);
+			}
 
 			ImportTextures(groupData.RootDir, "", groupData, textureRegex, context);
 
