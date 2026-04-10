@@ -359,6 +359,9 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# Local MSBuild overrides
+Directory.Build.local.props
+
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
